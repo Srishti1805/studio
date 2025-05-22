@@ -10,6 +10,7 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/#experience', label: 'Work' },
   { href: '/#projects', label: 'Projects' },
+  { href: '/#education', label: 'Education' },
   { href: '/overview', label: 'Resume' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -44,7 +45,7 @@ export function TopNavBar() {
                 href={item.href}
                 className={cn(
                   "px-3 py-2 text-sm font-medium transition-colors duration-150 ease-in-out rounded-md",
-                  "hover:text-primary hover:bg-secondary/40", // Changed hover:bg-accent/50 to hover:bg-secondary/40
+                  "hover:text-primary hover:bg-secondary/40",
                   isActive
                     ? "text-primary-foreground bg-primary shadow-md" 
                     : "text-muted-foreground"
