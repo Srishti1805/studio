@@ -38,12 +38,12 @@ const projects: Project[] = [
   },
   {
     id: '3',
-    title: 'Personal Portfolio Website',
-    description: 'This very website! A showcase of my skills and projects, built with modern web technologies and a focus on clean design and user experience.',
+    title: 'Diamond Data Analysis and Modeling',
+    description: 'Conducted a comprehensive machine learning project to analyze and predict diamond prices, classify diamond types, and group similar diamonds. Implemented regression, clustering, and classification techniques using models like Linear Regression, Random Forest, Decision Trees, and K-Means. Preprocessed a dataset of 6,400+ entries by handling missing values, encoding categorical features, and performing exploratory data analysis. Integrated the final models into a Flask application for interactive use and achieved up to 93% accuracy in diamond type classification.',
     imageUrl: 'https://placehold.co/600x400.png',
-    dataAiHint: 'portfolio website',
-    tags: ['Next.js', 'TypeScript', 'ShadCN UI', 'GenAI'],
-    githubUrl: 'https://github.com/srishtisadanandadkar/personal-showcase',
+    dataAiHint: 'data analysis diamond',
+    tags: ['Machine Learning', 'Data Analysis', 'Python', 'Flask', 'Regression', 'Classification', 'Clustering'],
+    githubUrl: '#',
     liveUrl: '#',
   },
   {
@@ -127,3 +127,4 @@ export default function PortfolioPage() {
     </div>
   );
 }
+

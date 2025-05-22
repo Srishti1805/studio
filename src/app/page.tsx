@@ -192,12 +192,12 @@ const placeholderData: PageData = {
     },
     {
       id: '3',
-      title: 'Personal Portfolio Website (This!)',
-      description: 'This very website! A showcase of my skills and projects, built with modern web technologies and a focus on clean design and user experience.',
+      title: 'Diamond Data Analysis and Modeling',
+      description: 'Conducted a comprehensive machine learning project to analyze and predict diamond prices, classify diamond types, and group similar diamonds. Implemented regression, clustering, and classification techniques using models like Linear Regression, Random Forest, Decision Trees, and K-Means. Preprocessed a dataset of 6,400+ entries by handling missing values, encoding categorical features, and performing exploratory data analysis. Integrated the final models into a Flask application for interactive use and achieved up to 93% accuracy in diamond type classification.',
       imageUrl: 'https://placehold.co/600x400.png',
-      dataAiHint: 'portfolio website',
-      tags: ['Next.js', 'TypeScript', 'ShadCN UI', 'GenAI'],
-      githubUrl: 'https://github.com/srishtisadanandadkar/personal-showcase',
+      dataAiHint: 'data analysis diamond',
+      tags: ['Machine Learning', 'Data Analysis', 'Python', 'Flask', 'Regression', 'Classification', 'Clustering'],
+      githubUrl: '#',
       liveUrl: '#',
     },
     {
@@ -518,9 +518,9 @@ export default function HomePage() {
           ref={experienceTimelineRef}
           className={cn(
             "relative",
-            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0'
+            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0' // Base opacity for whole timeline
           )}
-          style={{ animationDelay: '0.1s' }}
+          style={{ animationDelay: '0.1s' }} // Delay for the whole timeline itself
         >
           {/* Desktop: Central timeline line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/70 transform -translate-x-1/2 hidden md:block"></div>
@@ -531,10 +531,8 @@ export default function HomePage() {
               <div
                 key={exp.company + '-' + index}
                 className={cn(
-                  "mb-12 flex w-full items-start md:items-center",
-                   (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? '' : 'opacity-0' // Overall container opacity for initial hide
+                  "mb-12 flex w-full items-start md:items-center"
                 )}
-                 style={{ animationDelay: `${0.1 + index * 0.15}s` }}
               >
                 {/* Mobile Layout: Stacked */}
                  <div className={cn("flex md:hidden flex-col w-full items-start",
@@ -582,8 +580,10 @@ export default function HomePage() {
                     <div
                        ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
-                        "mt-3 text-sm text-muted-foreground italic pl-5"
+                        "mt-3 text-sm text-muted-foreground italic pl-5",
+                        experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Note uses its own observer state for mobile for clarity
                       )}
+                       style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
                       {exp.timelineNote}
                     </div>
@@ -633,7 +633,7 @@ export default function HomePage() {
                   {exp.companyLogoUrl && (
                      <div className={cn(
                         "h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center",
-                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
+                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0' // Logo marker animates with either card or text
                        )}
                        style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
                         <Image
@@ -905,3 +905,4 @@ export default function HomePage() {
     </div>
   );
 }
+
