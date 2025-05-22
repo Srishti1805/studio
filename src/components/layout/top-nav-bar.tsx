@@ -27,16 +27,17 @@ export function TopNavBar() {
         <nav className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
           {navItems.map((item) => {
             let isActive = false;
-            if (item.href.startsWith('/#')) {
-                 isActive = item.href === '/' && pathname === '/'; // Should not be active if just a hash link on root
+            if (item.href === '/') {
+                // 'Home' tab is active if the current path is exactly '/'
+                isActive = pathname === '/';
+            } else if (item.href.startsWith('/#')) {
+                // Hash links like '/#experience' or '/#projects' are not marked active in the nav bar itself.
+                // Their "activeness" is the scroll behavior. The page ('/') remains active.
+                isActive = false;
             } else {
+                // For other page links like '/overview' or '/contact'
                 isActive = pathname === item.href;
             }
-            
-            if (item.href === '/') {
-                isActive = pathname === '/';
-            }
-
 
             return (
               <Link
