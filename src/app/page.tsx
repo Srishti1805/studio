@@ -72,10 +72,10 @@ interface AboutHighlightItem {
 interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
-  allSkillsWithLogos: Skill[];
   experience: ExperienceItem[];
   projects: ProjectItem[];
   education: EducationItem[];
+  allSkillsWithLogos: Skill[];
   aboutMeHighlights: AboutHighlightItem[];
 }
 
@@ -84,7 +84,6 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Software Engineer & AI Solutions Architect",
-    tagline: "",
     profileImage: "https://placehold.co/300x300.png",
     dataAiHint: "professional portrait",
     email: "srishtisadanandadkar@example.com",
@@ -537,7 +536,7 @@ export default function HomePage() {
               >
                 {/* Mobile Layout: Stacked */}
                  <div className={cn("flex md:hidden flex-col w-full items-start",
-                      experienceCardIsVisible[index] || experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
+                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                       style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
                    <div className="flex items-center mb-2 w-full">
                     {exp.companyLogoUrl && (
@@ -635,15 +634,15 @@ export default function HomePage() {
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
                   {exp.companyLogoUrl && (
                      <div className={cn(
-                        "h-10 w-10 rounded-full bg-card border-2 border-primary shadow-md flex items-center justify-center p-1", // Added p-1 for padding around logo
+                        "h-12 w-12 rounded-full bg-card border-2 border-primary shadow-md flex items-center justify-center", 
                         (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
                        )}
                        style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
                         <Image
                             src={exp.companyLogoUrl}
                             alt={`${exp.company} logo`}
-                            width={28}
-                            height={28}
+                            width={40}
+                            height={40}
                             className="rounded-full object-contain"
                             data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                         />
@@ -909,3 +908,4 @@ export default function HomePage() {
   );
 }
 
+    
