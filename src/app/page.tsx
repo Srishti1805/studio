@@ -74,13 +74,13 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center gap-8 md:gap-12 py-12 md:py-20">
         <div className="md:w-2/3 space-y-6 text-center md:text-left">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold animate-fadeInUp opacity-0">
             Hi, I&apos;m <span className="text-primary">{frontmatter.name || 'Your Name'}</span>
           </h1>
-          <p className="text-xl sm:text-2xl text-muted-foreground">
+          <p className="text-xl sm:text-2xl text-muted-foreground animate-fadeInUp-delay-100 opacity-0">
             {frontmatter.tagline || frontmatter.title || 'A Passionate Developer'}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fadeInUp-delay-200 opacity-0">
             {frontmatter.cvUrl && (
               <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
                 <Link href={frontmatter.cvUrl} target="_blank" rel="noopener noreferrer">
@@ -94,7 +94,7 @@ export default async function HomePage() {
                 </Link>
               </Button>
           </div>
-          <div className="flex justify-center md:justify-start space-x-4 pt-4">
+          <div className="flex justify-center md:justify-start space-x-4 pt-4 animate-fadeInUp-delay-300 opacity-0">
             {frontmatter.github && (
               <Link href={`https://${frontmatter.github}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Github size={28} />
@@ -112,7 +112,7 @@ export default async function HomePage() {
             )}
           </div>
         </div>
-        <div className="md:w-1/3 flex justify-center mt-8 md:mt-0">
+        <div className="md:w-1/3 flex justify-center mt-8 md:mt-0 animate-fadeInUp-delay-400 opacity-0">
           {frontmatter.profileImage && (
             <Image
               src={frontmatter.profileImage}
@@ -127,10 +127,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <Separator className="my-12 bg-border/50" />
+      <Separator className="my-12 bg-border/50 animate-fadeInUp-delay-200 opacity-0" />
 
       {/* About Me Section */}
-      <section id="about" className="space-y-6 scroll-mt-20">
+      <section id="about" className="space-y-6 scroll-mt-20 animate-fadeInUp opacity-0" style={{ animationDelay: '0.5s' }}>
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary">About Me</h2>
         <Card className="shadow-xl bg-card/80 backdrop-blur-sm">
           <CardContent className="pt-6 text-lg leading-relaxed text-foreground/90">
@@ -139,14 +139,18 @@ export default async function HomePage() {
         </Card>
       </section>
       
-      <Separator className="my-12 bg-border/50" />
+      <Separator className="my-12 bg-border/50 animate-fadeInUp opacity-0" style={{ animationDelay: '0.6s' }} />
 
       {/* Skills Section */}
-      <section id="skills" className="space-y-8 scroll-mt-20">
+      <section id="skills" className="space-y-8 scroll-mt-20 animate-fadeInUp opacity-0" style={{ animationDelay: '0.7s' }}>
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary">My Skills</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((categoryObj) => (
-            <Card key={categoryObj.category} className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/80 backdrop-blur-sm">
+          {skillCategories.map((categoryObj, index) => (
+            <Card 
+              key={categoryObj.category} 
+              className="shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/80 backdrop-blur-sm animate-fadeInUp opacity-0"
+              style={{ animationDelay: `${0.8 + index * 0.1}s` }}
+            >
               <CardHeader>
                 <CardTitle className="text-xl text-accent">{categoryObj.category}</CardTitle>
               </CardHeader>
