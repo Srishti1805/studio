@@ -366,18 +366,7 @@ export default function HomePage() {
             )}
             style={{ animationDelay: '0.2s' }}
           >
-            {frontmatter.cvUrl && (
-              <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
-                <Link href={frontmatter.cvUrl} target="_blank" rel="noopener noreferrer">
-                  <FileDown className="mr-2 h-5 w-5" /> Download CV
-                </Link>
-              </Button>
-            )}
-             <Button asChild variant="outline" size="lg" className="shadow-lg hover:shadow-accent/50 transition-shadow">
-                <Link href="/contact">
-                  <Mail className="mr-2 h-5 w-5" /> Contact Me
-                </Link>
-              </Button>
+            {/* Buttons removed as per user request */}
           </div>
           <div
             ref={heroSocialsRef}
@@ -524,11 +513,9 @@ export default function HomePage() {
                 )}
               >
                 {/* Mobile Layout: Stacked */}
-                <div className="flex md:hidden flex-col w-full items-start">
-                   <div
-                    className={cn("flex items-center mb-2", (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0')}
-                    style={{ animationDelay: `${0.1 + index * 0.15}s` }}
-                   >
+                <div className={cn("flex md:hidden flex-col w-full items-start", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
+                  style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
+                   <div className="flex items-center mb-2">
                     {exp.companyLogoUrl && (
                       <Image
                         src={exp.companyLogoUrl}
@@ -544,10 +531,8 @@ export default function HomePage() {
                   <Card
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
-                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
-                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50"
                     )}
-                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
                     <CardHeader>
                       <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
@@ -570,12 +555,12 @@ export default function HomePage() {
                   </Card>
                   {exp.timelineNote && (
                     <div
-                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
+                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }} // Assigning ref to the note as well for potential separate animation
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                         experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Use experienceTextIsVisible for the note on mobile too
+                         experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
                       )}
-                      style={{ animationDelay: `${0.15 + index * 0.15}s` }}
+                      style={{ animationDelay: `${0.15 + index * 0.15}s` }} // Slightly delay the note
                     >
                       {exp.timelineNote}
                     </div>
@@ -898,3 +883,4 @@ export default function HomePage() {
   );
 }
 
+    
