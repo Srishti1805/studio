@@ -135,8 +135,8 @@ const placeholderData: PageData = {
         "Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.",
         "Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.",
       ],
-      companyLogoUrl: "https://placehold.co/40x40.png",
-      companyLogoDataAiHint: "hsbc logo",
+      companyLogoUrl: "/logos/hsbc-logo.png",
+      companyLogoDataAiHint: "HSBC logo",
       timelineNote: "Claims Fraud Detection System",
     },
     {
@@ -537,7 +537,7 @@ export default function HomePage() {
               >
                 {/* Mobile Layout: Stacked */}
                  <div className={cn("flex md:hidden flex-col w-full items-start",
-                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
+                      experienceCardIsVisible[index] || experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                       style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
                    <div className="flex items-center mb-2 w-full">
                     {exp.companyLogoUrl && (
@@ -635,7 +635,7 @@ export default function HomePage() {
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
                   {exp.companyLogoUrl && (
                      <div className={cn(
-                        "h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center",
+                        "h-10 w-10 rounded-full bg-card border-2 border-primary shadow-md flex items-center justify-center p-1", // Added p-1 for padding around logo
                         (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
                        )}
                        style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
@@ -908,3 +908,4 @@ export default function HomePage() {
     </div>
   );
 }
+
