@@ -84,12 +84,12 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Software Engineer & AI Solutions Architect",
-    tagline: "", // Tagline removed as per request
+    tagline: "", 
     profileImage: "https://placehold.co/300x300.png",
     dataAiHint: "professional portrait",
-    email: "srishtisadanandadkar@example.com", // Updated email
-    linkedin: "linkedin.com/in/srishtiadkar", // Updated LinkedIn
-    github: "github.com/srishtisadanandadkar", // Updated GitHub
+    email: "srishtisadanandadkar@example.com",
+    linkedin: "linkedin.com/in/srishtiadkar", 
+    github: "github.com/srishtisadanandadkar", 
     cvUrl: "/srishti-sadanand-adkar-resume.pdf",
   },
   summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
@@ -174,13 +174,13 @@ const placeholderData: PageData = {
   projects: [
     {
       id: '1',
-      title: 'AI-Powered Task Manager',
-      description: 'A smart task management application that uses AI to prioritize tasks and suggest optimal workflows. Built with Next.js, Tailwind CSS, and OpenAI API.',
+      title: 'RetinaFace – A Face Detection Tool',
+      description: 'Developed an advanced face detection system using the RetinaFace architecture, leveraging deep learning techniques to achieve high accuracy and real-time performance. Implemented the model using Python and PyTorch, with support for multi-scale detection and facial landmark localization. Integrated pre-trained models and optimized inference pipelines for efficient deployment in various computer vision applications.',
       imageUrl: 'https://placehold.co/600x400.png',
-      dataAiHint: 'task manager',
-      tags: ['Next.js', 'AI', 'Tailwind CSS', 'Productivity'],
-      githubUrl: 'https://github.com/srishtisadanandadkar/ai-task-manager',
-      liveUrl: '#',
+      dataAiHint: 'face detection',
+      tags: ['Computer Vision', 'Deep Learning', 'PyTorch', 'Python', 'Face Detection'],
+      githubUrl: '#', // Updated or keep if actual URL exists
+      liveUrl: '#', // Updated or remove if not applicable
     },
     {
       id: '2',

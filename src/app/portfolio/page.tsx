@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,12 +20,12 @@ type Project = {
 const projects: Project[] = [
   {
     id: '1',
-    title: 'AI-Powered Task Manager',
-    description: 'A smart task management application that uses AI to prioritize tasks and suggest optimal workflows. Built with Next.js, Tailwind CSS, and OpenAI API.',
+    title: 'RetinaFace – A Face Detection Tool',
+    description: 'Developed an advanced face detection system using the RetinaFace architecture, leveraging deep learning techniques to achieve high accuracy and real-time performance. Implemented the model using Python and PyTorch, with support for multi-scale detection and facial landmark localization. Integrated pre-trained models and optimized inference pipelines for efficient deployment in various computer vision applications.',
     imageUrl: 'https://placehold.co/600x400.png',
-    dataAiHint: 'task manager',
-    tags: ['Next.js', 'AI', 'Tailwind CSS', 'Productivity'],
-    githubUrl: 'https://github.com/srishtiadkar/ai-task-manager',
+    dataAiHint: 'face detection',
+    tags: ['Computer Vision', 'Deep Learning', 'PyTorch', 'Python', 'Face Detection'],
+    githubUrl: '#',
     liveUrl: '#',
   },
   {
@@ -34,7 +35,7 @@ const projects: Project[] = [
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'dashboard analytics',
     tags: ['React', 'Node.js', 'Charts', 'Data Visualization'],
-    githubUrl: 'https://github.com/srishtiadkar/ecommerce-dashboard',
+    githubUrl: 'https://github.com/srishtisadanandadkar/ecommerce-dashboard',
   },
   {
     id: '3',
@@ -43,7 +44,7 @@ const projects: Project[] = [
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'portfolio website',
     tags: ['Next.js', 'TypeScript', 'ShadCN UI', 'GenAI'],
-    githubUrl: 'https://github.com/srishtiadkar/personal-showcase',
+    githubUrl: 'https://github.com/srishtisadanandadkar/personal-showcase',
     liveUrl: '#',
   },
   {
@@ -72,7 +73,7 @@ export default function PortfolioPage() {
             key={project.id} 
             className="flex flex-col overflow-hidden bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1"
           >
-            <div className="relative w-full h-52">
+            <div className="relative w-full h-52 group">
               <Image 
                 src={project.imageUrl} 
                 alt={project.title} 
