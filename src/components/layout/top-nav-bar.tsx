@@ -8,19 +8,14 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/#about', label: 'About Me' }, // Link to section on homepage
   { href: '/#experience', label: 'Work' }, // Link to section on homepage
-  { href: '/#projects', label: 'Projects' }, // Updated to link to section on homepage
+  { href: '/#projects', label: 'Projects' }, // Link to section on homepage
   { href: '/overview', label: 'Resume' }, // Stays as a separate page
   { href: '/contact', label: 'Contact' }, // Stays as a separate page
 ];
 
 export function TopNavBar() {
   const pathname = usePathname();
-
-  // For homepage section links, we'll consider the root path active
-  // and rely on browser's scroll highlighting or manual scroll.
-  // For distinct pages like /resume or /contact, we check the exact path.
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -31,21 +26,13 @@ export function TopNavBar() {
         </Link>
         <nav className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
           {navItems.map((item) => {
-            // For section links on the homepage, they are active if the base path is '/'
-            // and it's the "Home" link itself, or if it's another page.
-            // This simplified logic ensures only one primary page link is "active".
-            // Actual section highlighting as you scroll is a separate feature.
             let isActive = false;
             if (item.href.startsWith('/#')) {
-                // For hash links, we don't mark them "active" in the nav bar in this simplified version
-                // to avoid conflicts with the "Home" link when on the root page.
-                // The "Home" link is active if pathname is just "/"
-                 isActive = item.href === '/' && pathname === '/';
+                 isActive = item.href === '/' && pathname === '/'; // Should not be active if just a hash link on root
             } else {
                 isActive = pathname === item.href;
             }
             
-            // Special case for "Home" link to be active only on exact match
             if (item.href === '/') {
                 isActive = pathname === '/';
             }
