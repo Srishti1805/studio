@@ -24,7 +24,7 @@ const projects: Project[] = [
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'task manager',
     tags: ['Next.js', 'AI', 'Tailwind CSS', 'Productivity'],
-    githubUrl: 'https://github.com/yourusername/ai-task-manager',
+    githubUrl: 'https://github.com/srishtiadkar/ai-task-manager',
     liveUrl: '#',
   },
   {
@@ -34,7 +34,7 @@ const projects: Project[] = [
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'dashboard analytics',
     tags: ['React', 'Node.js', 'Charts', 'Data Visualization'],
-    githubUrl: 'https://github.com/yourusername/ecommerce-dashboard',
+    githubUrl: 'https://github.com/srishtiadkar/ecommerce-dashboard',
   },
   {
     id: '3',
@@ -43,7 +43,7 @@ const projects: Project[] = [
     imageUrl: 'https://placehold.co/600x400.png',
     dataAiHint: 'portfolio website',
     tags: ['Next.js', 'TypeScript', 'ShadCN UI', 'GenAI'],
-    githubUrl: 'https://github.com/yourusername/personal-showcase',
+    githubUrl: 'https://github.com/srishtiadkar/personal-showcase',
     liveUrl: '#',
   },
   {
@@ -76,9 +76,9 @@ export default function PortfolioPage() {
               <Image 
                 src={project.imageUrl} 
                 alt={project.title} 
-                layout="fill" 
-                objectFit="cover"
-                className="transition-transform duration-500 group-hover:scale-105"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
                 data-ai-hint={project.dataAiHint} 
               />
             </div>
@@ -127,3 +127,4 @@ export default function PortfolioPage() {
     </div>
   );
 }
+

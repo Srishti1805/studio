@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Jane Doe | Full Stack Developer & AI Enthusiast',
-  description: 'Personal portfolio of Jane Doe, showcasing projects, skills, and experience in web development and AI.',
+  title: 'Srishti Sadanand Adkar | Full Stack Developer & AI Enthusiast',
+  description: 'Personal portfolio of Srishti Sadanand Adkar, showcasing projects, skills, and experience in web development and AI.',
 };
 
 export default function RootLayout({
@@ -37,3 +37,4 @@ export default function RootLayout({
     </html>
   );
 }
+

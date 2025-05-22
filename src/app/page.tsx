@@ -82,15 +82,15 @@ interface PageData {
 
 const placeholderData: PageData = {
   frontmatter: {
-    name: "Jane R. Doe",
+    name: "Srishti Sadanand Adkar",
     title: "Senior Software Engineer & AI Solutions Architect",
     tagline: "Building Innovative Solutions with a Passion for AI",
     profileImage: "https://placehold.co/300x300.png",
     dataAiHint: "professional portrait",
-    email: "jane.r.doe@example.com",
-    linkedin: "linkedin.com/in/janerdoe",
-    github: "github.com/janerdoe",
-    cvUrl: "/jane-r-doe-resume.pdf",
+    email: "srishti.adkar@example.com",
+    linkedin: "linkedin.com/in/srishtiadkar",
+    github: "github.com/srishtiadkar",
+    cvUrl: "/srishti-sadanand-adkar-resume.pdf",
   },
   summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
   allSkillsWithLogos: [ 
@@ -168,7 +168,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'task manager',
       tags: ['Next.js', 'AI', 'Tailwind CSS', 'Productivity'],
-      githubUrl: 'https://github.com/janerdoe/ai-task-manager',
+      githubUrl: 'https://github.com/srishtiadkar/ai-task-manager',
       liveUrl: '#',
     },
     {
@@ -178,7 +178,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'dashboard analytics',
       tags: ['React', 'Node.js', 'Charts', 'Data Visualization'],
-      githubUrl: 'https://github.com/janerdoe/ecommerce-dashboard',
+      githubUrl: 'https://github.com/srishtiadkar/ecommerce-dashboard',
     },
     {
       id: '3',
@@ -187,7 +187,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'portfolio website',
       tags: ['Next.js', 'TypeScript', 'ShadCN UI', 'GenAI'],
-      githubUrl: 'https://github.com/janerdoe/personal-showcase',
+      githubUrl: 'https://github.com/srishtiadkar/personal-showcase',
       liveUrl: '#',
     },
     {
@@ -346,7 +346,7 @@ export default function HomePage() {
             )}
             style={{ animationDelay: '0s' }}
           >
-            Hi, I&apos;m <span className="text-primary">{frontmatter.name || 'Your Name'}</span>
+            Hi, I&apos;m <span className="text-primary">{frontmatter.name?.split(' ')[0] || 'Srishti'}</span>
           </h1>
           <p
             ref={heroTaglineRef}
@@ -555,12 +555,12 @@ export default function HomePage() {
                   </Card>
                   {exp.timelineNote && (
                     <div
-                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }} // Assigning ref to the note as well for potential separate animation
+                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }} 
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
                          experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
                       )}
-                      style={{ animationDelay: `${0.15 + index * 0.15}s` }} // Slightly delay the note
+                      style={{ animationDelay: `${0.15 + index * 0.15}s` }} 
                     >
                       {exp.timelineNote}
                     </div>

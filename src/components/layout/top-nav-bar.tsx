@@ -10,7 +10,7 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/#experience', label: 'Work' },
   { href: '/#projects', label: 'Projects' },
-  { href: '/#education', label: 'Education' },
+  { href: '/#education', label: 'Education'},
   { href: '/overview', label: 'Resume' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -23,7 +23,7 @@ export function TopNavBar() {
       <div className="container flex h-16 max-w-screen-2xl items-center px-4 sm:px-6 lg:px-8">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <CodeXml className="h-7 w-7 text-primary" />
-          <span className="font-bold text-lg text-foreground hidden sm:inline-block">Jane R. Doe</span>
+          <span className="font-bold text-lg text-foreground hidden sm:inline-block">Srishti Sadanand Adkar</span>
         </Link>
         <nav className="flex flex-1 items-center justify-end space-x-2 sm:space-x-4">
           {navItems.map((item) => {
@@ -60,3 +60,4 @@ export function TopNavBar() {
     </header>
   );
 }
+

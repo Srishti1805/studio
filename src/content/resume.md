@@ -1,16 +1,16 @@
 ---
-name: "Jane R. Doe"
+name: "Srishti Sadanand Adkar"
 title: "Senior Software Engineer & AI Solutions Architect"
 tagline: "Building Innovative Solutions with a Passion for AI"
 profileImage: "https://placehold.co/300x300.png"
 dataAiHint: "professional portrait"
-email: "jane.r.doe@example.com"
-linkedin: "linkedin.com/in/janerdoe"
-github: "github.com/janerdoe"
-cvUrl: "/jane-r-doe-resume.pdf" 
+email: "srishti.adkar@example.com"
+linkedin: "linkedin.com/in/srishtiadkar"
+github: "github.com/srishtiadkar"
+cvUrl: "/srishti-sadanand-adkar-resume.pdf" 
 ---
 
-# Jane R. Doe
+# Srishti Sadanand Adkar
 **Senior Software Engineer & AI Solutions Architect**
 
 ## Summary
@@ -70,3 +70,5 @@ A results-oriented Senior Software Engineer with 7+ years of expertise in develo
 - Google Certified Professional - Machine Learning Engineer
 - AWS Certified Solutions Architect – Professional
 - Certified Kubernetes Administrator (CKA)
+
+```
