@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, FileDown, Check, CalendarDays, Building, ExternalLink, GraduationCap } from 'lucide-react';
+import { Github, Linkedin, Mail, FileDown, Building, CalendarDays, ExternalLink, GraduationCap } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -71,7 +71,7 @@ interface EducationItem {
 interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
-  skillCategories: SkillCategory[];
+  skillCategories: SkillCategory[]; // Kept for "Technologies I Use" section
   allSkillsWithLogos: Skill[];
   experience: ExperienceItem[];
   projects: ProjectItem[];
@@ -92,7 +92,7 @@ const placeholderData: PageData = {
     cvUrl: "/jane-r-doe-resume.pdf",
   },
   summary: "A results-oriented Senior Software Engineer with 7+ years of expertise in developing and architecting robust, scalable software solutions. Adept at leading cross-functional teams and leveraging AI/ML technologies to solve complex business problems. Proven track record of delivering high-impact projects from conception to deployment. Eager to apply advanced technical skills to drive innovation and user-centric product development.",
-  skillCategories: [ 
+  skillCategories: [
     {
       category: "Core Technologies",
       skills: [
@@ -149,7 +149,7 @@ const placeholderData: PageData = {
       ]
     },
   ],
-  allSkillsWithLogos: [],
+  allSkillsWithLogos: [], // Will be populated below
   experience: [
     {
       title: "Lead AI Engineer",
@@ -254,6 +254,7 @@ const placeholderData: PageData = {
     }
   ],
 };
+// Populate allSkillsWithLogos from skillCategories
 placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(category => category.skills.filter(skill => skill.logoUrl));
 
 
@@ -280,7 +281,7 @@ export default function HomePage() {
   const separator4Ref = useRef<HTMLDivElement>(null);
   const educationTitleRef = useRef<HTMLHeadingElement>(null);
 
-  const separator5Ref = useRef<HTMLDivElement>(null);
+  const separator5Ref = useRef<HTMLDivElement>(null); // Separator before Technologies
   const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
   const technologiesLogosRef = useRef<HTMLDivElement>(null);
 
@@ -359,7 +360,7 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       {/* Hero Section */}
-      <section className="flex flex-col md:flex-row items-center gap-8 md:gap-12 py-12 md:py-20">
+      <section id="home" className="flex flex-col md:flex-row items-center gap-8 md:gap-12 py-12 md:py-20">
         <div className="md:w-2/3 space-y-6 text-center md:text-left">
           <h1
             ref={heroNameRef}
@@ -507,7 +508,10 @@ export default function HomePage() {
         </h2>
         <div
           ref={experienceTimelineRef}
-          className={cn("relative", isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0')}
+          className={cn(
+            "relative", 
+            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0'
+          )}
           style={{ animationDelay: '0.1s' }}
         >
           {/* Central Timeline Line for Desktop */}
@@ -525,9 +529,13 @@ export default function HomePage() {
                 {/* Mobile Layout */}
                 <div className="flex md:hidden flex-col w-full items-start">
                    <div 
+                    ref={el => { // Ref for the whole mobile block including logo
+                      if (experienceCardRefs.current) {
+                        experienceCardRefs.current[index] = el;
+                      }
+                    }}
                     className={cn("flex items-center mb-2", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
-                    ref={el => experienceCardRefs.current[index] = el} 
                    >
                     {exp.companyLogoUrl && (
                       <Image
@@ -544,7 +552,7 @@ export default function HomePage() {
                   <Card 
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
-                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Card animates with its block
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
@@ -569,10 +577,14 @@ export default function HomePage() {
                   </Card>
                   {exp.timelineNote && (
                     <div 
-                      ref={el => experienceTextRefs.current[index] = el} 
+                      ref={el => {
+                        if(experienceTextRefs.current) {
+                           experienceTextRefs.current[index] = el;
+                        }
+                      }}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                        experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                         experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Note animates with its block
                       )}
                       style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
@@ -585,7 +597,11 @@ export default function HomePage() {
                 <div className="hidden md:flex w-1/2 items-center justify-end">
                   {isCardLeft ? (
                     <Card
-                      ref={el => experienceCardRefs.current[index] = el}
+                      ref={el => {
+                        if(experienceCardRefs.current) {
+                          experienceCardRefs.current[index] = el;
+                        }
+                      }}
                       className={cn(
                         "w-full max-w-md shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50 mr-8",
                         experienceCardIsVisible[index] ? 'animate-fadeInLeft' : 'opacity-0'
@@ -607,7 +623,11 @@ export default function HomePage() {
                     </Card>
                   ) : (
                     <div 
-                      ref={el => experienceTextRefs.current[index] = el}
+                      ref={el => {
+                        if(experienceTextRefs.current) {
+                           experienceTextRefs.current[index] = el;
+                        }
+                      }}
                       className={cn(
                         "w-full max-w-md text-right text-muted-foreground italic pr-8",
                          experienceTextIsVisible[index] ? 'animate-fadeInLeft' : 'opacity-0'
@@ -622,7 +642,7 @@ export default function HomePage() {
                 {/* Timeline Marker with Company Logo (Desktop) */}
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
                   {exp.companyLogoUrl && (
-                     <div className={cn("h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' )} style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
+                     <div className={cn("h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center", experienceCardIsVisible[index] || experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' )} style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
                         <Image
                             src={exp.companyLogoUrl}
                             alt={`${exp.company} logo`}
@@ -638,7 +658,11 @@ export default function HomePage() {
                 <div className="hidden md:flex w-1/2 items-center justify-start">
                   {!isCardLeft ? (
                      <Card
-                      ref={el => experienceCardRefs.current[index] = el}
+                      ref={el => {
+                        if(experienceCardRefs.current) {
+                           experienceCardRefs.current[index] = el;
+                        }
+                      }}
                       className={cn(
                         "w-full max-w-md shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50 ml-8",
                         experienceCardIsVisible[index] ? 'animate-fadeInRight' : 'opacity-0'
@@ -660,7 +684,11 @@ export default function HomePage() {
                     </Card>
                   ) : (
                      <div 
-                      ref={el => experienceTextRefs.current[index] = el}
+                      ref={el => {
+                        if(experienceTextRefs.current) {
+                           experienceTextRefs.current[index] = el;
+                        }
+                      }}
                       className={cn(
                         "w-full max-w-md text-left text-muted-foreground italic ml-8",
                         experienceTextIsVisible[index] ? 'animate-fadeInRight' : 'opacity-0'
@@ -702,7 +730,11 @@ export default function HomePage() {
           {projects.map((project, index) => (
             <Card
               key={project.id}
-              ref={el => projectCardRefs.current[index] = el}
+              ref={el => {
+                if (projectCardRefs.current) {
+                  projectCardRefs.current[index] = el;
+                }
+              }}
               className={cn(
                 "flex flex-col overflow-hidden bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1",
                 projectCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
@@ -788,10 +820,14 @@ export default function HomePage() {
           {education.map((edu, index) => (
             <Card
               key={edu.institution + '-' + index}
-              ref={el => educationCardRefs.current[index] = el}
+              ref={el => {
+                if(educationCardRefs.current) {
+                  educationCardRefs.current[index] = el;
+                }
+              }}
               className={cn(
                 "flex flex-col bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-xl hover:shadow-primary/25 transition-shadow duration-300",
-                educationCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0' // Changed to animate-fadeIn
               )}
               style={{ animationDelay: `${0.1 + index * 0.15}s` }}
             >
@@ -800,7 +836,7 @@ export default function HomePage() {
                   <Image
                     src={edu.institutionLogoUrl}
                     alt={`${edu.institution} logo`}
-                    width={56} // Slightly larger for institution logos
+                    width={56} 
                     height={56}
                     className="rounded-lg object-contain bg-muted/30 p-1 shadow-sm border border-border/50 mt-1"
                     data-ai-hint={edu.institutionLogoDataAiHint || "university logo"}
