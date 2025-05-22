@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, FileDown, Building, CalendarDays, ExternalLink, GraduationCap, Briefcase, Lightbulb, Palette, Brain, Database, Code } from 'lucide-react';
+import { Github, Linkedin, Mail, Building, CalendarDays, ExternalLink, GraduationCap, Briefcase, Lightbulb, Palette, Brain, Database, Code } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -84,7 +84,7 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Senior Software Engineer & AI Solutions Architect",
-    tagline: "Building Innovative Solutions with a Passion for AI",
+    tagline: "", // Tagline removed as per request
     profileImage: "https://placehold.co/300x300.png",
     dataAiHint: "professional portrait",
     email: "srishti.adkar@example.com",
@@ -238,9 +238,9 @@ export default function HomePage() {
 
   const heroNameRef = useRef<HTMLHeadingElement>(null);
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
-  const heroButtonsRef = useRef<HTMLDivElement>(null);
   const heroSocialsRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLDivElement>(null);
+  const heroBannerImageRef = useRef<HTMLDivElement>(null); // New ref for banner image
 
   const separator1Ref = useRef<HTMLDivElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
@@ -257,7 +257,7 @@ export default function HomePage() {
   const separator4Ref = useRef<HTMLDivElement>(null);
   const educationTitleRef = useRef<HTMLHeadingElement>(null);
 
-  const separator5Ref = useRef<HTMLDivElement>(null);
+  const separator5Ref = useRef<HTMLDivElement>(null); // Was for skills, now between education and technologies
   const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
   const technologiesLogosRef = useRef<HTMLDivElement>(null);
 
@@ -281,9 +281,9 @@ export default function HomePage() {
 
   const isHeroNameVisible = useIntersectionObserver(heroNameRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroTaglineVisible = useIntersectionObserver(heroTaglineRef, { freezeOnceVisible: true, threshold: 0.3 });
-  const isHeroButtonsVisible = useIntersectionObserver(heroButtonsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroSocialsVisible = useIntersectionObserver(heroSocialsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroImageVisible = useIntersectionObserver(heroImageRef, { freezeOnceVisible: true, threshold: 0.3 });
+  const isHeroBannerImageVisible = useIntersectionObserver(heroBannerImageRef, { freezeOnceVisible: true, threshold: 0.1 });
 
   const isSeparator1Visible = useIntersectionObserver(separator1Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isAboutTitleVisible = useIntersectionObserver(aboutTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
@@ -299,7 +299,7 @@ export default function HomePage() {
 
   const isSeparator4Visible = useIntersectionObserver(separator4Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isEducationTitleVisible = useIntersectionObserver(educationTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
-
+  
   const isSeparator5Visible = useIntersectionObserver(separator5Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isTechnologiesTitleVisible = useIntersectionObserver(technologiesTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isTechnologiesLogosVisible = useIntersectionObserver(technologiesLogosRef, { freezeOnceVisible: true, threshold: 0.1 });
@@ -348,26 +348,18 @@ export default function HomePage() {
           >
             Hi, I&apos;m <span className="text-primary">{frontmatter.name?.split(' ')[0] || 'Srishti'}</span>
           </h1>
-          <p
-            ref={heroTaglineRef}
-            className={cn(
-              "text-xl sm:text-2xl text-muted-foreground",
-              isHeroTaglineVisible ? 'animate-fadeInUp' : 'opacity-0'
-            )}
-            style={{ animationDelay: '0.1s' }}
-          >
-            {frontmatter.tagline || frontmatter.title || 'A Passionate Developer'}
-          </p>
-          <div
-            ref={heroButtonsRef}
-            className={cn(
-              "flex flex-col sm:flex-row gap-4 justify-center md:justify-start",
-              isHeroButtonsVisible ? 'animate-fadeInUp' : 'opacity-0'
-            )}
-            style={{ animationDelay: '0.2s' }}
-          >
-            {/* Buttons removed as per user request */}
-          </div>
+          {(frontmatter.tagline || frontmatter.title) && (
+             <p
+              ref={heroTaglineRef}
+              className={cn(
+                "text-xl sm:text-2xl text-muted-foreground",
+                isHeroTaglineVisible ? 'animate-fadeInUp' : 'opacity-0'
+              )}
+              style={{ animationDelay: '0.1s' }}
+            >
+              {frontmatter.tagline || frontmatter.title}
+            </p>
+          )}
           <div
             ref={heroSocialsRef}
             className={cn(
@@ -414,6 +406,26 @@ export default function HomePage() {
           )}
         </div>
       </section>
+
+      {/* New Banner Image Section */}
+      <div
+        ref={heroBannerImageRef}
+        className={cn(
+          "relative w-full h-56 sm:h-64 md:h-80 my-8 md:my-12 rounded-lg shadow-xl overflow-hidden",
+          isHeroBannerImageVisible ? 'animate-fadeInUp' : 'opacity-0'
+        )}
+        style={{ animationDelay: '0.1s' }} // Delay slightly after hero
+      >
+        <Image
+          src="https://placehold.co/1200x400.png"
+          alt="Abstract technology banner"
+          fill
+          className="object-cover"
+          data-ai-hint="tech banner"
+          priority // Consider if this should be priority if hero image is already priority
+        />
+      </div>
+
 
       <Separator
         ref={separator1Ref}
@@ -513,9 +525,10 @@ export default function HomePage() {
                 )}
               >
                 {/* Mobile Layout: Stacked */}
-                <div className={cn("flex md:hidden flex-col w-full items-start", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
-                  style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
-                   <div className="flex items-center mb-2">
+                 <div className={cn("flex md:hidden flex-col w-full items-start", 
+                      (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0')}
+                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
+                   <div className="flex items-center mb-2 w-full">
                     {exp.companyLogoUrl && (
                       <Image
                         src={exp.companyLogoUrl}
@@ -526,7 +539,7 @@ export default function HomePage() {
                         data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                       />
                     )}
-                     <div className="h-1 w-10 bg-foreground/50 rounded-full mr-3"></div> {/* Small line to card */}
+                     <div className="h-1 flex-grow bg-foreground/50 rounded-full mr-3"></div> {/* Small line to card */}
                   </div>
                   <Card
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
@@ -882,5 +895,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
