@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Personal Showcase',
-  description: 'A personal showcase website built with Next.js and Firebase Studio.',
+  title: 'Jane Doe | Full Stack Developer & AI Enthusiast',
+  description: 'Personal portfolio of Jane Doe, showcasing projects, skills, and experience in web development and AI.',
 };
 
 export default function RootLayout({
@@ -25,8 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+    // Removing suppressHydrationWarning as we are not using a theme switcher that would cause mismatch on initial load
+    // If a theme switcher is added later, this might need to be re-evaluated.
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground`}>
         <AppLayout>
           {children}
         </AppLayout>

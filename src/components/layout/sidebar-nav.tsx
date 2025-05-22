@@ -8,13 +8,14 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
-import { UserCircle, Briefcase, FileText, Mail } from 'lucide-react';
+import { Home, Briefcase, FileText, Mail, Sparkles } from 'lucide-react';
 
 const navItems = [
-  { href: '/', label: 'Overview', icon: UserCircle },
-  { href: '/portfolio', label: 'Portfolio', icon: Briefcase },
-  { href: '/cover-letter', label: 'Cover Letter Gen', icon: FileText },
-  { href: '/contact', label: 'Contact Me', icon: Mail },
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/overview', label: 'Resume', icon: FileText },
+  { href: '/portfolio', label: 'Projects', icon: Briefcase },
+  { href: '/cover-letter', label: 'AI Tools', icon: Sparkles },
+  { href: '/contact', label: 'Contact', icon: Mail },
 ];
 
 export function SidebarNav() {
@@ -32,7 +33,7 @@ export function SidebarNav() {
                 asChild
                 isActive={isActive}
                 className={cn(
-                  'justify-start',
+                  'justify-start text-sidebar-foreground/80 hover:text-sidebar-accent-foreground',
                   isActive && 'bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90'
                 )}
                 tooltip={item.label}

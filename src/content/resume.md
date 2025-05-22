@@ -1,17 +1,20 @@
 ---
 name: "Jane Doe"
 title: "Full Stack Developer | AI Enthusiast"
-profileImage: "https://placehold.co/150x150.png"
+tagline: "Crafting Digital Experiences with Code & Creativity"
+profileImage: "https://placehold.co/300x300.png"
+dataAiHint: "profile photo"
 email: "jane.doe@example.com"
 linkedin: "linkedin.com/in/janedoe"
 github: "github.com/janedoe"
+cvUrl: "/jane-doe-resume.pdf" 
 ---
 
 # Jane Doe
 **Full Stack Developer | AI Enthusiast**
 
 ## Summary
-A highly motivated and creative Full Stack Developer with 5+ years of experience in designing, developing, and deploying web applications. Passionate about leveraging cutting-edge technologies, including AI, to build innovative solutions. Proven ability to work effectively in fast-paced environments and collaborate with cross-functional teams.
+A highly motivated and creative Full Stack Developer with 5+ years of experience in designing, developing, and deploying web applications. Passionate about leveraging cutting-edge technologies, including AI, to build innovative solutions. Proven ability to work effectively in fast-paced environments and collaborate with cross-functional teams. My goal is to create software that is not only functional but also intuitive and enjoyable to use.
 
 ## Skills
 
@@ -26,7 +29,7 @@ A highly motivated and creative Full Stack Developer with 5+ years of experience
 - React, Next.js, Vue.js
 - Node.js, Express.js
 - Spring Boot
-- Tailwind CSS, Material-UI
+- Tailwind CSS, ShadCN UI
 
 ### Databases
 - MongoDB
@@ -38,13 +41,13 @@ A highly motivated and creative Full Stack Developer with 5+ years of experience
 - Git, GitHub, GitLab
 - Docker, Kubernetes
 - AWS (EC2, S3, Lambda, RDS)
-- Jenkins, CircleCI
+- Genkit, Firebase
 - Figma, Adobe XD
 
 ### AI & Machine Learning
 - Basic understanding of TensorFlow, PyTorch
 - Natural Language Processing (NLP) concepts
-- API integration with AI services (e.g., OpenAI)
+- API integration with AI services (e.g., OpenAI, Gemini)
 
 ## Experience
 

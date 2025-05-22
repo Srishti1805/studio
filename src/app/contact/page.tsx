@@ -6,11 +6,10 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Send } from 'lucide-react';
 import { useState } from 'react';
 
 const contactFormSchema = z.object({
@@ -44,21 +43,24 @@ export default function ContactPage() {
     toast({
       title: "Message Sent!",
       description: "Thank you for reaching out. I'll get back to you soon.",
+      variant: "default", // Explicitly default, can be customized
     });
     form.reset();
     setIsSubmitting(false);
   };
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl md:text-4xl font-bold text-center text-primary">Get In Touch</h1>
-      <p className="text-center text-muted-foreground max-w-xl mx-auto">
-        Have a question, a project proposal, or just want to say hello? Feel free to reach out using the form below.
-      </p>
-      <Card className="max-w-lg mx-auto shadow-lg">
+    <div className="space-y-10">
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl md:text-4xl font-bold text-primary">Get In Touch</h1>
+        <p className="text-muted-foreground max-w-xl mx-auto">
+          Have a question, a project proposal, or just want to say hello? Feel free to reach out using the form below.
+        </p>
+      </div>
+      <Card className="max-w-lg mx-auto shadow-xl bg-card/80 backdrop-blur-sm border-border/70">
         <CardHeader>
-          <CardTitle>Contact Form</CardTitle>
-          <CardDescription>I'm always open to discussing new opportunities and collaborations.</CardDescription>
+          <CardTitle className="text-2xl text-accent">Contact Form</CardTitle>
+          <CardDescription className="text-muted-foreground/90">I&apos;m always open to discussing new opportunities and collaborations.</CardDescription>
         </CardHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -68,9 +70,9 @@ export default function ContactPage() {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="name">Full Name</FormLabel>
+                    <FormLabel htmlFor="name" className="text-foreground/90">Full Name</FormLabel>
                     <FormControl>
-                      <Input id="name" placeholder="e.g. Jane Doe" {...field} />
+                      <Input id="name" placeholder="e.g. Jane Doe" {...field} className="bg-input placeholder:text-muted-foreground/70 focus:ring-primary" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -81,9 +83,9 @@ export default function ContactPage() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="email">Email Address</FormLabel>
+                    <FormLabel htmlFor="email" className="text-foreground/90">Email Address</FormLabel>
                     <FormControl>
-                      <Input id="email" type="email" placeholder="e.g. jane.doe@example.com" {...field} />
+                      <Input id="email" type="email" placeholder="e.g. jane.doe@example.com" {...field} className="bg-input placeholder:text-muted-foreground/70 focus:ring-primary" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -94,13 +96,13 @@ export default function ContactPage() {
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="message">Your Message</FormLabel>
+                    <FormLabel htmlFor="message" className="text-foreground/90">Your Message</FormLabel>
                     <FormControl>
                       <Textarea
                         id="message"
                         placeholder="Let's talk about..."
                         rows={5}
-                        className="resize-y"
+                        className="resize-y bg-input placeholder:text-muted-foreground/70 focus:ring-primary"
                         {...field}
                       />
                     </FormControl>
@@ -110,14 +112,17 @@ export default function ContactPage() {
               />
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
+              <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-primary/50 transition-all">
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Sending...
                   </>
                 ) : (
-                  'Send Message'
+                  <>
+                    <Send className="mr-2 h-4 w-4" />
+                    Send Message
+                  </>
                 )}
               </Button>
             </CardFooter>

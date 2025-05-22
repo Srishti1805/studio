@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -58,47 +59,65 @@ const projects: Project[] = [
 
 export default function PortfolioPage() {
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl md:text-4xl font-bold text-center text-primary">My Projects</h1>
-      <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-        Here are some of the projects I've worked on, showcasing my skills in various technologies and my passion for creating impactful solutions.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="space-y-10">
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl md:text-4xl font-bold text-primary">My Projects</h1>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          Here are some of the projects I&apos;ve worked on, showcasing my skills in various technologies and my passion for creating impactful solutions.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project) => (
-          <Card key={project.id} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="relative w-full h-48">
+          <Card 
+            key={project.id} 
+            className="flex flex-col overflow-hidden bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <div className="relative w-full h-52">
               <Image 
                 src={project.imageUrl} 
                 alt={project.title} 
                 layout="fill" 
                 objectFit="cover"
+                className="transition-transform duration-500 group-hover:scale-105"
                 data-ai-hint={project.dataAiHint} 
               />
             </div>
             <CardHeader>
-              <CardTitle className="text-xl">{project.title}</CardTitle>
-              <CardDescription className="text-sm h-20 overflow-y-auto">{project.description}</CardDescription>
+              <CardTitle className="text-xl text-foreground hover:text-primary transition-colors">
+                {project.liveUrl ? (
+                  <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    {project.title}
+                  </Link>
+                ) : project.githubUrl ? (
+                   <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    {project.title}
+                  </Link>
+                ) : (
+                  project.title
+                )}
+              </CardTitle>
+              <CardDescription className="text-sm h-20 overflow-y-auto text-muted-foreground/80">{project.description}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">{tag}</Badge>
+                  <Badge key={tag} variant="secondary" className="bg-secondary/70 text-secondary-foreground/90">{tag}</Badge>
                 ))}
               </div>
             </CardContent>
-            <CardFooter className="flex justify-end gap-2">
+            <CardFooter className="flex justify-end gap-3 p-4 bg-card/50">
               {project.githubUrl && (
-                <Button variant="outline" size="sm" asChild>
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="sm" asChild className="border-primary/50 text-primary/90 hover:bg-primary/10 hover:text-primary">
+                  <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                     <Github className="mr-2 h-4 w-4" /> GitHub
-                  </a>
+                  </Link>
                 </Button>
               )}
               {project.liveUrl && (
-                <Button variant="default" size="sm" asChild>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                <Button variant="default" size="sm" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-                  </a>
+                  </Link>
                 </Button>
               )}
             </CardFooter>
