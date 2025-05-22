@@ -1,9 +1,10 @@
+
 ---
 name: "Srishti Sadanand Adkar"
 title: "Software Engineer & AI Solutions Architect"
 profileImage: "https://placehold.co/300x300.png"
 dataAiHint: "professional portrait"
-email: "srishti.adkar@example.com"
+email: "srishtiadkar@example.com"
 linkedin: "linkedin.com/in/srishtiadkar"
 github: "github.com/srishtiadkar"
 cvUrl: "/srishti-sadanand-adkar-resume.pdf" 
@@ -48,10 +49,11 @@ A results-oriented Software Engineer with 7+ years of expertise in developing an
 - Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.
 - Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.
 
-### Software Developer | Tech Solutions Global | 2017 - 2020
-- Developed and maintained critical backend services for a large-scale e-commerce platform using Java (Spring Boot) and microservices architecture.
-- Implemented CI/CD pipelines, reducing deployment times by 40%.
-- Contributed to the front-end development using React and Redux.
+### Software Engineer Intern | St. Francis House | 06/2024 – 09/2024 | Seattle, WA, USA
+- Developed data pipelines for automated data ingestion and preprocessing, leveraging Python and SQL to manage large-scale datasets on AWS and GCP.
+- Designed SQL queries for sub-second latency and integrated them into REST APIs to support high-traffic production environments.
+- Automated data migration between AWS and GCP, ensuring zero data loss by applying data wrangling best practices.
+- Implemented a machine learning model (e.g., Random Forest or XGBoost) for predictive analytics, optimizing data workflows and improving data processing efficiency.
 
 ### Software Engineer | Alpha Innovations | 2015 - 2017
 - Worked on developing new features for a SaaS product using Python (Django) and PostgreSQL.

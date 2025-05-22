@@ -87,9 +87,9 @@ const placeholderData: PageData = {
     tagline: "", // Tagline removed as per request
     profileImage: "https://placehold.co/300x300.png",
     dataAiHint: "professional portrait",
-    email: "srishti.adkar@example.com",
-    linkedin: "linkedin.com/in/srishtiadkar",
-    github: "github.com/srishtiadkar",
+    email: "srishtiadkar@example.com", // Updated email
+    linkedin: "linkedin.com/in/srishtiadkar", // Updated LinkedIn
+    github: "github.com/srishtiadkar", // Updated GitHub
     cvUrl: "/srishti-sadanand-adkar-resume.pdf",
   },
   summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
@@ -139,16 +139,18 @@ const placeholderData: PageData = {
       timelineNote: "Claims Fraud Detection System",
     },
     {
-      title: "Software Developer",
-      company: "Tech Solutions Global",
-      dates: "2017 - 2020",
+      title: "Software Engineer Intern",
+      company: "St. Francis House",
+      dates: "06/2024 – 09/2024 | Seattle, WA, USA",
       responsibilities: [
-        "Developed and maintained critical backend services for a large-scale e-commerce platform using Java (Spring Boot) and microservices architecture.",
-        "Implemented CI/CD pipelines, reducing deployment times by 40%.",
+        "Developed data pipelines for automated data ingestion and preprocessing, leveraging Python and SQL to manage large-scale datasets on AWS and GCP.",
+        "Designed SQL queries for sub-second latency and integrated them into REST APIs to support high-traffic production environments.",
+        "Automated data migration between AWS and GCP, ensuring zero data loss by applying data wrangling best practices.",
+        "Implemented a machine learning model (e.g., Random Forest or XGBoost) for predictive analytics, optimizing data workflows and improving data processing efficiency.",
       ],
       companyLogoUrl: "https://placehold.co/40x40.png",
-      companyLogoDataAiHint: "tech company",
-      timelineNote: "Reduced deployment time by 40%.",
+      companyLogoDataAiHint: "st francis house logo",
+      timelineNote: "Data pipeline development & ML model implementation.",
     },
     {
       title: "Software Engineer",
