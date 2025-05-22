@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 // import fs from 'fs'; // This will cause an error in client component if not handled
 // import path from 'path'; // This will cause an error in client component if not handled
 // import matter from 'gray-matter'; // This will cause an error in client component if not handled
@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, FileDown, Check } from 'lucide-react';
+import { Github, Linkedin, Mail, FileDown, Check, CalendarDays, Briefcase, Building } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 
@@ -39,15 +39,22 @@ interface SkillCategory {
   skills: Skill[];
 }
 
+interface ExperienceItem {
+  title: string;
+  company: string;
+  dates: string;
+  responsibilities: string[];
+}
+
 interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
   skillCategories: SkillCategory[];
-  allSkillsWithLogos: Skill[]; // For the new logos section
+  allSkillsWithLogos: Skill[]; 
+  experience: ExperienceItem[];
 }
 
-// Placeholder data, as fs operations won't work in "use client" directly
-// This data is now updated to reflect the new resume.md content
+
 const placeholderData: PageData = {
   frontmatter: {
     name: "Jane R. Doe",
@@ -76,7 +83,7 @@ const placeholderData: PageData = {
         { name: "HTML5", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "html5 logo" },
         { name: "CSS3", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "css3 logo" },
         { name: "Tailwind CSS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tailwind logo" },
-        { name: "ShadCN UI" }, // No specific logo, conceptual
+        { name: "ShadCN UI" }, 
       ] 
     },
     { 
@@ -87,9 +94,9 @@ const placeholderData: PageData = {
         { name: "Scikit-learn", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "scikitlearn logo" },
         { name: "Natural Language Processing (NLP)" },
         { name: "Computer Vision (CV)" },
-        { name: "Genkit", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "genkit logo" }, // Assuming Genkit might have a logo
+        { name: "Genkit", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "genkit logo" }, 
         { name: "Hugging Face Transformers", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "huggingface logo" },
-        { name: "MLOps (Kubeflow, MLflow)" }, // Conceptual
+        { name: "MLOps (Kubeflow, MLflow)" }, 
       ] 
     },
     { 
@@ -101,7 +108,7 @@ const placeholderData: PageData = {
         { name: "Kubernetes", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kubernetes logo" },
         { name: "Terraform", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "terraform logo" },
         { name: "Ansible" },
-        { name: "CI/CD (Jenkins, GitLab CI)" }, // Conceptual
+        { name: "CI/CD (Jenkins, GitLab CI)" }, 
       ]
     },
      { 
@@ -114,28 +121,49 @@ const placeholderData: PageData = {
         { name: "Apache Kafka", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kafka logo" },
         { name: "Apache Spark", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "spark logo" },
         { name: "Airflow" },
-        { name: "Data Warehousing (Snowflake, BigQuery)" }, // Conceptual
+        { name: "Data Warehousing (Snowflake, BigQuery)" }, 
       ]
     },
   ],
-  allSkillsWithLogos: [], // Will be populated in the component
+  allSkillsWithLogos: [], 
+  experience: [
+    {
+      title: "Lead AI Engineer",
+      company: "QuantumLeap AI",
+      dates: "2020 - Present",
+      responsibilities: [
+        "Spearheaded the design and development of a cutting-edge predictive analytics platform using Python, TensorFlow, and Kubeflow, resulting in a 25% increase in operational efficiency for clients.",
+        "Led a team of 5 AI engineers, fostering a collaborative and high-performance culture.",
+        "Architected and deployed scalable AI models on AWS SageMaker, handling terabytes of data.",
+        "Published 2 papers on novel machine learning techniques at industry conferences.",
+      ],
+    },
+    {
+      title: "Senior Software Developer",
+      company: "Tech Solutions Global",
+      dates: "2017 - 2020",
+      responsibilities: [
+        "Developed and maintained critical backend services for a large-scale e-commerce platform using Java (Spring Boot) and microservices architecture.",
+        "Implemented CI/CD pipelines, reducing deployment times by 40%.",
+        "Contributed to the front-end development using React and Redux.",
+      ],
+    },
+    {
+      title: "Software Engineer",
+      company: "Alpha Innovations",
+      dates: "2015 - 2017",
+      responsibilities: [
+        "Worked on developing new features for a SaaS product using Python (Django) and PostgreSQL.",
+        "Participated in full software development lifecycle, from requirements gathering to testing and deployment.",
+      ],
+    },
+  ],
 };
 placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(category => category.skills.filter(skill => skill.logoUrl));
 
 
-// This async function CANNOT be directly used in a client component's main body.
-// async function getResumeData(): Promise<PageData> {
-//   // fs, path, matter calls would be here
-//   return placeholderData; // Returning placeholder for now
-// }
-
-
 export default function HomePage() {
-  // const { frontmatter, summary, skillCategories } = await getResumeData(); // This await is not allowed in client component.
-  // We need to fetch data differently or pass it as props.
-  // Using placeholder data directly for now to demonstrate animations.
-  const { frontmatter, summary, skillCategories, allSkillsWithLogos } = placeholderData;
-
+  const { frontmatter, summary, skillCategories, allSkillsWithLogos, experience } = placeholderData;
 
   const heroNameRef = useRef<HTMLHeadingElement>(null);
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
@@ -150,13 +178,19 @@ export default function HomePage() {
   const separator3Ref = useRef<HTMLDivElement>(null);
   const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
   const technologiesLogosRef = useRef<HTMLDivElement>(null);
+  const separator4Ref = useRef<HTMLDivElement>(null);
+  const experienceTitleRef = useRef<HTMLHeadingElement>(null);
+  const experienceTimelineRef = useRef<HTMLDivElement>(null);
   
-  // Individual refs for skill cards
   const skillCardRefs = useRef<(HTMLDivElement | null)[]>([]);
   skillCardRefs.current = skillCategories.map(
     (_, i) => skillCardRefs.current[i] ?? null
   );
 
+  const experienceCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  experienceCardRefs.current = experience.map(
+    (_, i) => experienceCardRefs.current[i] ?? null
+  );
 
   const isHeroNameVisible = useIntersectionObserver(heroNameRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroTaglineVisible = useIntersectionObserver(heroTaglineRef, { freezeOnceVisible: true, threshold: 0.3 });
@@ -171,6 +205,9 @@ export default function HomePage() {
   const isSeparator3Visible = useIntersectionObserver(separator3Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isTechnologiesTitleVisible = useIntersectionObserver(technologiesTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isTechnologiesLogosVisible = useIntersectionObserver(technologiesLogosRef, { freezeOnceVisible: true, threshold: 0.1 });
+  const isSeparator4Visible = useIntersectionObserver(separator4Ref, { freezeOnceVisible: true, threshold: 0.1 });
+  const isExperienceTitleVisible = useIntersectionObserver(experienceTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
+  const isExperienceTimelineVisible = useIntersectionObserver(experienceTimelineRef, { freezeOnceVisible: true, threshold: 0.05 });
 
 
   const skillCardIsVisible = skillCategories.map((_, index) =>
@@ -181,19 +218,13 @@ export default function HomePage() {
     )
   );
 
-  // Effect to handle server-side data if this component were to fetch it
-  // For now, this component uses placeholder data due to "use client"
-  // If data were fetched:
-  // const [pageData, setPageData] = useState<PageData | null>(null);
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const data = await getResumeData(); // This would need to be an API call or passed prop
-  //     setPageData(data);
-  //   }
-  //   fetchData();
-  // }, []);
-  // if (!pageData) return <div>Loading...</div>; // Or a skeleton loader
-  // const { frontmatter, summary, skillCategories } = pageData;
+  const experienceCardIsVisible = experience.map((_, index) =>
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useIntersectionObserver(
+      { current: experienceCardRefs.current[index] },
+      { freezeOnceVisible: true, threshold: 0.15 } // Lower threshold for timeline items
+    )
+  );
 
 
   return (
@@ -403,7 +434,7 @@ export default function HomePage() {
           )}
           style={{ animationDelay: '0.1s' }}
         >
-          {allSkillsWithLogos.map((skill, index) => (
+          {allSkillsWithLogos.map((skill) => (
             skill.logoUrl && (
               <div 
                 key={skill.name} 
@@ -421,6 +452,96 @@ export default function HomePage() {
               </div>
             )
           ))}
+        </div>
+      </section>
+
+       <Separator
+        ref={separator4Ref}
+        className={cn(
+          "my-12 bg-border/50 opacity-0",
+          { 'animate-fadeInUp': isSeparator4Visible }
+        )}
+        style={{ animationDelay: '0.2s' }}
+      />
+
+      {/* Experience Section */}
+      <section id="experience" className="space-y-12 scroll-mt-20">
+        <h2
+          ref={experienceTitleRef}
+          className={cn(
+            "text-3xl md:text-4xl font-bold text-center text-primary opacity-0",
+            { 'animate-fadeInUp': isExperienceTitleVisible }
+          )}
+          style={{ animationDelay: '0s' }}
+        >
+          My Experience
+        </h2>
+        <div 
+          ref={experienceTimelineRef}
+          className={cn("relative opacity-0", { 'animate-fadeInUp': isExperienceTimelineVisible })}
+          style={{ animationDelay: '0.1s' }}
+        >
+          {/* Central Timeline Line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-border/70 transform -translate-x-1/2 hidden md:block"></div>
+
+          {experience.map((exp, index) => {
+            const isLeft = index % 2 === 0;
+            return (
+              <div
+                key={index}
+                ref={el => experienceCardRefs.current[index] = el}
+                className={cn(
+                  "mb-12 flex md:items-center w-full opacity-0",
+                  isLeft ? "md:flex-row-reverse" : "md:flex-row",
+                  { 
+                    'animate-fadeInRight': experienceCardIsVisible[index] && isLeft,
+                    'animate-fadeInLeft': experienceCardIsVisible[index] && !isLeft,
+                    'animate-fadeInUp': experienceCardIsVisible[index] && !isLeft && !isLeft, // Fallback for mobile
+                  }
+                )}
+                style={{ animationDelay: `${0.2 + index * 0.2}s` }}
+              >
+                {/* Timeline Dot for Desktop */}
+                <div className="hidden md:flex w-1/2 justify-center">
+                  <div className={cn(
+                    "absolute w-1/2 flex",
+                    isLeft ? "justify-start pl-[calc(50%-0.75rem)]" : "justify-end pr-[calc(50%-0.75rem)]"
+                  )}>
+                     <div className="z-10 h-6 w-6 rounded-full bg-primary border-4 border-background shadow-md"></div>
+                  </div>
+                </div>
+                 {/* Timeline Dot for Mobile (aligned with card) */}
+                <div className="flex md:hidden items-center mr-4">
+                   <div className="z-10 h-5 w-5 rounded-full bg-primary border-2 border-background shadow-md"></div>
+                </div>
+
+
+                <Card className={cn(
+                  "w-full md:w-[calc(50%-2rem)] shadow-xl bg-card/80 backdrop-blur-sm",
+                  isLeft ? "md:mr-8" : "md:ml-8"
+                )}>
+                  <CardHeader>
+                    <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
+                    <CardDescription className="text-muted-foreground/90">
+                      <div className="flex items-center text-sm">
+                        <Building className="mr-2 h-4 w-4" /> {exp.company}
+                      </div>
+                      <div className="flex items-center text-sm mt-1">
+                        <CalendarDays className="mr-2 h-4 w-4" /> {exp.dates}
+                      </div>
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-sm text-foreground/80 list-disc pl-5">
+                      {exp.responsibilities.map((resp, i) => (
+                        <li key={i}>{resp}</li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>
