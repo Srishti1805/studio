@@ -30,12 +30,11 @@ const projects: Project[] = [
   },
   {
     id: '2',
-    title: 'E-commerce Analytics Dashboard',
-    description: 'A comprehensive dashboard for e-commerce businesses to track sales, customer behavior, and inventory. Features real-time data visualization.',
+    title: "SUMAZON – Seattle University's Campus Store Website",
+    description: "Developed a full-stack e-commerce web application for Seattle University's campus store, designed to streamline product browsing, purchasing, and inventory management. Utilized a three-tier architecture with React for the frontend, Django for the backend, and PL/SQL for the database layer, ensuring seamless user interaction and robust data handling.",
     imageUrl: 'https://placehold.co/600x400.png',
-    dataAiHint: 'dashboard analytics',
-    tags: ['React', 'Node.js', 'Charts', 'Data Visualization'],
-    githubUrl: 'https://github.com/srishtisadanandadkar/ecommerce-dashboard',
+    dataAiHint: 'ecommerce website',
+    tags: ['React', 'Django', 'PL/SQL', 'Full Stack', 'E-commerce'],
   },
   {
     id: '3',
@@ -69,18 +68,18 @@ export default function PortfolioPage() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project) => (
-          <Card 
-            key={project.id} 
+          <Card
+            key={project.id}
             className="flex flex-col overflow-hidden bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1"
           >
             <div className="relative w-full h-52 group">
-              <Image 
-                src={project.imageUrl} 
-                alt={project.title} 
+              <Image
+                src={project.imageUrl}
+                alt={project.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                data-ai-hint={project.dataAiHint} 
+                data-ai-hint={project.dataAiHint}
               />
             </div>
             <CardHeader>
@@ -128,4 +127,3 @@ export default function PortfolioPage() {
     </div>
   );
 }
-

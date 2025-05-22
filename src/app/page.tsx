@@ -84,16 +84,16 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Software Engineer & AI Solutions Architect",
-    tagline: "", 
+    tagline: "",
     profileImage: "https://placehold.co/300x300.png",
     dataAiHint: "professional portrait",
     email: "srishtisadanandadkar@example.com",
-    linkedin: "linkedin.com/in/srishtiadkar", 
-    github: "github.com/srishtisadanandadkar", 
+    linkedin: "linkedin.com/in/srishtiadkar",
+    github: "github.com/srishtisadanandadkar",
     cvUrl: "/srishti-sadanand-adkar-resume.pdf",
   },
   summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
-  allSkillsWithLogos: [ 
+  allSkillsWithLogos: [
       { name: "Python", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "python logo" },
       { name: "Java", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "java logo" },
       { name: "Go", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "golang logo" },
@@ -179,17 +179,16 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'face detection',
       tags: ['Computer Vision', 'Deep Learning', 'PyTorch', 'Python', 'Face Detection'],
-      githubUrl: '#', // Updated or keep if actual URL exists
-      liveUrl: '#', // Updated or remove if not applicable
+      githubUrl: '#',
+      liveUrl: '#',
     },
     {
       id: '2',
-      title: 'E-commerce Analytics Dashboard',
-      description: 'A comprehensive dashboard for e-commerce businesses to track sales, customer behavior, and inventory. Features real-time data visualization.',
+      title: "SUMAZON – Seattle University's Campus Store Website",
+      description: "Developed a full-stack e-commerce web application for Seattle University's campus store, designed to streamline product browsing, purchasing, and inventory management. Utilized a three-tier architecture with React for the frontend, Django for the backend, and PL/SQL for the database layer, ensuring seamless user interaction and robust data handling.",
       imageUrl: 'https://placehold.co/600x400.png',
-      dataAiHint: 'dashboard analytics',
-      tags: ['React', 'Node.js', 'Charts', 'Data Visualization'],
-      githubUrl: 'https://github.com/srishtisadanandadkar/ecommerce-dashboard',
+      dataAiHint: 'ecommerce website',
+      tags: ['React', 'Django', 'PL/SQL', 'Full Stack', 'E-commerce'],
     },
     {
       id: '3',
@@ -251,7 +250,7 @@ export default function HomePage() {
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
   const heroSocialsRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLDivElement>(null);
-  const heroBannerImageRef = useRef<HTMLDivElement>(null); 
+  const heroBannerImageRef = useRef<HTMLDivElement>(null);
 
   const separator1Ref = useRef<HTMLDivElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
@@ -268,7 +267,7 @@ export default function HomePage() {
   const separator4Ref = useRef<HTMLDivElement>(null);
   const educationTitleRef = useRef<HTMLHeadingElement>(null);
 
-  const separator5Ref = useRef<HTMLDivElement>(null); 
+  const separator5Ref = useRef<HTMLDivElement>(null);
   const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
   const technologiesLogosRef = useRef<HTMLDivElement>(null);
 
@@ -310,7 +309,7 @@ export default function HomePage() {
 
   const isSeparator4Visible = useIntersectionObserver(separator4Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isEducationTitleVisible = useIntersectionObserver(educationTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
-  
+
   const isSeparator5Visible = useIntersectionObserver(separator5Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isTechnologiesTitleVisible = useIntersectionObserver(technologiesTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isTechnologiesLogosVisible = useIntersectionObserver(technologiesLogosRef, { freezeOnceVisible: true, threshold: 0.1 });
@@ -425,7 +424,7 @@ export default function HomePage() {
           "relative w-full h-56 sm:h-64 md:h-80 my-8 md:my-12 rounded-lg shadow-xl overflow-hidden",
           isHeroBannerImageVisible ? 'animate-fadeInUp' : 'opacity-0'
         )}
-        style={{ animationDelay: '0.1s' }} 
+        style={{ animationDelay: '0.1s' }}
       >
         <Image
           src="https://placehold.co/1200x400.png"
@@ -433,7 +432,7 @@ export default function HomePage() {
           fill
           className="object-cover"
           data-ai-hint="tech banner"
-          priority 
+          priority
         />
       </div>
 
@@ -462,7 +461,7 @@ export default function HomePage() {
         <Card
           ref={aboutCardRef}
           className={cn(
-            "shadow-xl bg-card/80 backdrop-blur-sm max-w-3xl mx-auto", 
+            "shadow-xl bg-card/80 backdrop-blur-sm max-w-3xl mx-auto",
             isAboutCardVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0.1s' }}
@@ -532,12 +531,14 @@ export default function HomePage() {
               <div
                 key={exp.company + '-' + index}
                 className={cn(
-                  "mb-12 flex w-full items-start md:items-center"
+                  "mb-12 flex w-full items-start md:items-center",
+                   (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? '' : 'opacity-0' // Overall container opacity for initial hide
                 )}
+                 style={{ animationDelay: `${0.1 + index * 0.15}s` }}
               >
                 {/* Mobile Layout: Stacked */}
-                 <div className={cn("flex md:hidden flex-col w-full items-start", 
-                      (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0')}
+                 <div className={cn("flex md:hidden flex-col w-full items-start",
+                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                       style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
                    <div className="flex items-center mb-2 w-full">
                     {exp.companyLogoUrl && (
@@ -555,10 +556,8 @@ export default function HomePage() {
                   <Card
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
-                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
-                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50"
                     )}
-                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
                     <CardHeader>
                       <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
@@ -581,12 +580,10 @@ export default function HomePage() {
                   </Card>
                   {exp.timelineNote && (
                     <div
-                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }} 
+                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
-                        "mt-3 text-sm text-muted-foreground italic pl-5",
-                         experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
+                        "mt-3 text-sm text-muted-foreground italic pl-5"
                       )}
-                      style={{ animationDelay: `${0.15 + index * 0.15}s` }} 
                     >
                       {exp.timelineNote}
                     </div>
@@ -908,4 +905,3 @@ export default function HomePage() {
     </div>
   );
 }
-
