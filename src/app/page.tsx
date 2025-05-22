@@ -16,7 +16,6 @@ import { Badge } from '@/components/ui/badge';
 interface ResumeFrontmatter {
   name?: string;
   title?: string;
-  tagline?: string;
   profileImage?: string;
   dataAiHint?: string;
   email?: string;
@@ -567,7 +566,7 @@ export default function HomePage() {
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50" ,
-                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Changed from specific side animation to fadeInUp for mobile
+                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
@@ -595,7 +594,7 @@ export default function HomePage() {
                        ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                        experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Use card visibility for mobile note as well
+                        experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
                       )}
                        style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
