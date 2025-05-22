@@ -83,7 +83,7 @@ interface PageData {
 const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
-    title: "Senior Software Engineer & AI Solutions Architect",
+    title: "Software Engineer & AI Solutions Architect",
     tagline: "", // Tagline removed as per request
     profileImage: "https://placehold.co/300x300.png",
     dataAiHint: "professional portrait",
@@ -257,7 +257,7 @@ export default function HomePage() {
   const separator4Ref = useRef<HTMLDivElement>(null);
   const educationTitleRef = useRef<HTMLHeadingElement>(null);
 
-  const separator5Ref = useRef<HTMLDivElement>(null); // Was for skills, now between education and technologies
+  const separator5Ref = useRef<HTMLDivElement>(null); 
   const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
   const technologiesLogosRef = useRef<HTMLDivElement>(null);
 
@@ -414,7 +414,7 @@ export default function HomePage() {
           "relative w-full h-56 sm:h-64 md:h-80 my-8 md:my-12 rounded-lg shadow-xl overflow-hidden",
           isHeroBannerImageVisible ? 'animate-fadeInUp' : 'opacity-0'
         )}
-        style={{ animationDelay: '0.1s' }} // Delay slightly after hero
+        style={{ animationDelay: '0.1s' }} 
       >
         <Image
           src="https://placehold.co/1200x400.png"
@@ -422,7 +422,7 @@ export default function HomePage() {
           fill
           className="object-cover"
           data-ai-hint="tech banner"
-          priority // Consider if this should be priority if hero image is already priority
+          priority 
         />
       </div>
 
@@ -544,8 +544,10 @@ export default function HomePage() {
                   <Card
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
-                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50"
+                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
+                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Ensure mobile also uses opacity-0 logic
                     )}
+                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
                     <CardHeader>
                       <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
