@@ -8,10 +8,10 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/#experience', label: 'Work' }, // Link to section on homepage
-  { href: '/#projects', label: 'Projects' }, // Link to section on homepage
-  { href: '/overview', label: 'Resume' }, // Stays as a separate page
-  { href: '/contact', label: 'Contact' }, // Stays as a separate page
+  { href: '/#experience', label: 'Work' },
+  { href: '/#projects', label: 'Projects' },
+  { href: '/overview', label: 'Resume' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export function TopNavBar() {
@@ -32,8 +32,7 @@ export function TopNavBar() {
                 isActive = pathname === '/';
             } else if (item.href.startsWith('/#')) {
                 // Hash links like '/#experience' or '/#projects' are not marked active in the nav bar itself.
-                // Their "activeness" is the scroll behavior. The page ('/') remains active.
-                isActive = false;
+                isActive = false; 
             } else {
                 // For other page links like '/overview' or '/contact'
                 isActive = pathname === item.href;
@@ -45,7 +44,7 @@ export function TopNavBar() {
                 href={item.href}
                 className={cn(
                   "px-3 py-2 text-sm font-medium transition-colors duration-150 ease-in-out rounded-md",
-                  "hover:text-primary hover:bg-accent/50",
+                  "hover:text-primary hover:bg-secondary/40", // Changed hover:bg-accent/50 to hover:bg-secondary/40
                   isActive
                     ? "text-primary-foreground bg-primary shadow-md" 
                     : "text-muted-foreground"
