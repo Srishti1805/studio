@@ -1,7 +1,6 @@
 ---
 name: "Srishti Sadanand Adkar"
 title: "Software Engineer & AI Solutions Architect"
-tagline: "Building Innovative Solutions with a Passion for AI"
 profileImage: "https://placehold.co/300x300.png"
 dataAiHint: "professional portrait"
 email: "srishti.adkar@example.com"
@@ -41,13 +40,15 @@ A results-oriented Software Engineer with 7+ years of expertise in developing an
 
 ## Experience
 
-### Lead AI Engineer | QuantumLeap AI | 2020 - Present
-- Spearheaded the design and development of a cutting-edge predictive analytics platform using Python, TensorFlow, and Kubeflow, resulting in a 25% increase in operational efficiency for clients.
-- Led a team of 5 AI engineers, fostering a collaborative and high-performance culture.
-- Architected and deployed scalable AI models on AWS SageMaker, handling terabytes of data.
-- Published 2 papers on novel machine learning techniques at industry conferences.
+### AI/ML Engineer Intern | HSBC | 11/2024 – Present | Remote, USA
+- Worked on development of an advanced Claims Fraud Detection System, collaborating with cross-functional teams to gather requirements and define key fraud detection metrics, aligning closely with business objectives to achieve a 25% gain in fraud detection accuracy.
+- Aligned with data engineering teams to design and used a robust ETL pipeline using Python, SQL, and AWS tools, automating data extraction and preprocessing from diverse sources, which led to a 40% progress in data processing efficiency and timeliness.
+- Developed and trained a fraud detection model utilizing historical claims data (e.g., claim amounts, claimant history, claim frequency) with machine learning techniques, including Random Forest and XGBoost, resulting in a 30% reduction in fraud detection errors and higher operational reliability.
+- Executed advanced hyperparameter tuning using GridSearchCV, optimizing key model parameters such as max depth, learning rate, and number of estimators for XGBoost, driving a 15% increase in model precision and recall.
+- Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.
+- Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.
 
-### Senior Software Developer | Tech Solutions Global | 2017 - 2020
+### Software Developer | Tech Solutions Global | 2017 - 2020
 - Developed and maintained critical backend services for a large-scale e-commerce platform using Java (Spring Boot) and microservices architecture.
 - Implemented CI/CD pipelines, reducing deployment times by 40%.
 - Contributed to the front-end development using React and Redux.
@@ -70,3 +71,4 @@ A results-oriented Software Engineer with 7+ years of expertise in developing an
 - Google Certified Professional - Machine Learning Engineer
 - AWS Certified Solutions Architect – Professional
 - Certified Kubernetes Administrator (CKA)
+

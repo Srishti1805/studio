@@ -123,20 +123,23 @@ const placeholderData: PageData = {
   ],
   experience: [
     {
-      title: "Lead AI Engineer",
-      company: "QuantumLeap AI",
-      dates: "2020 - Present",
+      title: "AI/ML Engineer Intern",
+      company: "HSBC",
+      dates: "11/2024 – Present | Remote, USA",
       responsibilities: [
-        "Spearheaded the design and development of a cutting-edge predictive analytics platform using Python, TensorFlow, and Kubeflow, resulting in a 25% increase in operational efficiency for clients.",
-        "Led a team of 5 AI engineers, fostering a collaborative and high-performance culture.",
-        "Architected and deployed scalable AI models on AWS SageMaker, handling terabytes of data.",
+        "Worked on development of an advanced Claims Fraud Detection System, collaborating with cross-functional teams to gather requirements and define key fraud detection metrics, aligning closely with business objectives to achieve a 25% gain in fraud detection accuracy.",
+        "Aligned with data engineering teams to design and used a robust ETL pipeline using Python, SQL, and AWS tools, automating data extraction and preprocessing from diverse sources, which led to a 40% progress in data processing efficiency and timeliness.",
+        "Developed and trained a fraud detection model utilizing historical claims data (e.g., claim amounts, claimant history, claim frequency) with machine learning techniques, including Random Forest and XGBoost, resulting in a 30% reduction in fraud detection errors and higher operational reliability.",
+        "Executed advanced hyperparameter tuning using GridSearchCV, optimizing key model parameters such as max depth, learning rate, and number of estimators for XGBoost, driving a 15% increase in model precision and recall.",
+        "Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.",
+        "Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.",
       ],
       companyLogoUrl: "https://placehold.co/40x40.png",
-      companyLogoDataAiHint: "company logo",
-      timelineNote: "Key achievement: 25% efficiency boost.",
+      companyLogoDataAiHint: "hsbc logo",
+      timelineNote: "Claims Fraud Detection System",
     },
     {
-      title: "Senior Software Developer",
+      title: "Software Developer",
       company: "Tech Solutions Global",
       dates: "2017 - 2020",
       responsibilities: [
@@ -348,7 +351,7 @@ export default function HomePage() {
           >
             Hi, I&apos;m <span className="text-primary">{frontmatter.name?.split(' ')[0] || 'Srishti'}</span>
           </h1>
-          {(frontmatter.tagline || frontmatter.title) && (
+          {(frontmatter.title) && (
              <p
               ref={heroTaglineRef}
               className={cn(
@@ -357,7 +360,7 @@ export default function HomePage() {
               )}
               style={{ animationDelay: '0.1s' }}
             >
-              {frontmatter.tagline || frontmatter.title}
+              {frontmatter.title}
             </p>
           )}
           <div
@@ -545,7 +548,7 @@ export default function HomePage() {
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
-                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Ensure mobile also uses opacity-0 logic
+                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
@@ -897,3 +900,4 @@ export default function HomePage() {
     </div>
   );
 }
+
