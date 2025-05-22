@@ -87,9 +87,9 @@ const placeholderData: PageData = {
     tagline: "", // Tagline removed as per request
     profileImage: "https://placehold.co/300x300.png",
     dataAiHint: "professional portrait",
-    email: "srishtiadkar@example.com", // Updated email
+    email: "srishtisadanandadkar@example.com", // Updated email
     linkedin: "linkedin.com/in/srishtiadkar", // Updated LinkedIn
-    github: "github.com/srishtiadkar", // Updated GitHub
+    github: "github.com/srishtisadanandadkar", // Updated GitHub
     cvUrl: "/srishti-sadanand-adkar-resume.pdf",
   },
   summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
@@ -112,6 +112,7 @@ const placeholderData: PageData = {
       { name: "Hugging Face Transformers", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "huggingface logo" },
       { name: "AWS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "aws logo" },
       { name: "GCP", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "gcp logo" },
+      { name: "Azure", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "azure logo"},
       { name: "Docker", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "docker logo" },
       { name: "Kubernetes", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kubernetes logo" },
       { name: "Terraform", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "terraform logo" },
@@ -153,16 +154,21 @@ const placeholderData: PageData = {
       timelineNote: "Data pipeline development & ML model implementation.",
     },
     {
-      title: "Software Engineer",
-      company: "Alpha Innovations",
-      dates: "2015 - 2017",
+      title: "ML Engineer",
+      company: "Atomic Loops Pvt Ltd",
+      dates: "10/2021 – 08/2023 | Pune, India",
       responsibilities: [
-        "Worked on developing new features for a SaaS product using Python (Django) and PostgreSQL.",
-        "Participated in full software development lifecycle, from requirements gathering to testing and deployment.",
+        "Collaborated with cross-functional teams in requirement gathering sessions to understand business objectives, ensuring alignment of the Audio Analysis PoC Project with the company’s goals and identifying key performance indicators for accurate prediction.",
+        "Collected, cleaned, and preprocessed large-scale audio data using Python libraries such as Pandas, NumPy, and Scikit-learn, while leveraging Azure Data Factory to automate the ETL pipeline and ensure efficient data integration and storage.",
+        "Developed machine learning models for audio analysis, experimenting with different algorithms like CNNs and RNNs to classify audio into categories such as speech, music, and environmental sounds.",
+        "Applied hyperparameter tuning techniques using GridSearchCV and RandomizedSearchCV to optimize model performance, fine-tuning key parameters to improve classification accuracy and event detection in audio signals.",
+        "Implemented feature engineering strategies using audio processing techniques like MFCC, spectrograms, and chroma features to enhance model prediction capability and capture a more comprehensive view of the audio data.",
+        "Deployed the optimized audio analysis models to production using Azure Machine Learning Service, collaborating closely with the DevOps team to automate deployment pipelines and ensure seamless integration with existing systems.",
+        "Created an interactive dashboard to visualize and analyze audio features and predictions, providing stakeholders with actionable insights and facilitating data-driven decision-making in audio-based applications.",
       ],
       companyLogoUrl: "https://placehold.co/40x40.png",
-      companyLogoDataAiHint: "alpha logo",
-      timelineNote: "Full SDLC participation.",
+      companyLogoDataAiHint: "atomic loops logo",
+      timelineNote: "Audio Analysis PoC & ML Model Deployment.",
     },
   ],
   projects: [
@@ -173,7 +179,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'task manager',
       tags: ['Next.js', 'AI', 'Tailwind CSS', 'Productivity'],
-      githubUrl: 'https://github.com/srishtiadkar/ai-task-manager',
+      githubUrl: 'https://github.com/srishtisadanandadkar/ai-task-manager',
       liveUrl: '#',
     },
     {
@@ -183,7 +189,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'dashboard analytics',
       tags: ['React', 'Node.js', 'Charts', 'Data Visualization'],
-      githubUrl: 'https://github.com/srishtiadkar/ecommerce-dashboard',
+      githubUrl: 'https://github.com/srishtisadanandadkar/ecommerce-dashboard',
     },
     {
       id: '3',
@@ -192,7 +198,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'portfolio website',
       tags: ['Next.js', 'TypeScript', 'ShadCN UI', 'GenAI'],
-      githubUrl: 'https://github.com/srishtiadkar/personal-showcase',
+      githubUrl: 'https://github.com/srishtisadanandadkar/personal-showcase',
       liveUrl: '#',
     },
     {
@@ -245,7 +251,7 @@ export default function HomePage() {
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
   const heroSocialsRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLDivElement>(null);
-  const heroBannerImageRef = useRef<HTMLDivElement>(null); // New ref for banner image
+  const heroBannerImageRef = useRef<HTMLDivElement>(null); 
 
   const separator1Ref = useRef<HTMLDivElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
@@ -412,7 +418,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* New Banner Image Section */}
+      {/* Banner Image Section */}
       <div
         ref={heroBannerImageRef}
         className={cn(

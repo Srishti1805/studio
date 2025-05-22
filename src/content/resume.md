@@ -4,9 +4,9 @@ name: "Srishti Sadanand Adkar"
 title: "Software Engineer & AI Solutions Architect"
 profileImage: "https://placehold.co/300x300.png"
 dataAiHint: "professional portrait"
-email: "srishtiadkar@example.com"
+email: "srishtisadanandadkar@example.com"
 linkedin: "linkedin.com/in/srishtiadkar"
-github: "github.com/srishtiadkar"
+github: "github.com/srishtisadanandadkar"
 cvUrl: "/srishti-sadanand-adkar-resume.pdf" 
 ---
 
@@ -30,7 +30,7 @@ A results-oriented Software Engineer with 7+ years of expertise in developing an
 - MLOps (Kubeflow, MLflow)
 
 ### Cloud & DevOps
-- AWS (EC2, S3, Lambda, SageMaker), GCP (Vertex AI, GKE)
+- AWS (EC2, S3, Lambda, SageMaker), GCP (Vertex AI, GKE), Azure
 - Docker, Kubernetes, Terraform, Ansible
 - CI/CD (Jenkins, GitLab CI)
 
@@ -55,9 +55,14 @@ A results-oriented Software Engineer with 7+ years of expertise in developing an
 - Automated data migration between AWS and GCP, ensuring zero data loss by applying data wrangling best practices.
 - Implemented a machine learning model (e.g., Random Forest or XGBoost) for predictive analytics, optimizing data workflows and improving data processing efficiency.
 
-### Software Engineer | Alpha Innovations | 2015 - 2017
-- Worked on developing new features for a SaaS product using Python (Django) and PostgreSQL.
-- Participated in full software development lifecycle, from requirements gathering to testing and deployment.
+### ML Engineer | Atomic Loops Pvt Ltd | 10/2021 – 08/2023 | Pune, India
+- Collaborated with cross-functional teams in requirement gathering sessions to understand business objectives, ensuring alignment of the Audio Analysis PoC Project with the company’s goals and identifying key performance indicators for accurate prediction.
+- Collected, cleaned, and preprocessed large-scale audio data using Python libraries such as Pandas, NumPy, and Scikit-learn, while leveraging Azure Data Factory to automate the ETL pipeline and ensure efficient data integration and storage.
+- Developed machine learning models for audio analysis, experimenting with different algorithms like CNNs and RNNs to classify audio into categories such as speech, music, and environmental sounds.
+- Applied hyperparameter tuning techniques using GridSearchCV and RandomizedSearchCV to optimize model performance, fine-tuning key parameters to improve classification accuracy and event detection in audio signals.
+- Implemented feature engineering strategies using audio processing techniques like MFCC, spectrograms, and chroma features to enhance model prediction capability and capture a more comprehensive view of the audio data.
+- Deployed the optimized audio analysis models to production using Azure Machine Learning Service, collaborating closely with the DevOps team to automate deployment pipelines and ensure seamless integration with existing systems.
+- Created an interactive dashboard to visualize and analyze audio features and predictions, providing stakeholders with actionable insights and facilitating data-driven decision-making in audio-based applications.
 
 ## Education
 
