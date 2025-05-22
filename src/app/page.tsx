@@ -72,8 +72,6 @@ interface AboutHighlightItem {
 interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
-  // skillCategories is kept for allSkillsWithLogos generation, though not directly rendered as a section
-  skillCategories: { category: string, skills: Skill[] }[]; 
   allSkillsWithLogos: Skill[];
   experience: ExperienceItem[];
   projects: ProjectItem[];
@@ -95,64 +93,34 @@ const placeholderData: PageData = {
     cvUrl: "/jane-r-doe-resume.pdf",
   },
   summary: "A results-oriented Senior Software Engineer with 7+ years of expertise in developing and architecting robust, scalable software solutions. Adept at leading cross-functional teams and leveraging AI/ML technologies to solve complex business problems. Proven track record of delivering high-impact projects from conception to deployment. Eager to apply advanced technical skills to drive innovation and user-centric product development.",
-  skillCategories: [ // Kept for allSkillsWithLogos logic
-    {
-      category: "Core Technologies",
-      skills: [
-        { name: "Python", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "python logo" },
-        { name: "Java", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "java logo" },
-        { name: "Go", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "golang logo" },
-        { name: "JavaScript", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "javascript logo" },
-        { name: "TypeScript", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "typescript logo" },
-        { name: "React", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "react logo" },
-        { name: "Next.js", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "nextjs logo" },
-        { name: "Node.js", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "nodejs logo" },
-        { name: "HTML5", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "html5 logo" },
-        { name: "CSS3", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "css3 logo" },
-        { name: "Tailwind CSS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tailwind logo" },
-        { name: "ShadCN UI" },
-      ]
-    },
-    {
-      category: "AI & Machine Learning",
-      skills: [
-        { name: "TensorFlow", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tensorflow logo" },
-        { name: "PyTorch", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "pytorch logo" },
-        { name: "Scikit-learn", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "scikitlearn logo" },
-        { name: "Natural Language Processing (NLP)" },
-        { name: "Computer Vision (CV)" },
-        { name: "Genkit", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "genkit logo" },
-        { name: "Hugging Face Transformers", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "huggingface logo" },
-        { name: "MLOps (Kubeflow, MLflow)" },
-      ]
-    },
-    {
-      category: "Cloud & DevOps",
-      skills: [
-        { name: "AWS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "aws logo" },
-        { name: "GCP", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "gcp logo" },
-        { name: "Docker", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "docker logo" },
-        { name: "Kubernetes", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kubernetes logo" },
-        { name: "Terraform", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "terraform logo" },
-        { name: "Ansible" },
-        { name: "CI/CD (Jenkins, GitLab CI)" },
-      ]
-    },
-     {
-      category: "Databases & Data Engineering",
-      skills: [
-        { name: "PostgreSQL", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "postgresql logo" },
-        { name: "MySQL", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "mysql logo" },
-        { name: "MongoDB", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "mongodb logo" },
-        { name: "Cassandra" },
-        { name: "Apache Kafka", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kafka logo" },
-        { name: "Apache Spark", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "spark logo" },
-        { name: "Airflow" },
-        { name: "Data Warehousing (Snowflake, BigQuery)" },
-      ]
-    },
+  allSkillsWithLogos: [ // Manually populated from previous skillCategories logic
+      { name: "Python", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "python logo" },
+      { name: "Java", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "java logo" },
+      { name: "Go", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "golang logo" },
+      { name: "JavaScript", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "javascript logo" },
+      { name: "TypeScript", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "typescript logo" },
+      { name: "React", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "react logo" },
+      { name: "Next.js", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "nextjs logo" },
+      { name: "Node.js", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "nodejs logo" },
+      { name: "HTML5", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "html5 logo" },
+      { name: "CSS3", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "css3 logo" },
+      { name: "Tailwind CSS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tailwind logo" },
+      { name: "TensorFlow", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tensorflow logo" },
+      { name: "PyTorch", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "pytorch logo" },
+      { name: "Scikit-learn", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "scikitlearn logo" },
+      { name: "Genkit", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "genkit logo" },
+      { name: "Hugging Face Transformers", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "huggingface logo" },
+      { name: "AWS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "aws logo" },
+      { name: "GCP", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "gcp logo" },
+      { name: "Docker", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "docker logo" },
+      { name: "Kubernetes", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kubernetes logo" },
+      { name: "Terraform", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "terraform logo" },
+      { name: "PostgreSQL", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "postgresql logo" },
+      { name: "MySQL", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "mysql logo" },
+      { name: "MongoDB", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "mongodb logo" },
+      { name: "Apache Kafka", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kafka logo" },
+      { name: "Apache Spark", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "spark logo" },
   ],
-  allSkillsWithLogos: [], 
   experience: [
     {
       title: "Lead AI Engineer",
@@ -263,11 +231,6 @@ const placeholderData: PageData = {
     { name: "UI/UX Design", icon: Palette, borderColorClass: "border-chart-4" },
   ],
 };
-// This logic assumes skillCategories and skills within them exist. 
-// If skillCategories can be empty or skills can be undefined, add checks.
-placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(category => 
-  category.skills ? category.skills.filter(skill => skill && skill.logoUrl) : []
-);
 
 
 export default function HomePage() {
@@ -278,19 +241,19 @@ export default function HomePage() {
   const heroButtonsRef = useRef<HTMLDivElement>(null);
   const heroSocialsRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLDivElement>(null);
-  
+
   const separator1Ref = useRef<HTMLDivElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutCardRef = useRef<HTMLDivElement>(null);
   const aboutHighlightsRef = useRef<HTMLDivElement>(null);
-  
+
   const separator2Ref = useRef<HTMLDivElement>(null);
   const experienceTitleRef = useRef<HTMLHeadingElement>(null);
   const experienceTimelineRef = useRef<HTMLDivElement>(null);
-  
+
   const separator3Ref = useRef<HTMLDivElement>(null);
   const projectsTitleRef = useRef<HTMLHeadingElement>(null);
-  
+
   const separator4Ref = useRef<HTMLDivElement>(null);
   const educationTitleRef = useRef<HTMLHeadingElement>(null);
 
@@ -321,19 +284,19 @@ export default function HomePage() {
   const isHeroButtonsVisible = useIntersectionObserver(heroButtonsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroSocialsVisible = useIntersectionObserver(heroSocialsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroImageVisible = useIntersectionObserver(heroImageRef, { freezeOnceVisible: true, threshold: 0.3 });
-  
+
   const isSeparator1Visible = useIntersectionObserver(separator1Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isAboutTitleVisible = useIntersectionObserver(aboutTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isAboutCardVisible = useIntersectionObserver(aboutCardRef, { freezeOnceVisible: true, threshold: 0.2 });
   const isAboutHighlightsVisible = useIntersectionObserver(aboutHighlightsRef, { freezeOnceVisible: true, threshold: 0.1 });
-  
+
   const isSeparator2Visible = useIntersectionObserver(separator2Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isExperienceTitleVisible = useIntersectionObserver(experienceTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isExperienceTimelineVisible = useIntersectionObserver(experienceTimelineRef, { freezeOnceVisible: true, threshold: 0.05 });
-  
+
   const isSeparator3Visible = useIntersectionObserver(separator3Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isProjectsTitleVisible = useIntersectionObserver(projectsTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
-  
+
   const isSeparator4Visible = useIntersectionObserver(separator4Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isEducationTitleVisible = useIntersectionObserver(educationTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
 
@@ -345,7 +308,7 @@ export default function HomePage() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useIntersectionObserver(
       { current: experienceCardRefs.current[index] },
-      { freezeOnceVisible: true, threshold: 0.1 } 
+      { freezeOnceVisible: true, threshold: 0.1 }
     )
   );
   const experienceTextIsVisible = experience.map((_, index) =>
@@ -355,7 +318,7 @@ export default function HomePage() {
       { freezeOnceVisible: true, threshold: 0.1 }
     )
   );
-  const projectCardIsVisible = projects.map((_, index) => 
+  const projectCardIsVisible = projects.map((_, index) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useIntersectionObserver(
       { current: projectCardRefs.current[index] },
@@ -469,7 +432,7 @@ export default function HomePage() {
           "my-12 bg-border/50",
           isSeparator1Visible ? 'animate-fadeInUp' : 'opacity-0'
         )}
-        style={{ animationDelay: '0s' }} 
+        style={{ animationDelay: '0s' }}
       />
 
       {/* About Me Section */}
@@ -487,7 +450,7 @@ export default function HomePage() {
         <Card
           ref={aboutCardRef}
           className={cn(
-            "shadow-xl bg-card/80 backdrop-blur-sm",
+            "shadow-xl bg-card/80 backdrop-blur-sm max-w-3xl mx-auto", // Ensure max-width for this card
             isAboutCardVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0.1s' }}
@@ -543,7 +506,7 @@ export default function HomePage() {
         <div
           ref={experienceTimelineRef}
           className={cn(
-            "relative", 
+            "relative",
             isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0.1s' }}
@@ -552,7 +515,7 @@ export default function HomePage() {
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/70 transform -translate-x-1/2 hidden md:block"></div>
 
           {experience.map((exp, index) => {
-            const isCardLeft = index % 2 === 0; 
+            const isCardLeft = index % 2 === 0;
             return (
               <div
                 key={exp.company + '-' + index}
@@ -562,7 +525,7 @@ export default function HomePage() {
               >
                 {/* Mobile Layout: Stacked */}
                 <div className="flex md:hidden flex-col w-full items-start">
-                   <div 
+                   <div
                     className={cn("flex items-center mb-2", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                    >
@@ -578,7 +541,7 @@ export default function HomePage() {
                     )}
                      <div className="h-1 w-10 bg-foreground/50 rounded-full mr-3"></div> {/* Small line to card */}
                   </div>
-                  <Card 
+                  <Card
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
@@ -606,11 +569,11 @@ export default function HomePage() {
                     </CardContent>
                   </Card>
                   {exp.timelineNote && (
-                    <div 
+                    <div
                        ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                         experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
+                         experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
                       )}
                       style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
@@ -644,7 +607,7 @@ export default function HomePage() {
                       </CardContent>
                     </Card>
                   ) : (
-                    <div 
+                    <div
                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "w-full max-w-md text-right text-muted-foreground italic pr-8",
@@ -661,9 +624,9 @@ export default function HomePage() {
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
                   {exp.companyLogoUrl && (
                      <div className={cn(
-                        "h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center", 
-                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0' 
-                       )} 
+                        "h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center",
+                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
+                       )}
                        style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
                         <Image
                             src={exp.companyLogoUrl}
@@ -676,7 +639,7 @@ export default function HomePage() {
                      </div>
                   )}
                 </div>
-                
+
                 <div className="hidden md:flex w-1/2 items-center justify-start">
                   {!isCardLeft ? (
                      <Card
@@ -701,7 +664,7 @@ export default function HomePage() {
                       </CardContent>
                     </Card>
                   ) : (
-                     <div 
+                     <div
                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "w-full max-w-md text-left text-muted-foreground italic ml-8",
@@ -759,8 +722,8 @@ export default function HomePage() {
                 <Image
                   src={project.imageUrl}
                   alt={project.title}
-                  fill 
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   data-ai-hint={project.dataAiHint}
                 />
@@ -841,7 +804,7 @@ export default function HomePage() {
               }}
               className={cn(
                 "flex flex-col bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-xl hover:shadow-primary/25 transition-shadow duration-300",
-                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0' // Changed to animate-fadeIn
+                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0'
               )}
               style={{ animationDelay: `${0.1 + index * 0.15}s` }}
             >
@@ -850,7 +813,7 @@ export default function HomePage() {
                   <Image
                     src={edu.institutionLogoUrl}
                     alt={`${edu.institution} logo`}
-                    width={56} 
+                    width={56}
                     height={56}
                     className="rounded-lg object-contain bg-muted/30 p-1 shadow-sm border border-border/50 mt-1"
                     data-ai-hint={edu.institutionLogoDataAiHint || "university logo"}
