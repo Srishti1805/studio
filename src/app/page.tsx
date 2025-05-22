@@ -1,10 +1,10 @@
 
 "use client";
 
-import { useRef, useEffect, useState } from 'react'; // useEffect and useState might not be directly needed here if hook handles all
-import fs from 'fs'; // This will cause an error in client component if not handled
-import path from 'path'; // This will cause an error in client component if not handled
-import matter from 'gray-matter'; // This will cause an error in client component if not handled
+import { useRef, useEffect, useState } from 'react'; 
+// import fs from 'fs'; // This will cause an error in client component if not handled
+// import path from 'path'; // This will cause an error in client component if not handled
+// import matter from 'gray-matter'; // This will cause an error in client component if not handled
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -15,15 +15,6 @@ import { Github, Linkedin, Mail, FileDown } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 
-// Data fetching needs to be handled differently for client components.
-// Option 1: Fetch in a Server Component and pass data as props.
-// Option 2: Fetch data client-side in a useEffect hook (not recommended for initial static content).
-// Option 3: Keep this page as server component and make animated sections client components. (More complex refactor)
-
-// For now, to make it work with "use client", we'd need to move getResumeData
-// or mock the data. Let's assume for this prototype that the data is passed or pre-loaded.
-// The fs, path, matter imports will break.
-// THIS IS A TEMPORARY WORKAROUND FOR THE BUILD. PROPER DATA FETCHING STRATEGY IS NEEDED.
 interface ResumeFrontmatter {
   name?: string;
   title?: string;
@@ -54,23 +45,54 @@ interface PageData {
 }
 
 // Placeholder data, as fs operations won't work in "use client" directly
+// This data is now updated to reflect the new resume.md content
 const placeholderData: PageData = {
   frontmatter: {
-    name: "Jane Doe",
-    title: "Full Stack Developer | AI Enthusiast",
-    tagline: "Crafting Digital Experiences with Code & Creativity",
+    name: "Jane R. Doe",
+    title: "Senior Software Engineer & AI Solutions Architect",
+    tagline: "Building Innovative Solutions with a Passion for AI",
     profileImage: "https://placehold.co/300x300.png",
-    dataAiHint: "profile photo",
-    email: "jane.doe@example.com",
-    linkedin: "linkedin.com/in/janedoe",
-    github: "github.com/janedoe",
-    cvUrl: "/jane-doe-resume.pdf",
+    dataAiHint: "professional portrait",
+    email: "jane.r.doe@example.com",
+    linkedin: "linkedin.com/in/janerdoe",
+    github: "github.com/janerdoe",
+    cvUrl: "/jane-r-doe-resume.pdf",
   },
-  summary: "A highly motivated and creative Full Stack Developer with 5+ years of experience... My goal is to create software that is not only functional but also intuitive and enjoyable to use.",
+  summary: "A results-oriented Senior Software Engineer with 7+ years of expertise in developing and architecting robust, scalable software solutions. Adept at leading cross-functional teams and leveraging AI/ML technologies to solve complex business problems. Proven track record of delivering high-impact projects from conception to deployment. Eager to apply advanced technical skills to drive innovation and user-centric product development.",
   skillCategories: [
-    { category: "Programming Languages", skills: [{ name: "JavaScript (ES6+)" }, { name: "TypeScript" }] },
-    { category: "Frameworks & Libraries", skills: [{ name: "React, Next.js" }, { name: "Node.js" }] },
-    { category: "Databases", skills: [{ name: "MongoDB" }, { name: "PostgreSQL" }] },
+    { 
+      category: "Core Technologies", 
+      skills: [
+        { name: "Python (Django, Flask), Java (Spring Boot), Go" }, 
+        { name: "JavaScript/TypeScript (React, Next.js, Node.js)" },
+        { name: "HTML5, CSS3, Tailwind CSS, ShadCN UI" }
+      ] 
+    },
+    { 
+      category: "AI & Machine Learning", 
+      skills: [
+        { name: "TensorFlow, PyTorch, Scikit-learn" }, 
+        { name: "Natural Language Processing (NLP), Computer Vision (CV)" },
+        { name: "Genkit, LangChain, Hugging Face Transformers" },
+        { name: "MLOps (Kubeflow, MLflow)" }
+      ] 
+    },
+    { 
+      category: "Cloud & DevOps", 
+      skills: [
+        { name: "AWS (EC2, S3, Lambda, SageMaker), GCP (Vertex AI, GKE)" },
+        { name: "Docker, Kubernetes, Terraform, Ansible" },
+        { name: "CI/CD (Jenkins, GitLab CI)" }
+      ]
+    },
+     { 
+      category: "Databases & Data Engineering", 
+      skills: [
+        { name: "PostgreSQL, MySQL, MongoDB, Cassandra" },
+        { name: "Apache Kafka, Spark, Airflow" },
+        { name: "Data Warehousing (Snowflake, BigQuery)" }
+      ]
+    },
   ],
 };
 

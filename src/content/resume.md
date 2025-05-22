@@ -1,77 +1,72 @@
 ---
-name: "Jane Doe"
-title: "Full Stack Developer | AI Enthusiast"
-tagline: "Crafting Digital Experiences with Code & Creativity"
+name: "Jane R. Doe"
+title: "Senior Software Engineer & AI Solutions Architect"
+tagline: "Building Innovative Solutions with a Passion for AI"
 profileImage: "https://placehold.co/300x300.png"
-dataAiHint: "profile photo"
-email: "jane.doe@example.com"
-linkedin: "linkedin.com/in/janedoe"
-github: "github.com/janedoe"
-cvUrl: "/jane-doe-resume.pdf" 
+dataAiHint: "professional portrait"
+email: "jane.r.doe@example.com"
+linkedin: "linkedin.com/in/janerdoe"
+github: "github.com/janerdoe"
+cvUrl: "/jane-r-doe-resume.pdf" 
 ---
 
-# Jane Doe
-**Full Stack Developer | AI Enthusiast**
+# Jane R. Doe
+**Senior Software Engineer & AI Solutions Architect**
 
 ## Summary
-A highly motivated and creative Full Stack Developer with 5+ years of experience in designing, developing, and deploying web applications. Passionate about leveraging cutting-edge technologies, including AI, to build innovative solutions. Proven ability to work effectively in fast-paced environments and collaborate with cross-functional teams. My goal is to create software that is not only functional but also intuitive and enjoyable to use.
+A results-oriented Senior Software Engineer with 7+ years of expertise in developing and architecting robust, scalable software solutions. Adept at leading cross-functional teams and leveraging AI/ML technologies to solve complex business problems. Proven track record of delivering high-impact projects from conception to deployment. Eager to apply advanced technical skills to drive innovation and user-centric product development.
 
 ## Skills
 
-### Programming Languages
-- JavaScript (ES6+)
-- TypeScript
-- Python
-- Java
-- HTML5 & CSS3
-
-### Frameworks & Libraries
-- React, Next.js, Vue.js
-- Node.js, Express.js
-- Spring Boot
-- Tailwind CSS, ShadCN UI
-
-### Databases
-- MongoDB
-- PostgreSQL
-- MySQL
-- Redis
-
-### Tools & Platforms
-- Git, GitHub, GitLab
-- Docker, Kubernetes
-- AWS (EC2, S3, Lambda, RDS)
-- Genkit, Firebase
-- Figma, Adobe XD
+### Core Technologies
+- Python (Django, Flask), Java (Spring Boot), Go
+- JavaScript/TypeScript (React, Next.js, Node.js)
+- HTML5, CSS3, Tailwind CSS, ShadCN UI
 
 ### AI & Machine Learning
-- Basic understanding of TensorFlow, PyTorch
-- Natural Language Processing (NLP) concepts
-- API integration with AI services (e.g., OpenAI, Gemini)
+- TensorFlow, PyTorch, Scikit-learn
+- Natural Language Processing (NLP), Computer Vision (CV)
+- Genkit, LangChain, Hugging Face Transformers
+- MLOps (Kubeflow, MLflow)
+
+### Cloud & DevOps
+- AWS (EC2, S3, Lambda, SageMaker), GCP (Vertex AI, GKE)
+- Docker, Kubernetes, Terraform, Ansible
+- CI/CD (Jenkins, GitLab CI)
+
+### Databases & Data Engineering
+- PostgreSQL, MySQL, MongoDB, Cassandra
+- Apache Kafka, Spark, Airflow
+- Data Warehousing (Snowflake, BigQuery)
 
 ## Experience
 
-### Senior Software Engineer | Innovatech Solutions | 2021 - Present
-- Led the development of a new AI-powered customer service platform, improving response times by 30%.
-- Designed and implemented scalable microservices architecture using Node.js and Docker.
-- Mentored junior developers and conducted code reviews to ensure high-quality standards.
-- Collaborated with product managers and designers to define project requirements and deliverables.
+### Lead AI Engineer | QuantumLeap AI | 2020 - Present
+- Spearheaded the design and development of a cutting-edge predictive analytics platform using Python, TensorFlow, and Kubeflow, resulting in a 25% increase in operational efficiency for clients.
+- Led a team of 5 AI engineers, fostering a collaborative and high-performance culture.
+- Architected and deployed scalable AI models on AWS SageMaker, handling terabytes of data.
+- Published 2 papers on novel machine learning techniques at industry conferences.
 
-### Full Stack Developer | Web Wizards Inc. | 2018 - 2021
-- Developed and maintained responsive web applications for various clients using React and Next.js.
-- Integrated third-party APIs for payment gateways, social media, and analytics.
-- Participated in Agile development cycles, including sprint planning and daily stand-ups.
-- Optimized application performance, achieving a 20% reduction in load times.
+### Senior Software Developer | Tech Solutions Global | 2017 - 2020
+- Developed and maintained critical backend services for a large-scale e-commerce platform using Java (Spring Boot) and microservices architecture.
+- Implemented CI/CD pipelines, reducing deployment times by 40%.
+- Contributed to the front-end development using React and Redux.
+
+### Software Engineer | Alpha Innovations | 2015 - 2017
+- Worked on developing new features for a SaaS product using Python (Django) and PostgreSQL.
+- Participated in full software development lifecycle, from requirements gathering to testing and deployment.
 
 ## Education
 
-### M.S. in Artificial Intelligence | Stanford University | 2020 - 2022 (Part-time)
-- Relevant coursework: Machine Learning, Deep Learning, Natural Language Processing.
+### Master of Science in Artificial Intelligence | Carnegie Mellon University | 2013 - 2015
+- Thesis: "Advancements in Neural Network Architectures for Time Series Forecasting"
+- Specialization: Machine Learning and Large Scale Systems
 
-### B.S. in Computer Science | University of California, Berkeley | 2014 - 2018
-- Graduated with Honors.
-- Senior Project: "Intelligent Tutoring System using NLP"
+### Bachelor of Science in Computer Engineering | Georgia Institute of Technology | 2009 - 2013
+- Graduated Summa Cum Laude
+- Capstone Project: "Autonomous Robotic Navigation System"
 
 ## Certifications
-- AWS Certified Solutions Architect – Associate
-- Certified Kubernetes Application Developer (CKAD)
+- Google Certified Professional - Machine Learning Engineer
+- AWS Certified Solutions Architect – Professional
+- Certified Kubernetes Administrator (CKA)

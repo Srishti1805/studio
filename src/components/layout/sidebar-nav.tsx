@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -8,13 +9,13 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
-import { Home, Briefcase, FileText, Mail, Sparkles } from 'lucide-react';
+import { Home, Briefcase, FileText, Mail } from 'lucide-react'; // Removed Sparkles
 
 const navItems = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/overview', label: 'Resume', icon: FileText },
   { href: '/portfolio', label: 'Projects', icon: Briefcase },
-  { href: '/cover-letter', label: 'AI Tools', icon: Sparkles },
+  // { href: '/cover-letter', label: 'AI Tools', icon: Sparkles }, // Removed AI Tools
   { href: '/contact', label: 'Contact', icon: Mail },
 ];
 
