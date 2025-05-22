@@ -49,6 +49,13 @@ A results-oriented Software Engineer with 7+ years of expertise in developing an
 - Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.
 - Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.
 
+### Teaching Assistant (TA) | Seattle University | Mar 2024 – Jun 2024 | Seattle, WA
+- Assisted students with core C++ programming concepts, including data structures, algorithms, and debugging techniques.
+- Guided students through programming assignments, provided one-on-one support, and conducted review sessions to strengthen problem-solving skills.
+- Created supplementary learning materials and contributed to assignment grading and feedback.
+- Supported students in configuring and managing AWS EC2 instances, teaching cloud infrastructure best practices.
+- Facilitated lab sessions involving Docker and AWS, helping students complete hands-on projects in big data environments.
+
 ### Software Engineer Intern | St. Francis House | 06/2024 – 09/2024 | Seattle, WA, USA
 - Developed data pipelines for automated data ingestion and preprocessing, leveraging Python and SQL to manage large-scale datasets on AWS and GCP.
 - Designed SQL queries for sub-second latency and integrated them into REST APIs to support high-traffic production environments.

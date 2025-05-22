@@ -139,6 +139,21 @@ const placeholderData: PageData = {
       timelineNote: "Claims Fraud Detection System",
     },
     {
+      title: "Teaching Assistant (TA)",
+      company: "Seattle University",
+      dates: "Mar 2024 – Jun 2024 | Seattle, WA",
+      responsibilities: [
+        "Assisted students with core C++ programming concepts, including data structures, algorithms, and debugging techniques.",
+        "Guided students through programming assignments, provided one-on-one support, and conducted review sessions to strengthen problem-solving skills.",
+        "Created supplementary learning materials and contributed to assignment grading and feedback.",
+        "Supported students in configuring and managing AWS EC2 instances, teaching cloud infrastructure best practices.",
+        "Facilitated lab sessions involving Docker and AWS, helping students complete hands-on projects in big data environments."
+      ],
+      companyLogoUrl: "https://placehold.co/40x40.png", 
+      companyLogoDataAiHint: "university logo seattle", 
+      timelineNote: "Guided students in C++ & Big Data Analytics.", 
+    },
+    {
       title: "Software Engineer Intern",
       company: "St. Francis House",
       dates: "06/2024 – 09/2024 | Seattle, WA, USA",
@@ -247,7 +262,6 @@ export default function HomePage() {
   const { frontmatter, summary, experience, projects, education, allSkillsWithLogos, aboutMeHighlights } = placeholderData;
 
   const heroNameRef = useRef<HTMLHeadingElement>(null);
-  // const heroTaglineRef = useRef<HTMLParagraphElement>(null); // Tagline removed
   const heroSocialsRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLDivElement>(null);
   const heroBannerImageRef = useRef<HTMLDivElement>(null);
@@ -290,7 +304,6 @@ export default function HomePage() {
 
 
   const isHeroNameVisible = useIntersectionObserver(heroNameRef, { freezeOnceVisible: true, threshold: 0.3 });
-  // const isHeroTaglineVisible = useIntersectionObserver(heroTaglineRef, { freezeOnceVisible: true, threshold: 0.3 }); // Tagline removed
   const isHeroSocialsVisible = useIntersectionObserver(heroSocialsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroImageVisible = useIntersectionObserver(heroImageRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroBannerImageVisible = useIntersectionObserver(heroBannerImageRef, { freezeOnceVisible: true, threshold: 0.1 });
@@ -360,10 +373,9 @@ export default function HomePage() {
           </h1>
           {(frontmatter.title) && (
              <p
-              // ref={heroTaglineRef} // Tagline removed
               className={cn(
                 "text-xl sm:text-2xl text-muted-foreground",
-                isHeroNameVisible ? 'animate-fadeInUp' : 'opacity-0' // Tied to name visibility now or could be separate
+                isHeroNameVisible ? 'animate-fadeInUp' : 'opacity-0'
               )}
               style={{ animationDelay: '0.1s' }}
             >
@@ -555,7 +567,7 @@ export default function HomePage() {
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50" ,
-                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Changed from specific side animation to fadeInUp for mobile
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
