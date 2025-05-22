@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
 interface ResumeFrontmatter {
   name?: string;
   title?: string;
-  profileImage?: string; // Should be like "/profile.png" if image is in public/profile.png
+  profileImage?: string;
   dataAiHint?: string;
   email?: string;
   linkedin?: string;
@@ -27,7 +27,7 @@ interface ResumeFrontmatter {
 
 interface Skill {
   name: string;
-  logoUrl?: string; // Should be like "/logos/python.png" if image is in public/logos/python.png
+  logoUrl?: string;
   dataAiHint?: string;
 }
 
@@ -36,7 +36,7 @@ interface ExperienceItem {
   company: string;
   dates: string;
   responsibilities: string[];
-  companyLogoUrl?: string; // Should be like "/logos/company-logo.png"
+  companyLogoUrl?: string;
   companyLogoDataAiHint?: string;
   timelineNote?: string;
 }
@@ -45,7 +45,7 @@ interface ProjectItem {
   id: string;
   title: string;
   description: string;
-  imageUrl: string; // If local, like "/projects/project1.png" for public/projects/project1.png
+  imageUrl: string;
   dataAiHint?: string;
   tags: string[];
   githubUrl?: string;
@@ -57,7 +57,7 @@ interface EducationItem {
   institution: string;
   dates: string;
   details?: string[];
-  institutionLogoUrl?: string; // Should be like "/logos/university.png"
+  institutionLogoUrl?: string;
   institutionLogoDataAiHint?: string;
 }
 
@@ -83,7 +83,7 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Software Engineer & AI Solutions Architect",
-    profileImage: "/profile-srishti.jpg", // Example: Assumes public/profile-srishti.jpg
+    profileImage: "/profile-srishti.jpg", // User needs to place 'profile-srishti.jpg' in 'public/'
     dataAiHint: "professional portrait",
     email: "srishtisadanandadkar@example.com",
     linkedin: "linkedin.com/in/srishtiadkar",
@@ -104,11 +104,11 @@ const placeholderData: PageData = {
         "Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.",
         "Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.",
       ],
-      companyLogoUrl: "/logos/hsbc-logo.png", // Assumes public/logos/hsbc-logo.png
+      companyLogoUrl: "/logos/hsbc-logo.png", // User needs to place 'hsbc-logo.png' in 'public/logos/'
       companyLogoDataAiHint: "HSBC logo",
       timelineNote: "Claims Fraud Detection System",
     },
-     {
+    {
       title: "Teaching Assistant (TA)",
       company: "Seattle University, Seattle, WA",
       dates: "Courses: Programming and Problem Solving in C++ (Mar 2024 – Jun 2024), Big Data Analytics",
@@ -119,7 +119,7 @@ const placeholderData: PageData = {
         "Supported students in configuring and managing AWS EC2 instances, teaching cloud infrastructure best practices.",
         "Facilitated lab sessions involving Docker and AWS, helping students complete hands-on projects in big data environments."
       ],
-      companyLogoUrl: "/logos/seattle-uni-logo.png", // Example: Assumes public/logos/seattle-uni-logo.png
+      companyLogoUrl: "/logos/seattle-uni-logo.png", // User needs to place 'seattle-uni-logo.png' in 'public/logos/'
       companyLogoDataAiHint: "university logo seattle",
       timelineNote: "Guided students in C++ & Big Data Analytics.",
     },
@@ -133,7 +133,7 @@ const placeholderData: PageData = {
         "Automated data migration between AWS and GCP, ensuring zero data loss by applying data wrangling best practices.",
         "Implemented a machine learning model (e.g., Random Forest or XGBoost) for predictive analytics, optimizing data workflows and improving data processing efficiency.",
       ],
-      companyLogoUrl: "/logos/st-francis-logo.png", // Example: Assumes public/logos/st-francis-logo.png
+      companyLogoUrl: "/logos/st-francis-logo.png", // User needs to place 'st-francis-logo.png' in 'public/logos/'
       companyLogoDataAiHint: "st francis house logo",
       timelineNote: "Data pipeline development & ML model implementation.",
     },
@@ -150,7 +150,7 @@ const placeholderData: PageData = {
         "Deployed the optimized audio analysis models to production using Azure Machine Learning Service, collaborating closely with the DevOps team to automate deployment pipelines and ensure seamless integration with existing systems.",
         "Created an interactive dashboard to visualize and analyze audio features and predictions, providing stakeholders with actionable insights and facilitating data-driven decision-making in audio-based applications.",
       ],
-      companyLogoUrl: "/logos/atomic-loops-logo.png", // Example: Assumes public/logos/atomic-loops-logo.png
+      companyLogoUrl: "/logos/atomic-loops-logo.png", // User needs to place 'atomic-loops-logo.png' in 'public/logos/'
       companyLogoDataAiHint: "atomic loops logo",
       timelineNote: "Audio Analysis PoC & ML Model Deployment.",
     },
@@ -160,7 +160,7 @@ const placeholderData: PageData = {
       id: '1',
       title: 'RetinaFace – A Face Detection Tool',
       description: 'Developed an advanced face detection system using the RetinaFace architecture, leveraging deep learning techniques to achieve high accuracy and real-time performance. Implemented the model using Python and PyTorch, with support for multi-scale detection and facial landmark localization. Integrated pre-trained models and optimized inference pipelines for efficient deployment in various computer vision applications.',
-      imageUrl: 'https://placehold.co/600x400.png', // Keep as placeholder or change to /projects/retinaface.jpg
+      imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'face detection',
       tags: ['Computer Vision', 'Deep Learning', 'PyTorch', 'Python', 'Face Detection'],
       githubUrl: '#',
@@ -170,7 +170,7 @@ const placeholderData: PageData = {
       id: '2',
       title: "SUMAZON – Seattle University's Campus Store Website",
       description: "Developed a full-stack e-commerce web application for Seattle University's campus store, designed to streamline product browsing, purchasing, and inventory management. Utilized a three-tier architecture with React for the frontend, Django for the backend, and PL/SQL for the database layer, ensuring seamless user interaction and robust data handling.",
-      imageUrl: 'https://placehold.co/600x400.png', // Keep as placeholder or change to /projects/sumazon.jpg
+      imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'ecommerce website',
       tags: ['React', 'Django', 'PL/SQL', 'Full Stack', 'E-commerce'],
     },
@@ -178,7 +178,7 @@ const placeholderData: PageData = {
       id: '3',
       title: 'Diamond Data Analysis and Modeling',
       description: 'Conducted a comprehensive machine learning project to analyze and predict diamond prices, classify diamond types, and group similar diamonds. Implemented regression, clustering, and classification techniques using models like Linear Regression, Random Forest, Decision Trees, and K-Means. Preprocessed a dataset of 6,400+ entries by handling missing values, encoding categorical features, and performing exploratory data analysis. Integrated the final models into a Flask application for interactive use and achieved up to 93% accuracy in diamond type classification.',
-      imageUrl: 'https://placehold.co/600x400.png', // Keep as placeholder or change to /projects/diamond.jpg
+      imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'data analysis diamond',
       tags: ['Machine Learning', 'Data Analysis', 'Python', 'Flask', 'Regression', 'Classification', 'Clustering'],
       githubUrl: '#',
@@ -188,7 +188,7 @@ const placeholderData: PageData = {
       id: '4',
       title: 'Retrieval-Augmented Generation (RAG) System for Document-Based QA',
       description: "Built a Retrieval-Augmented Generation (RAG) system to enable context-aware question answering over custom PDF and text documents. Leveraged LangChain for document loading, text splitting, and embedding using OpenAI Embeddings. Stored vector representations in ChromaDB and implemented semantic search to retrieve relevant context based on user queries. Integrated the pipeline with OpenAI's GPT model to generate accurate, grounded responses. The system supports efficient retrieval, scalable storage, and intelligent response generation, showcasing practical applications of RAG in enterprise search and knowledge management.",
-      imageUrl: 'https://placehold.co/600x400.png', // Keep as placeholder or change to /projects/rag.jpg
+      imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'rag system document',
       tags: ['RAG', 'LangChain', 'OpenAI', 'ChromaDB', 'NLP', 'GenAI'],
       githubUrl: '#',
@@ -201,7 +201,7 @@ const placeholderData: PageData = {
       institution: "Seattle University – Seattle, WA",
       dates: "09/2023 – 06/2025",
       details: [],
-      institutionLogoUrl: "/logos/seattle-uni-logo.png", // Example: Assumes public/logos/seattle-uni-logo.png
+      institutionLogoUrl: "/logos/seattle-uni-logo.png", // User needs 'seattle-uni-logo.png' in 'public/logos/'
       institutionLogoDataAiHint: "university logo seattle"
     },
     {
@@ -209,11 +209,11 @@ const placeholderData: PageData = {
       institution: "Pune University – Pune, India",
       dates: "08/2018 – 07/2022",
       details: [],
-      institutionLogoUrl: "/logos/pune-uni-logo.png", // Example: Assumes public/logos/pune-uni-logo.png
+      institutionLogoUrl: "/logos/pune-uni-logo.png", // User needs 'pune-uni-logo.png' in 'public/logos/'
       institutionLogoDataAiHint: "university logo pune"
     }
   ],
-  allSkillsWithLogos: [ // Ensure these paths are correct if you use local logos
+  allSkillsWithLogos: [
       { name: "Python", logoUrl: "/logos/python.png", dataAiHint: "python logo" },
       { name: "Java", logoUrl: "/logos/java.png", dataAiHint: "java logo" },
       { name: "Go", logoUrl: "/logos/go.png", dataAiHint: "golang logo" },
@@ -408,7 +408,7 @@ export default function HomePage() {
           )}
           style={{ animationDelay: '0.4s' }}
         >
-          {frontmatter.profileImage && ( // Ensure this path starts with '/' if from public folder
+          {frontmatter.profileImage && (
             <Image
               src={frontmatter.profileImage}
               alt={frontmatter.name || 'Profile'}
@@ -432,7 +432,7 @@ export default function HomePage() {
         style={{ animationDelay: '0.1s' }}
       >
         <Image
-          src="/logos/background.png" // Assumes public/logos/background.png
+          src="/logos/background.png" // User needs to place 'background.png' in 'public/logos/'
           alt="Abstract technology banner"
           fill
           className="object-cover"
@@ -523,7 +523,7 @@ export default function HomePage() {
           ref={experienceTimelineRef}
           className={cn(
             "relative",
-            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0'
+            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0' // Parent container animates first
           )}
           style={{ animationDelay: '0.1s' }}
         >
@@ -544,7 +544,7 @@ export default function HomePage() {
                      (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0')}
                       style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
                    <div className="flex items-center mb-2 w-full">
-                    {exp.companyLogoUrl && ( // Ensure path starts with '/'
+                    {exp.companyLogoUrl && (
                       <Image
                         src={exp.companyLogoUrl}
                         alt={`${exp.company} logo`}
@@ -585,7 +585,7 @@ export default function HomePage() {
                   </Card>
                   {exp.timelineNote && (
                     <div
-                       ref={el => { if (experienceTextRefs.current && experienceTextRefs.current[index] === null && !isCardLeft) { experienceTextRefs.current[index] = el;} else if (experienceTextRefs.current && experienceTextRefs.current[index] === null && isCardLeft) { experienceTextRefs.current[index] = el;}}}
+                       ref={el => { if (experienceTextRefs.current && experienceTextRefs.current[index] === null ) { experienceTextRefs.current[index] = el;}}}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
                         (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
@@ -637,7 +637,7 @@ export default function HomePage() {
 
                 {/* Desktop: Timeline Marker with Logo */}
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
-                  {exp.companyLogoUrl && ( // Ensure path starts with '/'
+                  {exp.companyLogoUrl && (
                      <div className={cn(
                         "h-14 w-14 rounded-full bg-card border-2 border-primary shadow-md flex items-center justify-center",
                         (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
@@ -734,7 +734,7 @@ export default function HomePage() {
               style={{ animationDelay: `${0.1 + index * 0.1}s` }}
             >
               <div className="relative w-full h-52 group">
-                <Image // Ensure path starts with '/' if from public folder
+                <Image
                   src={project.imageUrl}
                   alt={project.title}
                   fill
@@ -819,12 +819,12 @@ export default function HomePage() {
               }}
               className={cn(
                 "flex flex-col bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-xl hover:shadow-primary/25 transition-shadow duration-300",
-                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0' // Changed animation here
+                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0'
               )}
               style={{ animationDelay: `${0.1 + index * 0.15}s` }}
             >
               <CardHeader className="flex flex-row items-start gap-4">
-                {edu.institutionLogoUrl && ( // Ensure path starts with '/'
+                {edu.institutionLogoUrl && (
                   <Image
                     src={edu.institutionLogoUrl}
                     alt={`${edu.institution} logo`}
@@ -890,14 +890,14 @@ export default function HomePage() {
           style={{ animationDelay: '0.1s' }}
         >
           {allSkillsWithLogos.map((skill) => (
-            skill.logoUrl && ( // Ensure path starts with '/'
+            skill.logoUrl && (
               <div
                 key={skill.name}
                 title={skill.name}
                 className="group p-2 transition-transform duration-300 ease-in-out hover:scale-110"
               >
                 <Image
-                  src={skill.logoUrl}
+                  src={skill.logoUrl} // User needs to place these skill logos in 'public/logos/'
                   alt={`${skill.name} logo`}
                   width={60}
                   height={60}
