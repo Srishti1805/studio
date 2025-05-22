@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useRef, useEffect, useState } from 'react'; 
+import { useRef, useEffect, useState } from 'react';
 // import fs from 'fs'; // This will cause an error in client component if not handled
 // import path from 'path'; // This will cause an error in client component if not handled
 // import matter from 'gray-matter'; // This will cause an error in client component if not handled
@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, FileDown } from 'lucide-react';
+import { Github, Linkedin, Mail, FileDown, Check } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 
@@ -30,7 +30,8 @@ interface ResumeFrontmatter {
 
 interface Skill {
   name: string;
-  icon?: React.ComponentType<{ className?: string }>;
+  logoUrl?: string; // URL for the logo image
+  dataAiHint?: string; // Hint for placeholder logo image
 }
 
 interface SkillCategory {
@@ -42,6 +43,7 @@ interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
   skillCategories: SkillCategory[];
+  allSkillsWithLogos: Skill[]; // For the new logos section
 }
 
 // Placeholder data, as fs operations won't work in "use client" directly
@@ -63,38 +65,62 @@ const placeholderData: PageData = {
     { 
       category: "Core Technologies", 
       skills: [
-        { name: "Python (Django, Flask), Java (Spring Boot), Go" }, 
-        { name: "JavaScript/TypeScript (React, Next.js, Node.js)" },
-        { name: "HTML5, CSS3, Tailwind CSS, ShadCN UI" }
+        { name: "Python", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "python logo" }, 
+        { name: "Java", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "java logo" }, 
+        { name: "Go", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "golang logo" },
+        { name: "JavaScript", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "javascript logo" },
+        { name: "TypeScript", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "typescript logo" },
+        { name: "React", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "react logo" },
+        { name: "Next.js", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "nextjs logo" },
+        { name: "Node.js", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "nodejs logo" },
+        { name: "HTML5", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "html5 logo" },
+        { name: "CSS3", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "css3 logo" },
+        { name: "Tailwind CSS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tailwind logo" },
+        { name: "ShadCN UI" }, // No specific logo, conceptual
       ] 
     },
     { 
       category: "AI & Machine Learning", 
       skills: [
-        { name: "TensorFlow, PyTorch, Scikit-learn" }, 
-        { name: "Natural Language Processing (NLP), Computer Vision (CV)" },
-        { name: "Genkit, LangChain, Hugging Face Transformers" },
-        { name: "MLOps (Kubeflow, MLflow)" }
+        { name: "TensorFlow", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tensorflow logo" }, 
+        { name: "PyTorch", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "pytorch logo" },
+        { name: "Scikit-learn", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "scikitlearn logo" },
+        { name: "Natural Language Processing (NLP)" },
+        { name: "Computer Vision (CV)" },
+        { name: "Genkit", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "genkit logo" }, // Assuming Genkit might have a logo
+        { name: "Hugging Face Transformers", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "huggingface logo" },
+        { name: "MLOps (Kubeflow, MLflow)" }, // Conceptual
       ] 
     },
     { 
       category: "Cloud & DevOps", 
       skills: [
-        { name: "AWS (EC2, S3, Lambda, SageMaker), GCP (Vertex AI, GKE)" },
-        { name: "Docker, Kubernetes, Terraform, Ansible" },
-        { name: "CI/CD (Jenkins, GitLab CI)" }
+        { name: "AWS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "aws logo" },
+        { name: "GCP", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "gcp logo" },
+        { name: "Docker", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "docker logo" },
+        { name: "Kubernetes", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kubernetes logo" },
+        { name: "Terraform", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "terraform logo" },
+        { name: "Ansible" },
+        { name: "CI/CD (Jenkins, GitLab CI)" }, // Conceptual
       ]
     },
      { 
       category: "Databases & Data Engineering", 
       skills: [
-        { name: "PostgreSQL, MySQL, MongoDB, Cassandra" },
-        { name: "Apache Kafka, Spark, Airflow" },
-        { name: "Data Warehousing (Snowflake, BigQuery)" }
+        { name: "PostgreSQL", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "postgresql logo" },
+        { name: "MySQL", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "mysql logo" },
+        { name: "MongoDB", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "mongodb logo" },
+        { name: "Cassandra" },
+        { name: "Apache Kafka", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kafka logo" },
+        { name: "Apache Spark", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "spark logo" },
+        { name: "Airflow" },
+        { name: "Data Warehousing (Snowflake, BigQuery)" }, // Conceptual
       ]
     },
   ],
+  allSkillsWithLogos: [], // Will be populated in the component
 };
+placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(category => category.skills.filter(skill => skill.logoUrl));
 
 
 // This async function CANNOT be directly used in a client component's main body.
@@ -108,7 +134,7 @@ export default function HomePage() {
   // const { frontmatter, summary, skillCategories } = await getResumeData(); // This await is not allowed in client component.
   // We need to fetch data differently or pass it as props.
   // Using placeholder data directly for now to demonstrate animations.
-  const { frontmatter, summary, skillCategories } = placeholderData;
+  const { frontmatter, summary, skillCategories, allSkillsWithLogos } = placeholderData;
 
 
   const heroNameRef = useRef<HTMLHeadingElement>(null);
@@ -121,6 +147,9 @@ export default function HomePage() {
   const aboutCardRef = useRef<HTMLDivElement>(null);
   const separator2Ref = useRef<HTMLDivElement>(null);
   const skillsTitleRef = useRef<HTMLHeadingElement>(null);
+  const separator3Ref = useRef<HTMLDivElement>(null);
+  const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
+  const technologiesLogosRef = useRef<HTMLDivElement>(null);
   
   // Individual refs for skill cards
   const skillCardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -139,6 +168,10 @@ export default function HomePage() {
   const isAboutCardVisible = useIntersectionObserver(aboutCardRef, { freezeOnceVisible: true, threshold: 0.2 });
   const isSeparator2Visible = useIntersectionObserver(separator2Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isSkillsTitleVisible = useIntersectionObserver(skillsTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
+  const isSeparator3Visible = useIntersectionObserver(separator3Ref, { freezeOnceVisible: true, threshold: 0.1 });
+  const isTechnologiesTitleVisible = useIntersectionObserver(technologiesTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
+  const isTechnologiesLogosVisible = useIntersectionObserver(technologiesLogosRef, { freezeOnceVisible: true, threshold: 0.1 });
+
 
   const skillCardIsVisible = skillCategories.map((_, index) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -330,13 +363,63 @@ export default function HomePage() {
                 <ul className="space-y-2">
                   {categoryObj.skills.map((skill) => (
                     <li key={skill.name} className="flex items-center text-foreground/90">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 h-4 w-4 text-primary"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <Check className="mr-2 h-4 w-4 text-primary flex-shrink-0" />
                       {skill.name}
                     </li>
                   ))}
                 </ul>
               </CardContent>
             </Card>
+          ))}
+        </div>
+      </section>
+
+      <Separator
+        ref={separator3Ref}
+        className={cn(
+          "my-12 bg-border/50 opacity-0",
+          { 'animate-fadeInUp': isSeparator3Visible }
+        )}
+        style={{ animationDelay: '0.2s' }}
+      />
+
+      {/* Technologies Section */}
+      <section id="technologies" className="space-y-8 scroll-mt-20">
+        <h2
+          ref={technologiesTitleRef}
+          className={cn(
+            "text-3xl md:text-4xl font-bold text-center text-primary opacity-0",
+            { 'animate-fadeInUp': isTechnologiesTitleVisible }
+          )}
+          style={{ animationDelay: '0s' }}
+        >
+          Technologies I Use
+        </h2>
+        <div
+          ref={technologiesLogosRef}
+          className={cn(
+            "flex flex-wrap justify-center items-center gap-6 md:gap-8 opacity-0",
+            { 'animate-fadeInUp': isTechnologiesLogosVisible }
+          )}
+          style={{ animationDelay: '0.1s' }}
+        >
+          {allSkillsWithLogos.map((skill, index) => (
+            skill.logoUrl && (
+              <div 
+                key={skill.name} 
+                title={skill.name} 
+                className="group p-2 transition-transform duration-300 ease-in-out hover:scale-110"
+              >
+                <Image
+                  src={skill.logoUrl}
+                  alt={`${skill.name} logo`}
+                  width={60}
+                  height={60}
+                  className="rounded-full object-contain bg-card/50 p-1 shadow-md group-hover:shadow-primary/40"
+                  data-ai-hint={skill.dataAiHint || skill.name.toLowerCase()}
+                />
+              </div>
+            )
           ))}
         </div>
       </section>
