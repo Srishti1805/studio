@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, FileDown, Building, CalendarDays, ExternalLink, GraduationCap } from 'lucide-react';
+import { Github, Linkedin, Mail, FileDown, Building, CalendarDays, ExternalLink, GraduationCap, Briefcase, Lightbulb, Palette, Brain } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -71,7 +71,7 @@ interface EducationItem {
 interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
-  skillCategories: SkillCategory[]; // Kept for "Technologies I Use" section
+  skillCategories: SkillCategory[];
   allSkillsWithLogos: Skill[];
   experience: ExperienceItem[];
   projects: ProjectItem[];
@@ -149,7 +149,7 @@ const placeholderData: PageData = {
       ]
     },
   ],
-  allSkillsWithLogos: [], // Will be populated below
+  allSkillsWithLogos: [], 
   experience: [
     {
       title: "Lead AI Engineer",
@@ -254,7 +254,6 @@ const placeholderData: PageData = {
     }
   ],
 };
-// Populate allSkillsWithLogos from skillCategories
 placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(category => category.skills.filter(skill => skill.logoUrl));
 
 
@@ -270,6 +269,7 @@ export default function HomePage() {
   const separator1Ref = useRef<HTMLDivElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutCardRef = useRef<HTMLDivElement>(null);
+  const aboutHighlightsRef = useRef<HTMLDivElement>(null); // Ref for flashcards/highlights
   
   const separator2Ref = useRef<HTMLDivElement>(null);
   const experienceTitleRef = useRef<HTMLHeadingElement>(null);
@@ -281,7 +281,7 @@ export default function HomePage() {
   const separator4Ref = useRef<HTMLDivElement>(null);
   const educationTitleRef = useRef<HTMLHeadingElement>(null);
 
-  const separator5Ref = useRef<HTMLDivElement>(null); // Separator before Technologies
+  const separator5Ref = useRef<HTMLDivElement>(null);
   const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
   const technologiesLogosRef = useRef<HTMLDivElement>(null);
 
@@ -312,6 +312,7 @@ export default function HomePage() {
   const isSeparator1Visible = useIntersectionObserver(separator1Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isAboutTitleVisible = useIntersectionObserver(aboutTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isAboutCardVisible = useIntersectionObserver(aboutCardRef, { freezeOnceVisible: true, threshold: 0.2 });
+  const isAboutHighlightsVisible = useIntersectionObserver(aboutHighlightsRef, { freezeOnceVisible: true, threshold: 0.2 });
   
   const isSeparator2Visible = useIntersectionObserver(separator2Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isExperienceTitleVisible = useIntersectionObserver(experienceTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
@@ -355,6 +356,13 @@ export default function HomePage() {
       { freezeOnceVisible: true, threshold: 0.1 }
     )
   );
+
+  const aboutMeHighlights = [
+    { name: "Full Stack Development", icon: Briefcase },
+    { name: "Machine Learning", icon: Brain },
+    { name: "Data Engineering", icon: Lightbulb }, // Using Lightbulb as a placeholder, consider Database icon
+    { name: "UI/UX Design", icon: Palette },
+  ];
 
 
   return (
@@ -481,6 +489,24 @@ export default function HomePage() {
         >
           <CardContent className="pt-6 text-lg leading-relaxed text-foreground/90">
             <MarkdownRenderer content={summary} />
+             <div
+              ref={aboutHighlightsRef}
+              className={cn(
+                "mt-8 flex flex-wrap justify-center md:justify-start gap-4",
+                isAboutHighlightsVisible ? 'animate-fadeInUp' : 'opacity-0'
+              )}
+              style={{ animationDelay: '0.2s' }}
+            >
+              {aboutMeHighlights.map((highlight) => (
+                <div
+                  key={highlight.name}
+                  className="flex items-center gap-2 bg-secondary/70 text-secondary-foreground/90 px-4 py-2 rounded-lg shadow-md hover:shadow-primary/30 transition-shadow cursor-default"
+                >
+                  <highlight.icon className="h-5 w-5 text-primary" />
+                  <span className="font-medium">{highlight.name}</span>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
       </section>
@@ -514,7 +540,6 @@ export default function HomePage() {
           )}
           style={{ animationDelay: '0.1s' }}
         >
-          {/* Central Timeline Line for Desktop */}
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/70 transform -translate-x-1/2 hidden md:block"></div>
 
           {experience.map((exp, index) => {
@@ -529,7 +554,7 @@ export default function HomePage() {
                 {/* Mobile Layout */}
                 <div className="flex md:hidden flex-col w-full items-start">
                    <div 
-                    ref={el => { // Ref for the whole mobile block including logo
+                    ref={el => { 
                       if (experienceCardRefs.current) {
                         experienceCardRefs.current[index] = el;
                       }
@@ -552,7 +577,7 @@ export default function HomePage() {
                   <Card 
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
-                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Card animates with its block
+                     experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
@@ -579,12 +604,12 @@ export default function HomePage() {
                     <div 
                       ref={el => {
                         if(experienceTextRefs.current) {
-                           experienceTextRefs.current[index] = el;
+                           experienceTextRefs.current[index] = el; // Assigning ref here, but animation is tied to card
                         }
                       }}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                         experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Note animates with its block
+                         experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
                       )}
                       style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
@@ -639,10 +664,9 @@ export default function HomePage() {
                   )}
                 </div>
 
-                {/* Timeline Marker with Company Logo (Desktop) */}
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
                   {exp.companyLogoUrl && (
-                     <div className={cn("h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center", experienceCardIsVisible[index] || experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' )} style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
+                     <div className={cn("h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center", (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0' )} style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
                         <Image
                             src={exp.companyLogoUrl}
                             alt={`${exp.company} logo`}
@@ -827,7 +851,7 @@ export default function HomePage() {
               }}
               className={cn(
                 "flex flex-col bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-xl hover:shadow-primary/25 transition-shadow duration-300",
-                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0' // Changed to animate-fadeIn
+                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0'
               )}
               style={{ animationDelay: `${0.1 + index * 0.15}s` }}
             >
