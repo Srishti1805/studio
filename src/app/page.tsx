@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, Building, CalendarDays, ExternalLink, GraduationCap, Briefcase, Lightbulb, Palette, Brain, Database, Code } from 'lucide-react';
+import { Github, Linkedin, Mail, Building, CalendarDays, ExternalLink, GraduationCap, Lightbulb, Palette, Brain, Database, Code } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -202,11 +202,12 @@ const placeholderData: PageData = {
     },
     {
       id: '4',
-      title: 'Recipe Finder App',
-      description: 'A mobile-friendly app that helps users discover new recipes based on ingredients they have. Integrated with a recipe API.',
+      title: 'Retrieval-Augmented Generation (RAG) System for Document-Based QA',
+      description: "Built a Retrieval-Augmented Generation (RAG) system to enable context-aware question answering over custom PDF and text documents. Leveraged LangChain for document loading, text splitting, and embedding using OpenAI Embeddings. Stored vector representations in ChromaDB and implemented semantic search to retrieve relevant context based on user queries. Integrated the pipeline with OpenAI's GPT model to generate accurate, grounded responses. The system supports efficient retrieval, scalable storage, and intelligent response generation, showcasing practical applications of RAG in enterprise search and knowledge management.",
       imageUrl: 'https://placehold.co/600x400.png',
-      dataAiHint: 'recipe app',
-      tags: ['React Native', 'API Integration', 'Mobile App'],
+      dataAiHint: 'rag system document',
+      tags: ['RAG', 'LangChain', 'OpenAI', 'ChromaDB', 'NLP', 'GenAI'],
+      githubUrl: '#',
       liveUrl: '#',
     },
   ],
@@ -518,9 +519,9 @@ export default function HomePage() {
           ref={experienceTimelineRef}
           className={cn(
             "relative",
-            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0' // Base opacity for whole timeline
+            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
-          style={{ animationDelay: '0.1s' }} // Delay for the whole timeline itself
+          style={{ animationDelay: '0.1s' }}
         >
           {/* Desktop: Central timeline line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/70 transform -translate-x-1/2 hidden md:block"></div>
@@ -554,8 +555,10 @@ export default function HomePage() {
                   <Card
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
-                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50"
+                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50" ,
+                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
                     )}
+                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
                     <CardHeader>
                       <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
@@ -581,7 +584,7 @@ export default function HomePage() {
                        ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                        experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Note uses its own observer state for mobile for clarity
+                        experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
                       )}
                        style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
@@ -633,7 +636,7 @@ export default function HomePage() {
                   {exp.companyLogoUrl && (
                      <div className={cn(
                         "h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center",
-                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0' // Logo marker animates with either card or text
+                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
                        )}
                        style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
                         <Image
@@ -905,4 +908,3 @@ export default function HomePage() {
     </div>
   );
 }
-

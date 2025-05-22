@@ -48,11 +48,12 @@ const projects: Project[] = [
   },
   {
     id: '4',
-    title: 'Recipe Finder App',
-    description: 'A mobile-friendly app that helps users discover new recipes based on ingredients they have. Integrated with a recipe API.',
+    title: 'Retrieval-Augmented Generation (RAG) System for Document-Based QA',
+    description: "Built a Retrieval-Augmented Generation (RAG) system to enable context-aware question answering over custom PDF and text documents. Leveraged LangChain for document loading, text splitting, and embedding using OpenAI Embeddings. Stored vector representations in ChromaDB and implemented semantic search to retrieve relevant context based on user queries. Integrated the pipeline with OpenAI's GPT model to generate accurate, grounded responses. The system supports efficient retrieval, scalable storage, and intelligent response generation, showcasing practical applications of RAG in enterprise search and knowledge management.",
     imageUrl: 'https://placehold.co/600x400.png',
-    dataAiHint: 'recipe app',
-    tags: ['React Native', 'API Integration', 'Mobile App'],
+    dataAiHint: 'rag system document',
+    tags: ['RAG', 'LangChain', 'OpenAI', 'ChromaDB', 'NLP', 'GenAI'],
+    githubUrl: '#',
     liveUrl: '#',
   },
 ];
@@ -127,4 +128,3 @@ export default function PortfolioPage() {
     </div>
   );
 }
-
