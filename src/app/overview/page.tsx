@@ -2,16 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import MarkdownRenderer from '@/components/markdown-renderer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 
-// Function to read markdown file content
-// This runs on the server during build or request time
 async function getResumeContent(): Promise<string> {
   try {
     const filePath = path.join(process.cwd(), 'src', 'content', 'resume.md');
     const fileContent = fs.readFileSync(filePath, 'utf-8');
-    
-    // Remove frontmatter if present
     const contentWithoutFrontmatter = fileContent.replace(/---[\s\S]*?---/, '').trim();
     return contentWithoutFrontmatter;
   } catch (error) {
