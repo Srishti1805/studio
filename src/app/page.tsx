@@ -92,8 +92,8 @@ const placeholderData: PageData = {
     github: "github.com/janerdoe",
     cvUrl: "/jane-r-doe-resume.pdf",
   },
-  summary: "A results-oriented Senior Software Engineer with 7+ years of expertise in developing and architecting robust, scalable software solutions. Adept at leading cross-functional teams and leveraging AI/ML technologies to solve complex business problems. Proven track record of delivering high-impact projects from conception to deployment. Eager to apply advanced technical skills to drive innovation and user-centric product development.",
-  allSkillsWithLogos: [ // Manually populated from previous skillCategories logic
+  summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
+  allSkillsWithLogos: [ 
       { name: "Python", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "python logo" },
       { name: "Java", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "java logo" },
       { name: "Go", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "golang logo" },
@@ -450,7 +450,7 @@ export default function HomePage() {
         <Card
           ref={aboutCardRef}
           className={cn(
-            "shadow-xl bg-card/80 backdrop-blur-sm max-w-3xl mx-auto", // Ensure max-width for this card
+            "shadow-xl bg-card/80 backdrop-blur-sm max-w-3xl mx-auto", 
             isAboutCardVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0.1s' }}
@@ -526,7 +526,7 @@ export default function HomePage() {
                 {/* Mobile Layout: Stacked */}
                 <div className="flex md:hidden flex-col w-full items-start">
                    <div
-                    className={cn("flex items-center mb-2", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
+                    className={cn("flex items-center mb-2", (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0')}
                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                    >
                     {exp.companyLogoUrl && (
@@ -573,7 +573,7 @@ export default function HomePage() {
                        ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                         experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                         experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Use experienceTextIsVisible for the note on mobile too
                       )}
                       style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
@@ -897,3 +897,4 @@ export default function HomePage() {
     </div>
   );
 }
+
