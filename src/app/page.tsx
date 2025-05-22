@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, FileDown, Building, CalendarDays, ExternalLink, GraduationCap, Briefcase, Lightbulb, Palette, Brain } from 'lucide-react';
+import { Github, Linkedin, Mail, FileDown, Building, CalendarDays, ExternalLink, GraduationCap, Briefcase, Lightbulb, Palette, Brain, Database, Code } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -30,11 +30,6 @@ interface Skill {
   name: string;
   logoUrl?: string;
   dataAiHint?: string;
-}
-
-interface SkillCategory {
-  category: string;
-  skills: Skill[];
 }
 
 interface ExperienceItem {
@@ -67,15 +62,23 @@ interface EducationItem {
   institutionLogoDataAiHint?: string;
 }
 
+interface AboutHighlightItem {
+  name: string;
+  icon: React.ElementType;
+  borderColorClass: string;
+}
+
 
 interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
-  skillCategories: SkillCategory[];
+  // skillCategories is kept for allSkillsWithLogos generation, though not directly rendered as a section
+  skillCategories: { category: string, skills: Skill[] }[]; 
   allSkillsWithLogos: Skill[];
   experience: ExperienceItem[];
   projects: ProjectItem[];
   education: EducationItem[];
+  aboutMeHighlights: AboutHighlightItem[];
 }
 
 
@@ -92,7 +95,7 @@ const placeholderData: PageData = {
     cvUrl: "/jane-r-doe-resume.pdf",
   },
   summary: "A results-oriented Senior Software Engineer with 7+ years of expertise in developing and architecting robust, scalable software solutions. Adept at leading cross-functional teams and leveraging AI/ML technologies to solve complex business problems. Proven track record of delivering high-impact projects from conception to deployment. Eager to apply advanced technical skills to drive innovation and user-centric product development.",
-  skillCategories: [
+  skillCategories: [ // Kept for allSkillsWithLogos logic
     {
       category: "Core Technologies",
       skills: [
@@ -253,12 +256,22 @@ const placeholderData: PageData = {
       institutionLogoDataAiHint: "university logo georgia"
     }
   ],
+  aboutMeHighlights: [
+    { name: "Full Stack Development", icon: Code, borderColorClass: "border-primary" },
+    { name: "Machine Learning", icon: Brain, borderColorClass: "border-accent" },
+    { name: "Data Engineering", icon: Database, borderColorClass: "border-chart-3" },
+    { name: "UI/UX Design", icon: Palette, borderColorClass: "border-chart-4" },
+  ],
 };
-placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(category => category.skills.filter(skill => skill.logoUrl));
+// This logic assumes skillCategories and skills within them exist. 
+// If skillCategories can be empty or skills can be undefined, add checks.
+placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(category => 
+  category.skills ? category.skills.filter(skill => skill && skill.logoUrl) : []
+);
 
 
 export default function HomePage() {
-  const { frontmatter, summary, experience, projects, education, allSkillsWithLogos } = placeholderData;
+  const { frontmatter, summary, experience, projects, education, allSkillsWithLogos, aboutMeHighlights } = placeholderData;
 
   const heroNameRef = useRef<HTMLHeadingElement>(null);
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
@@ -269,7 +282,7 @@ export default function HomePage() {
   const separator1Ref = useRef<HTMLDivElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutCardRef = useRef<HTMLDivElement>(null);
-  const aboutHighlightsRef = useRef<HTMLDivElement>(null); // Ref for flashcards/highlights
+  const aboutHighlightsRef = useRef<HTMLDivElement>(null);
   
   const separator2Ref = useRef<HTMLDivElement>(null);
   const experienceTitleRef = useRef<HTMLHeadingElement>(null);
@@ -312,7 +325,7 @@ export default function HomePage() {
   const isSeparator1Visible = useIntersectionObserver(separator1Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isAboutTitleVisible = useIntersectionObserver(aboutTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isAboutCardVisible = useIntersectionObserver(aboutCardRef, { freezeOnceVisible: true, threshold: 0.2 });
-  const isAboutHighlightsVisible = useIntersectionObserver(aboutHighlightsRef, { freezeOnceVisible: true, threshold: 0.2 });
+  const isAboutHighlightsVisible = useIntersectionObserver(aboutHighlightsRef, { freezeOnceVisible: true, threshold: 0.1 });
   
   const isSeparator2Visible = useIntersectionObserver(separator2Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isExperienceTitleVisible = useIntersectionObserver(experienceTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
@@ -356,14 +369,6 @@ export default function HomePage() {
       { freezeOnceVisible: true, threshold: 0.1 }
     )
   );
-
-  const aboutMeHighlights = [
-    { name: "Full Stack Development", icon: Briefcase },
-    { name: "Machine Learning", icon: Brain },
-    { name: "Data Engineering", icon: Lightbulb }, // Using Lightbulb as a placeholder, consider Database icon
-    { name: "UI/UX Design", icon: Palette },
-  ];
-
 
   return (
     <div className="space-y-16">
@@ -492,7 +497,7 @@ export default function HomePage() {
              <div
               ref={aboutHighlightsRef}
               className={cn(
-                "mt-8 flex flex-wrap justify-center md:justify-start gap-4",
+                "mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6",
                 isAboutHighlightsVisible ? 'animate-fadeInUp' : 'opacity-0'
               )}
               style={{ animationDelay: '0.2s' }}
@@ -500,10 +505,13 @@ export default function HomePage() {
               {aboutMeHighlights.map((highlight) => (
                 <div
                   key={highlight.name}
-                  className="flex items-center gap-2 bg-secondary/70 text-secondary-foreground/90 px-4 py-2 rounded-lg shadow-md hover:shadow-primary/30 transition-shadow cursor-default"
+                  className={cn(
+                    "flex flex-col items-center justify-center text-center p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow cursor-default bg-secondary/60 border-2",
+                    highlight.borderColorClass
+                  )}
                 >
-                  <highlight.icon className="h-5 w-5 text-primary" />
-                  <span className="font-medium">{highlight.name}</span>
+                  <highlight.icon className="h-10 w-10 mb-3 text-foreground/90" />
+                  <span className="font-semibold text-md text-foreground/90">{highlight.name}</span>
                 </div>
               ))}
             </div>
@@ -540,6 +548,7 @@ export default function HomePage() {
           )}
           style={{ animationDelay: '0.1s' }}
         >
+          {/* Desktop: Central timeline line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/70 transform -translate-x-1/2 hidden md:block"></div>
 
           {experience.map((exp, index) => {
@@ -551,14 +560,9 @@ export default function HomePage() {
                   "mb-12 flex w-full items-start md:items-center"
                 )}
               >
-                {/* Mobile Layout */}
+                {/* Mobile Layout: Stacked */}
                 <div className="flex md:hidden flex-col w-full items-start">
                    <div 
-                    ref={el => { 
-                      if (experienceCardRefs.current) {
-                        experienceCardRefs.current[index] = el;
-                      }
-                    }}
                     className={cn("flex items-center mb-2", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                    >
@@ -572,12 +576,13 @@ export default function HomePage() {
                         data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                       />
                     )}
-                     <div className="h-1 w-10 bg-foreground/50 rounded-full mr-3"></div>
+                     <div className="h-1 w-10 bg-foreground/50 rounded-full mr-3"></div> {/* Small line to card */}
                   </div>
                   <Card 
+                    ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
-                     experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
@@ -602,11 +607,7 @@ export default function HomePage() {
                   </Card>
                   {exp.timelineNote && (
                     <div 
-                      ref={el => {
-                        if(experienceTextRefs.current) {
-                           experienceTextRefs.current[index] = el; // Assigning ref here, but animation is tied to card
-                        }
-                      }}
+                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
                          experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
@@ -618,15 +619,11 @@ export default function HomePage() {
                   )}
                 </div>
 
-                {/* Desktop Layout */}
+                {/* Desktop Layout: Alternating */}
                 <div className="hidden md:flex w-1/2 items-center justify-end">
                   {isCardLeft ? (
                     <Card
-                      ref={el => {
-                        if(experienceCardRefs.current) {
-                          experienceCardRefs.current[index] = el;
-                        }
-                      }}
+                      ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                       className={cn(
                         "w-full max-w-md shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50 mr-8",
                         experienceCardIsVisible[index] ? 'animate-fadeInLeft' : 'opacity-0'
@@ -648,11 +645,7 @@ export default function HomePage() {
                     </Card>
                   ) : (
                     <div 
-                      ref={el => {
-                        if(experienceTextRefs.current) {
-                           experienceTextRefs.current[index] = el;
-                        }
-                      }}
+                      ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "w-full max-w-md text-right text-muted-foreground italic pr-8",
                          experienceTextIsVisible[index] ? 'animate-fadeInLeft' : 'opacity-0'
@@ -664,9 +657,14 @@ export default function HomePage() {
                   )}
                 </div>
 
+                {/* Desktop: Timeline Marker with Logo */}
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
                   {exp.companyLogoUrl && (
-                     <div className={cn("h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center", (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0' )} style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
+                     <div className={cn(
+                        "h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center", 
+                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0' 
+                       )} 
+                       style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
                         <Image
                             src={exp.companyLogoUrl}
                             alt={`${exp.company} logo`}
@@ -682,11 +680,7 @@ export default function HomePage() {
                 <div className="hidden md:flex w-1/2 items-center justify-start">
                   {!isCardLeft ? (
                      <Card
-                      ref={el => {
-                        if(experienceCardRefs.current) {
-                           experienceCardRefs.current[index] = el;
-                        }
-                      }}
+                      ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                       className={cn(
                         "w-full max-w-md shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50 ml-8",
                         experienceCardIsVisible[index] ? 'animate-fadeInRight' : 'opacity-0'
@@ -708,11 +702,7 @@ export default function HomePage() {
                     </Card>
                   ) : (
                      <div 
-                      ref={el => {
-                        if(experienceTextRefs.current) {
-                           experienceTextRefs.current[index] = el;
-                        }
-                      }}
+                      ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "w-full max-w-md text-left text-muted-foreground italic ml-8",
                         experienceTextIsVisible[index] ? 'animate-fadeInRight' : 'opacity-0'
@@ -851,7 +841,7 @@ export default function HomePage() {
               }}
               className={cn(
                 "flex flex-col bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-xl hover:shadow-primary/25 transition-shadow duration-300",
-                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0'
+                educationCardIsVisible[index] ? 'animate-fadeIn' : 'opacity-0' // Changed to animate-fadeIn
               )}
               style={{ animationDelay: `${0.1 + index * 0.15}s` }}
             >
@@ -944,4 +934,3 @@ export default function HomePage() {
     </div>
   );
 }
-
