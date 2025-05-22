@@ -139,8 +139,8 @@ const placeholderData: PageData = {
     },
     {
       title: "Teaching Assistant (TA)",
-      company: "Seattle University",
-      dates: "Mar 2024 – Jun 2024 | Seattle, WA",
+      company: "Seattle University, Seattle, WA",
+      dates: "Courses: Programming and Problem Solving in C++ (Mar 2024 – Jun 2024), Big Data Analytics",
       responsibilities: [
         "Assisted students with core C++ programming concepts, including data structures, algorithms, and debugging techniques.",
         "Guided students through programming assignments, provided one-on-one support, and conducted review sessions to strengthen problem-solving skills.",
@@ -148,7 +148,7 @@ const placeholderData: PageData = {
         "Supported students in configuring and managing AWS EC2 instances, teaching cloud infrastructure best practices.",
         "Facilitated lab sessions involving Docker and AWS, helping students complete hands-on projects in big data environments."
       ],
-      companyLogoUrl: "https://placehold.co/40x40.png", 
+      companyLogoUrl: "https://placehold.co/60x60.png", 
       companyLogoDataAiHint: "university logo seattle", 
       timelineNote: "Guided students in C++ & Big Data Analytics.", 
     },
@@ -162,7 +162,7 @@ const placeholderData: PageData = {
         "Automated data migration between AWS and GCP, ensuring zero data loss by applying data wrangling best practices.",
         "Implemented a machine learning model (e.g., Random Forest or XGBoost) for predictive analytics, optimizing data workflows and improving data processing efficiency.",
       ],
-      companyLogoUrl: "https://placehold.co/40x40.png",
+      companyLogoUrl: "https://placehold.co/60x60.png",
       companyLogoDataAiHint: "st francis house logo",
       timelineNote: "Data pipeline development & ML model implementation.",
     },
@@ -179,7 +179,7 @@ const placeholderData: PageData = {
         "Deployed the optimized audio analysis models to production using Azure Machine Learning Service, collaborating closely with the DevOps team to automate deployment pipelines and ensure seamless integration with existing systems.",
         "Created an interactive dashboard to visualize and analyze audio features and predictions, providing stakeholders with actionable insights and facilitating data-driven decision-making in audio-based applications.",
       ],
-      companyLogoUrl: "https://placehold.co/40x40.png",
+      companyLogoUrl: "https://placehold.co/60x60.png",
       companyLogoDataAiHint: "atomic loops logo",
       timelineNote: "Audio Analysis PoC & ML Model Deployment.",
     },
@@ -226,26 +226,20 @@ const placeholderData: PageData = {
   ],
   education: [
     {
-      degree: "Master of Science in Artificial Intelligence",
-      institution: "Carnegie Mellon University",
-      dates: "2013 - 2015",
-      details: [
-        "Thesis: \"Advancements in Neural Network Architectures for Time Series Forecasting\"",
-        "Specialization: Machine Learning and Large Scale Systems"
-      ],
+      degree: "Master of Science in Computer Science",
+      institution: "Seattle University – Seattle, WA",
+      dates: "09/2023 – 06/2025",
+      details: [],
       institutionLogoUrl: "https://placehold.co/60x60.png",
-      institutionLogoDataAiHint: "university logo carnegie"
+      institutionLogoDataAiHint: "university logo seattle"
     },
     {
-      degree: "Bachelor of Science in Computer Engineering",
-      institution: "Georgia Institute of Technology",
-      dates: "2009 - 2013",
-      details: [
-        "Graduated Summa Cum Laude",
-        "Capstone Project: \"Autonomous Robotic Navigation System\""
-      ],
+      degree: "Bachelor of Engineering (Hons) in Computer Science",
+      institution: "Pune University – Pune, India",
+      dates: "08/2018 – 07/2022",
+      details: [],
       institutionLogoUrl: "https://placehold.co/60x60.png",
-      institutionLogoDataAiHint: "university logo georgia"
+      institutionLogoDataAiHint: "university logo pune"
     }
   ],
   aboutMeHighlights: [
@@ -438,7 +432,7 @@ export default function HomePage() {
         style={{ animationDelay: '0.1s' }}
       >
         <Image
-          src="https://placehold.co/1200x400.png"
+          src="/logos/background.png"
           alt="Abstract technology banner"
           fill
           className="object-cover"
@@ -547,7 +541,7 @@ export default function HomePage() {
               >
                 {/* Mobile Layout: Stacked */}
                  <div className={cn("flex md:hidden flex-col w-full items-start",
-                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
+                      experienceCardIsVisible[index] || experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                       style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
                    <div className="flex items-center mb-2 w-full">
                     {exp.companyLogoUrl && (
@@ -591,10 +585,10 @@ export default function HomePage() {
                   </Card>
                   {exp.timelineNote && (
                     <div
-                       ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
+                       ref={el => { if (experienceTextRefs.current && experienceTextRefs.current[index] === null && !isCardLeft) { experienceTextRefs.current[index] = el;} else if (experienceTextRefs.current && experienceTextRefs.current[index] === null && isCardLeft) { experienceTextRefs.current[index] = el;}}}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                        experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
+                        experienceCardIsVisible[index] || experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
                       )}
                        style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >

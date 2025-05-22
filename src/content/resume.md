@@ -49,7 +49,7 @@ A results-oriented Software Engineer with 7+ years of expertise in developing an
 - Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.
 - Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.
 
-### Teaching Assistant (TA) | Seattle University | Mar 2024 – Jun 2024 | Seattle, WA
+### Teaching Assistant (TA) | Seattle University, Seattle, WA | Courses: Programming and Problem Solving in C++ (Mar 2024 – Jun 2024), Big Data Analytics
 - Assisted students with core C++ programming concepts, including data structures, algorithms, and debugging techniques.
 - Guided students through programming assignments, provided one-on-one support, and conducted review sessions to strengthen problem-solving skills.
 - Created supplementary learning materials and contributed to assignment grading and feedback.
@@ -73,16 +73,11 @@ A results-oriented Software Engineer with 7+ years of expertise in developing an
 
 ## Education
 
-### Master of Science in Artificial Intelligence | Carnegie Mellon University | 2013 - 2015
-- Thesis: "Advancements in Neural Network Architectures for Time Series Forecasting"
-- Specialization: Machine Learning and Large Scale Systems
+### Master of Science in Computer Science | Seattle University – Seattle, WA | 09/2023 – 06/2025
 
-### Bachelor of Science in Computer Engineering | Georgia Institute of Technology | 2009 - 2013
-- Graduated Summa Cum Laude
-- Capstone Project: "Autonomous Robotic Navigation System"
+### Bachelor of Engineering (Hons) in Computer Science | Pune University – Pune, India | 08/2018 – 07/2022
 
 ## Certifications
 - Google Certified Professional - Machine Learning Engineer
 - AWS Certified Solutions Architect – Professional
 - Certified Kubernetes Administrator (CKA)
-
