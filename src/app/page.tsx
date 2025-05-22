@@ -2,18 +2,16 @@
 "use client";
 
 import { useRef } from 'react';
-// import fs from 'fs'; // This will cause an error in client component if not handled
-// import path from 'path'; // This will cause an error in client component if not handled
-// import matter from 'gray-matter'; // This will cause an error in client component if not handled
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, FileDown, Check, CalendarDays, Briefcase, Building } from 'lucide-react';
+import { Github, Linkedin, Mail, FileDown, Check, CalendarDays, Building, ExternalLink } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
 interface ResumeFrontmatter {
   name?: string;
@@ -30,8 +28,8 @@ interface ResumeFrontmatter {
 
 interface Skill {
   name: string;
-  logoUrl?: string; // URL for the logo image
-  dataAiHint?: string; // Hint for placeholder logo image
+  logoUrl?: string;
+  dataAiHint?: string;
 }
 
 interface SkillCategory {
@@ -44,14 +42,29 @@ interface ExperienceItem {
   company: string;
   dates: string;
   responsibilities: string[];
+  companyLogoUrl?: string;
+  companyLogoDataAiHint?: string;
+  timelineNote?: string;
+}
+
+interface ProjectItem {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  dataAiHint?: string;
+  tags: string[];
+  githubUrl?: string;
+  liveUrl?: string;
 }
 
 interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
-  skillCategories: SkillCategory[];
-  allSkillsWithLogos: Skill[]; 
+  skillCategories: SkillCategory[]; // Still needed for Technologies section
+  allSkillsWithLogos: Skill[];
   experience: ExperienceItem[];
+  projects: ProjectItem[];
 }
 
 
@@ -68,12 +81,12 @@ const placeholderData: PageData = {
     cvUrl: "/jane-r-doe-resume.pdf",
   },
   summary: "A results-oriented Senior Software Engineer with 7+ years of expertise in developing and architecting robust, scalable software solutions. Adept at leading cross-functional teams and leveraging AI/ML technologies to solve complex business problems. Proven track record of delivering high-impact projects from conception to deployment. Eager to apply advanced technical skills to drive innovation and user-centric product development.",
-  skillCategories: [
-    { 
-      category: "Core Technologies", 
+  skillCategories: [ // This data is still used to derive allSkillsWithLogos for "Technologies I Use"
+    {
+      category: "Core Technologies",
       skills: [
-        { name: "Python", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "python logo" }, 
-        { name: "Java", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "java logo" }, 
+        { name: "Python", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "python logo" },
+        { name: "Java", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "java logo" },
         { name: "Go", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "golang logo" },
         { name: "JavaScript", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "javascript logo" },
         { name: "TypeScript", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "typescript logo" },
@@ -83,24 +96,24 @@ const placeholderData: PageData = {
         { name: "HTML5", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "html5 logo" },
         { name: "CSS3", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "css3 logo" },
         { name: "Tailwind CSS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tailwind logo" },
-        { name: "ShadCN UI" }, 
-      ] 
+        { name: "ShadCN UI" },
+      ]
     },
-    { 
-      category: "AI & Machine Learning", 
+    {
+      category: "AI & Machine Learning",
       skills: [
-        { name: "TensorFlow", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tensorflow logo" }, 
+        { name: "TensorFlow", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "tensorflow logo" },
         { name: "PyTorch", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "pytorch logo" },
         { name: "Scikit-learn", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "scikitlearn logo" },
         { name: "Natural Language Processing (NLP)" },
         { name: "Computer Vision (CV)" },
-        { name: "Genkit", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "genkit logo" }, 
+        { name: "Genkit", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "genkit logo" },
         { name: "Hugging Face Transformers", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "huggingface logo" },
-        { name: "MLOps (Kubeflow, MLflow)" }, 
-      ] 
+        { name: "MLOps (Kubeflow, MLflow)" },
+      ]
     },
-    { 
-      category: "Cloud & DevOps", 
+    {
+      category: "Cloud & DevOps",
       skills: [
         { name: "AWS", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "aws logo" },
         { name: "GCP", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "gcp logo" },
@@ -108,11 +121,11 @@ const placeholderData: PageData = {
         { name: "Kubernetes", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kubernetes logo" },
         { name: "Terraform", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "terraform logo" },
         { name: "Ansible" },
-        { name: "CI/CD (Jenkins, GitLab CI)" }, 
+        { name: "CI/CD (Jenkins, GitLab CI)" },
       ]
     },
-     { 
-      category: "Databases & Data Engineering", 
+     {
+      category: "Databases & Data Engineering",
       skills: [
         { name: "PostgreSQL", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "postgresql logo" },
         { name: "MySQL", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "mysql logo" },
@@ -121,11 +134,11 @@ const placeholderData: PageData = {
         { name: "Apache Kafka", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "kafka logo" },
         { name: "Apache Spark", logoUrl: "https://placehold.co/60x60.png", dataAiHint: "spark logo" },
         { name: "Airflow" },
-        { name: "Data Warehousing (Snowflake, BigQuery)" }, 
+        { name: "Data Warehousing (Snowflake, BigQuery)" },
       ]
     },
   ],
-  allSkillsWithLogos: [], 
+  allSkillsWithLogos: [],
   experience: [
     {
       title: "Lead AI Engineer",
@@ -135,8 +148,10 @@ const placeholderData: PageData = {
         "Spearheaded the design and development of a cutting-edge predictive analytics platform using Python, TensorFlow, and Kubeflow, resulting in a 25% increase in operational efficiency for clients.",
         "Led a team of 5 AI engineers, fostering a collaborative and high-performance culture.",
         "Architected and deployed scalable AI models on AWS SageMaker, handling terabytes of data.",
-        "Published 2 papers on novel machine learning techniques at industry conferences.",
       ],
+      companyLogoUrl: "https://placehold.co/40x40.png",
+      companyLogoDataAiHint: "company logo",
+      timelineNote: "Key achievement: 25% efficiency boost.",
     },
     {
       title: "Senior Software Developer",
@@ -145,8 +160,10 @@ const placeholderData: PageData = {
       responsibilities: [
         "Developed and maintained critical backend services for a large-scale e-commerce platform using Java (Spring Boot) and microservices architecture.",
         "Implemented CI/CD pipelines, reducing deployment times by 40%.",
-        "Contributed to the front-end development using React and Redux.",
       ],
+      companyLogoUrl: "https://placehold.co/40x40.png",
+      companyLogoDataAiHint: "tech company",
+      timelineNote: "Reduced deployment time by 40%.",
     },
     {
       title: "Software Engineer",
@@ -156,6 +173,49 @@ const placeholderData: PageData = {
         "Worked on developing new features for a SaaS product using Python (Django) and PostgreSQL.",
         "Participated in full software development lifecycle, from requirements gathering to testing and deployment.",
       ],
+      companyLogoUrl: "https://placehold.co/40x40.png",
+      companyLogoDataAiHint: "alpha logo",
+      timelineNote: "Full SDLC participation.",
+    },
+  ],
+  projects: [
+    {
+      id: '1',
+      title: 'AI-Powered Task Manager',
+      description: 'A smart task management application that uses AI to prioritize tasks and suggest optimal workflows. Built with Next.js, Tailwind CSS, and OpenAI API.',
+      imageUrl: 'https://placehold.co/600x400.png',
+      dataAiHint: 'task manager',
+      tags: ['Next.js', 'AI', 'Tailwind CSS', 'Productivity'],
+      githubUrl: 'https://github.com/janerdoe/ai-task-manager', // Updated placeholder
+      liveUrl: '#',
+    },
+    {
+      id: '2',
+      title: 'E-commerce Analytics Dashboard',
+      description: 'A comprehensive dashboard for e-commerce businesses to track sales, customer behavior, and inventory. Features real-time data visualization.',
+      imageUrl: 'https://placehold.co/600x400.png',
+      dataAiHint: 'dashboard analytics',
+      tags: ['React', 'Node.js', 'Charts', 'Data Visualization'],
+      githubUrl: 'https://github.com/janerdoe/ecommerce-dashboard', // Updated placeholder
+    },
+    {
+      id: '3',
+      title: 'Personal Portfolio Website (This!)',
+      description: 'This very website! A showcase of my skills and projects, built with modern web technologies and a focus on clean design and user experience.',
+      imageUrl: 'https://placehold.co/600x400.png',
+      dataAiHint: 'portfolio website',
+      tags: ['Next.js', 'TypeScript', 'ShadCN UI', 'GenAI'],
+      githubUrl: 'https://github.com/janerdoe/personal-showcase', // Updated placeholder
+      liveUrl: '#',
+    },
+    {
+      id: '4',
+      title: 'Recipe Finder App',
+      description: 'A mobile-friendly app that helps users discover new recipes based on ingredients they have. Integrated with a recipe API.',
+      imageUrl: 'https://placehold.co/600x400.png',
+      dataAiHint: 'recipe app',
+      tags: ['React Native', 'API Integration', 'Mobile App'],
+      liveUrl: '#',
     },
   ],
 };
@@ -163,66 +223,83 @@ placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(cat
 
 
 export default function HomePage() {
-  const { frontmatter, summary, skillCategories, allSkillsWithLogos, experience } = placeholderData;
+  const { frontmatter, summary, experience, projects, allSkillsWithLogos } = placeholderData;
 
   const heroNameRef = useRef<HTMLHeadingElement>(null);
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
   const heroButtonsRef = useRef<HTMLDivElement>(null);
   const heroSocialsRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLDivElement>(null);
+  
   const separator1Ref = useRef<HTMLDivElement>(null);
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
   const aboutCardRef = useRef<HTMLDivElement>(null);
+  
   const separator2Ref = useRef<HTMLDivElement>(null);
-  const skillsTitleRef = useRef<HTMLHeadingElement>(null);
-  const separator3Ref = useRef<HTMLDivElement>(null);
-  const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
-  const technologiesLogosRef = useRef<HTMLDivElement>(null);
-  const separator4Ref = useRef<HTMLDivElement>(null);
   const experienceTitleRef = useRef<HTMLHeadingElement>(null);
   const experienceTimelineRef = useRef<HTMLDivElement>(null);
   
-  const skillCardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  skillCardRefs.current = skillCategories.map(
-    (_, i) => skillCardRefs.current[i] ?? null
-  );
+  const separator3Ref = useRef<HTMLDivElement>(null);
+  const projectsTitleRef = useRef<HTMLHeadingElement>(null); // New ref for projects title
+  
+  const separator4Ref = useRef<HTMLDivElement>(null);
+  const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
+  const technologiesLogosRef = useRef<HTMLDivElement>(null);
 
   const experienceCardRefs = useRef<(HTMLDivElement | null)[]>([]);
   experienceCardRefs.current = experience.map(
     (_, i) => experienceCardRefs.current[i] ?? null
   );
+  const experienceTextRefs = useRef<(HTMLDivElement | null)[]>([]);
+  experienceTextRefs.current = experience.map(
+    (_, i) => experienceTextRefs.current[i] ?? null
+  );
+  const projectCardRefs = useRef<(HTMLDivElement | null)[]>([]); // New ref for project cards
+  projectCardRefs.current = projects.map(
+    (_,i) => projectCardRefs.current[i] ?? null
+  );
+
 
   const isHeroNameVisible = useIntersectionObserver(heroNameRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroTaglineVisible = useIntersectionObserver(heroTaglineRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroButtonsVisible = useIntersectionObserver(heroButtonsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroSocialsVisible = useIntersectionObserver(heroSocialsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroImageVisible = useIntersectionObserver(heroImageRef, { freezeOnceVisible: true, threshold: 0.3 });
+  
   const isSeparator1Visible = useIntersectionObserver(separator1Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isAboutTitleVisible = useIntersectionObserver(aboutTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isAboutCardVisible = useIntersectionObserver(aboutCardRef, { freezeOnceVisible: true, threshold: 0.2 });
+  
   const isSeparator2Visible = useIntersectionObserver(separator2Ref, { freezeOnceVisible: true, threshold: 0.1 });
-  const isSkillsTitleVisible = useIntersectionObserver(skillsTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
-  const isSeparator3Visible = useIntersectionObserver(separator3Ref, { freezeOnceVisible: true, threshold: 0.1 });
-  const isTechnologiesTitleVisible = useIntersectionObserver(technologiesTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
-  const isTechnologiesLogosVisible = useIntersectionObserver(technologiesLogosRef, { freezeOnceVisible: true, threshold: 0.1 });
-  const isSeparator4Visible = useIntersectionObserver(separator4Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isExperienceTitleVisible = useIntersectionObserver(experienceTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isExperienceTimelineVisible = useIntersectionObserver(experienceTimelineRef, { freezeOnceVisible: true, threshold: 0.05 });
-
-
-  const skillCardIsVisible = skillCategories.map((_, index) =>
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useIntersectionObserver(
-      { current: skillCardRefs.current[index] },
-      { freezeOnceVisible: true, threshold: 0.2 }
-    )
-  );
+  
+  const isSeparator3Visible = useIntersectionObserver(separator3Ref, { freezeOnceVisible: true, threshold: 0.1 });
+  const isProjectsTitleVisible = useIntersectionObserver(projectsTitleRef, { freezeOnceVisible: true, threshold: 0.3 }); // New observer
+  
+  const isSeparator4Visible = useIntersectionObserver(separator4Ref, { freezeOnceVisible: true, threshold: 0.1 });
+  const isTechnologiesTitleVisible = useIntersectionObserver(technologiesTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
+  const isTechnologiesLogosVisible = useIntersectionObserver(technologiesLogosRef, { freezeOnceVisible: true, threshold: 0.1 });
 
   const experienceCardIsVisible = experience.map((_, index) =>
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useIntersectionObserver(
       { current: experienceCardRefs.current[index] },
-      { freezeOnceVisible: true, threshold: 0.15 } // Lower threshold for timeline items
+      { freezeOnceVisible: true, threshold: 0.1 } 
+    )
+  );
+  const experienceTextIsVisible = experience.map((_, index) =>
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useIntersectionObserver(
+      { current: experienceTextRefs.current[index] },
+      { freezeOnceVisible: true, threshold: 0.1 }
+    )
+  );
+  const projectCardIsVisible = projects.map((_, index) => // New observers for project cards
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useIntersectionObserver(
+      { current: projectCardRefs.current[index] },
+      { freezeOnceVisible: true, threshold: 0.1 }
     )
   );
 
@@ -235,8 +312,8 @@ export default function HomePage() {
           <h1
             ref={heroNameRef}
             className={cn(
-              "text-4xl sm:text-5xl md:text-6xl font-bold opacity-0",
-              { 'animate-fadeInUp': isHeroNameVisible }
+              "text-4xl sm:text-5xl md:text-6xl font-bold",
+              isHeroNameVisible ? 'animate-fadeInUp' : 'opacity-0'
             )}
             style={{ animationDelay: '0s' }}
           >
@@ -245,8 +322,8 @@ export default function HomePage() {
           <p
             ref={heroTaglineRef}
             className={cn(
-              "text-xl sm:text-2xl text-muted-foreground opacity-0",
-              { 'animate-fadeInUp': isHeroTaglineVisible }
+              "text-xl sm:text-2xl text-muted-foreground",
+              isHeroTaglineVisible ? 'animate-fadeInUp' : 'opacity-0'
             )}
             style={{ animationDelay: '0.1s' }}
           >
@@ -255,8 +332,8 @@ export default function HomePage() {
           <div
             ref={heroButtonsRef}
             className={cn(
-              "flex flex-col sm:flex-row gap-4 justify-center md:justify-start opacity-0",
-              { 'animate-fadeInUp': isHeroButtonsVisible }
+              "flex flex-col sm:flex-row gap-4 justify-center md:justify-start",
+              isHeroButtonsVisible ? 'animate-fadeInUp' : 'opacity-0'
             )}
             style={{ animationDelay: '0.2s' }}
           >
@@ -276,8 +353,8 @@ export default function HomePage() {
           <div
             ref={heroSocialsRef}
             className={cn(
-              "flex justify-center md:justify-start space-x-4 pt-4 opacity-0",
-              { 'animate-fadeInUp': isHeroSocialsVisible }
+              "flex justify-center md:justify-start space-x-4 pt-4",
+              isHeroSocialsVisible ? 'animate-fadeInUp' : 'opacity-0'
             )}
             style={{ animationDelay: '0.3s' }}
           >
@@ -298,11 +375,11 @@ export default function HomePage() {
             )}
           </div>
         </div>
-        <div 
+        <div
           ref={heroImageRef}
           className={cn(
-            "md:w-1/3 flex justify-center mt-8 md:mt-0 opacity-0",
-            { 'animate-fadeInUp': isHeroImageVisible }
+            "md:w-1/3 flex justify-center mt-8 md:mt-0",
+            isHeroImageVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0.4s' }}
         >
@@ -323,10 +400,10 @@ export default function HomePage() {
       <Separator
         ref={separator1Ref}
         className={cn(
-          "my-12 bg-border/50 opacity-0",
-          { 'animate-fadeInUp': isSeparator1Visible }
+          "my-12 bg-border/50",
+          isSeparator1Visible ? 'animate-fadeInUp' : 'opacity-0'
         )}
-        style={{ animationDelay: '0.2s' }}
+        style={{ animationDelay: '0s' }} 
       />
 
       {/* About Me Section */}
@@ -334,8 +411,8 @@ export default function HomePage() {
         <h2
           ref={aboutTitleRef}
           className={cn(
-            "text-3xl md:text-4xl font-bold text-center text-primary opacity-0",
-            { 'animate-fadeInUp': isAboutTitleVisible }
+            "text-3xl md:text-4xl font-bold text-center text-primary",
+            isAboutTitleVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0s' }}
         >
@@ -344,8 +421,8 @@ export default function HomePage() {
         <Card
           ref={aboutCardRef}
           className={cn(
-            "shadow-xl bg-card/80 backdrop-blur-sm opacity-0",
-            { 'animate-fadeInUp': isAboutCardVisible }
+            "shadow-xl bg-card/80 backdrop-blur-sm",
+            isAboutCardVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0.1s' }}
         >
@@ -354,64 +431,293 @@ export default function HomePage() {
           </CardContent>
         </Card>
       </section>
-      
+
       <Separator
         ref={separator2Ref}
         className={cn(
-          "my-12 bg-border/50 opacity-0",
-          { 'animate-fadeInUp': isSeparator2Visible }
+          "my-12 bg-border/50",
+          isSeparator2Visible ? 'animate-fadeInUp' : 'opacity-0'
         )}
-        style={{ animationDelay: '0.2s' }}
+        style={{ animationDelay: '0s' }}
       />
 
-      {/* Skills Section */}
-      <section id="skills" className="space-y-8 scroll-mt-20">
+      {/* Experience Section (Work) */}
+      <section id="experience" className="space-y-12 scroll-mt-20">
         <h2
-          ref={skillsTitleRef}
+          ref={experienceTitleRef}
           className={cn(
-            "text-3xl md:text-4xl font-bold text-center text-primary opacity-0",
-            { 'animate-fadeInUp': isSkillsTitleVisible }
+            "text-3xl md:text-4xl font-bold text-center text-primary",
+            isExperienceTitleVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0s' }}
         >
-          My Skills
+          My Experience
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((categoryObj, index) => (
-            <Card 
-              key={categoryObj.category}
-              ref={el => skillCardRefs.current[index] = el}
-              className={cn(
-                "shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card/80 backdrop-blur-sm opacity-0",
-                { 'animate-fadeInUp': skillCardIsVisible[index] }
-              )}
-              style={{ animationDelay: `${0.1 + index * 0.1}s` }}
-            >
-              <CardHeader>
-                <CardTitle className="text-xl text-accent">{categoryObj.category}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {categoryObj.skills.map((skill) => (
-                    <li key={skill.name} className="flex items-center text-foreground/90">
-                      <Check className="mr-2 h-4 w-4 text-primary flex-shrink-0" />
-                      {skill.name}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
+        <div
+          ref={experienceTimelineRef}
+          className={cn("relative", isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0')}
+          style={{ animationDelay: '0.1s' }}
+        >
+          {/* Central Timeline Line for Desktop */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/70 transform -translate-x-1/2 hidden md:block"></div>
+
+          {experience.map((exp, index) => {
+            const isCardLeft = index % 2 === 0; // Card on the left for even, right for odd
+            return (
+              <div
+                key={exp.company + '-' + index}
+                className={cn(
+                  "mb-12 flex w-full items-start md:items-center"
+                )}
+              >
+                {/* Mobile Layout */}
+                <div className="flex md:hidden flex-col w-full items-start">
+                   <div 
+                    className={cn("flex items-center mb-2", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
+                    style={{ animationDelay: `${0.1 + index * 0.15}s` }}
+                    ref={el => experienceCardRefs.current[index] = el} // Ref for mobile animation block
+                   >
+                    {exp.companyLogoUrl && (
+                      <Image
+                        src={exp.companyLogoUrl}
+                        alt={`${exp.company} logo`}
+                        width={36}
+                        height={36}
+                        className="rounded-full object-contain bg-card/50 p-0.5 shadow-md mr-3 border-2 border-primary"
+                        data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
+                      />
+                    )}
+                     <div className="h-1 w-10 bg-foreground/50 rounded-full mr-3"></div> {/* Connector line */}
+                  </div>
+                  <Card 
+                    className={cn(
+                      "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
+                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Re-use card ref for mobile animation
+                    )}
+                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
+                  >
+                    <CardHeader>
+                      <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
+                      <CardDescription className="text-muted-foreground/90">
+                        <div className="flex items-center text-sm">
+                          <Building className="mr-2 h-4 w-4" /> {exp.company}
+                        </div>
+                        <div className="flex items-center text-sm mt-1">
+                          <CalendarDays className="mr-2 h-4 w-4" /> {exp.dates}
+                        </div>
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-2 text-sm text-foreground/80 list-disc pl-5">
+                        {exp.responsibilities.map((resp, i) => (
+                          <li key={i}>{resp}</li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                  {exp.timelineNote && (
+                    <div 
+                      ref={el => experienceTextRefs.current[index] = el} // Ref for mobile note
+                      className={cn(
+                        "mt-3 text-sm text-muted-foreground italic pl-5",
+                        experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                      )}
+                      style={{ animationDelay: `${0.15 + index * 0.15}s` }}
+                    >
+                      {exp.timelineNote}
+                    </div>
+                  )}
+                </div>
+
+                {/* Desktop Layout */}
+                <div className="hidden md:flex w-1/2 items-center">
+                  {isCardLeft ? (
+                    <Card
+                      ref={el => experienceCardRefs.current[index] = el}
+                      className={cn(
+                        "w-full max-w-md shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50 mr-8",
+                        experienceCardIsVisible[index] ? 'animate-fadeInLeft' : 'opacity-0'
+                      )}
+                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
+                    >
+                      <CardHeader>
+                        <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
+                        <CardDescription className="text-muted-foreground/90">
+                          <div className="flex items-center text-sm"><Building className="mr-2 h-4 w-4" />{exp.company}</div>
+                          <div className="flex items-center text-sm mt-1"><CalendarDays className="mr-2 h-4 w-4" />{exp.dates}</div>
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="space-y-2 text-sm text-foreground/80 list-disc pl-5">
+                          {exp.responsibilities.map((resp, i) => (<li key={i}>{resp}</li>))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  ) : (
+                    <div 
+                      ref={el => experienceTextRefs.current[index] = el}
+                      className={cn(
+                        "w-full max-w-md text-right text-muted-foreground italic pr-8",
+                         experienceTextIsVisible[index] ? 'animate-fadeInLeft' : 'opacity-0'
+                      )}
+                      style={{ animationDelay: `${0.15 + index * 0.15}s` }}
+                    >
+                      {exp.timelineNote}
+                    </div>
+                  )}
+                </div>
+
+                {/* Timeline Marker with Company Logo (Desktop) */}
+                <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
+                  {exp.companyLogoUrl && (
+                     <div className={cn("h-10 w-10 rounded-full bg-primary border-2 border-background shadow-md flex items-center justify-center", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' )} style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
+                        <Image
+                            src={exp.companyLogoUrl}
+                            alt={`${exp.company} logo`}
+                            width={28}
+                            height={28}
+                            className="rounded-full object-contain"
+                            data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
+                        />
+                     </div>
+                  )}
+                </div>
+                
+                <div className="hidden md:flex w-1/2 items-center">
+                  {!isCardLeft ? (
+                     <Card
+                      ref={el => experienceCardRefs.current[index] = el}
+                      className={cn(
+                        "w-full max-w-md shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50 ml-8",
+                        experienceCardIsVisible[index] ? 'animate-fadeInRight' : 'opacity-0'
+                      )}
+                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
+                    >
+                      <CardHeader>
+                        <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
+                        <CardDescription className="text-muted-foreground/90">
+                          <div className="flex items-center text-sm"><Building className="mr-2 h-4 w-4" />{exp.company}</div>
+                          <div className="flex items-center text-sm mt-1"><CalendarDays className="mr-2 h-4 w-4" />{exp.dates}</div>
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="space-y-2 text-sm text-foreground/80 list-disc pl-5">
+                          {exp.responsibilities.map((resp, i) => (<li key={i}>{resp}</li>))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  ) : (
+                     <div 
+                      ref={el => experienceTextRefs.current[index] = el}
+                      className={cn(
+                        "w-full max-w-md text-left text-muted-foreground italic ml-8",
+                        experienceTextIsVisible[index] ? 'animate-fadeInRight' : 'opacity-0'
+                      )}
+                      style={{ animationDelay: `${0.15 + index * 0.15}s` }}
+                    >
+                      {exp.timelineNote}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       <Separator
         ref={separator3Ref}
         className={cn(
-          "my-12 bg-border/50 opacity-0",
-          { 'animate-fadeInUp': isSeparator3Visible }
+          "my-12 bg-border/50",
+          isSeparator3Visible ? 'animate-fadeInUp' : 'opacity-0'
         )}
-        style={{ animationDelay: '0.2s' }}
+        style={{ animationDelay: '0s' }}
+      />
+
+      {/* Projects Section */}
+      <section id="projects" className="space-y-10 scroll-mt-20">
+        <h2
+          ref={projectsTitleRef}
+          className={cn(
+            "text-3xl md:text-4xl font-bold text-center text-primary",
+            isProjectsTitleVisible ? 'animate-fadeInUp' : 'opacity-0'
+          )}
+          style={{ animationDelay: '0s' }}
+        >
+          My Projects
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <Card
+              key={project.id}
+              ref={el => projectCardRefs.current[index] = el}
+              className={cn(
+                "flex flex-col overflow-hidden bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 transform hover:-translate-y-1",
+                projectCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+              )}
+              style={{ animationDelay: `${0.1 + index * 0.1}s` }}
+            >
+              <div className="relative w-full h-52 group"> {/* Added group for image hover effect */}
+                <Image
+                  src={project.imageUrl}
+                  alt={project.title}
+                  fill // Changed from layout="fill"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Added sizes prop
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  data-ai-hint={project.dataAiHint}
+                />
+              </div>
+              <CardHeader>
+                <CardTitle className="text-xl text-foreground hover:text-primary transition-colors">
+                  {project.liveUrl ? (
+                    <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                      {project.title}
+                    </Link>
+                  ) : project.githubUrl ? (
+                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                      {project.title}
+                    </Link>
+                  ) : (
+                    project.title
+                  )}
+                </CardTitle>
+                <CardDescription className="text-sm h-20 overflow-y-auto text-muted-foreground/80">{project.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="bg-secondary/70 text-secondary-foreground/90">{tag}</Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-end gap-3 p-4 bg-card/50">
+                {project.githubUrl && (
+                  <Button variant="outline" size="sm" asChild className="border-primary/50 text-primary/90 hover:bg-primary/10 hover:text-primary">
+                    <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                      <Github className="mr-2 h-4 w-4" /> GitHub
+                    </Link>
+                  </Button>
+                )}
+                {project.liveUrl && (
+                  <Button variant="default" size="sm" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                    <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+                    </Link>
+                  </Button>
+                )}
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <Separator
+        ref={separator4Ref}
+        className={cn(
+          "my-12 bg-border/50",
+          isSeparator4Visible ? 'animate-fadeInUp' : 'opacity-0'
+        )}
+        style={{ animationDelay: '0s' }}
       />
 
       {/* Technologies Section */}
@@ -419,8 +725,8 @@ export default function HomePage() {
         <h2
           ref={technologiesTitleRef}
           className={cn(
-            "text-3xl md:text-4xl font-bold text-center text-primary opacity-0",
-            { 'animate-fadeInUp': isTechnologiesTitleVisible }
+            "text-3xl md:text-4xl font-bold text-center text-primary",
+            isTechnologiesTitleVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0s' }}
         >
@@ -429,16 +735,16 @@ export default function HomePage() {
         <div
           ref={technologiesLogosRef}
           className={cn(
-            "flex flex-wrap justify-center items-center gap-6 md:gap-8 opacity-0",
-            { 'animate-fadeInUp': isTechnologiesLogosVisible }
+            "flex flex-wrap justify-center items-center gap-6 md:gap-8",
+            isTechnologiesLogosVisible ? 'animate-fadeInUp' : 'opacity-0'
           )}
           style={{ animationDelay: '0.1s' }}
         >
           {allSkillsWithLogos.map((skill) => (
             skill.logoUrl && (
-              <div 
-                key={skill.name} 
-                title={skill.name} 
+              <div
+                key={skill.name}
+                title={skill.name}
                 className="group p-2 transition-transform duration-300 ease-in-out hover:scale-110"
               >
                 <Image
@@ -452,96 +758,6 @@ export default function HomePage() {
               </div>
             )
           ))}
-        </div>
-      </section>
-
-       <Separator
-        ref={separator4Ref}
-        className={cn(
-          "my-12 bg-border/50 opacity-0",
-          { 'animate-fadeInUp': isSeparator4Visible }
-        )}
-        style={{ animationDelay: '0.2s' }}
-      />
-
-      {/* Experience Section */}
-      <section id="experience" className="space-y-12 scroll-mt-20">
-        <h2
-          ref={experienceTitleRef}
-          className={cn(
-            "text-3xl md:text-4xl font-bold text-center text-primary opacity-0",
-            { 'animate-fadeInUp': isExperienceTitleVisible }
-          )}
-          style={{ animationDelay: '0s' }}
-        >
-          My Experience
-        </h2>
-        <div 
-          ref={experienceTimelineRef}
-          className={cn("relative opacity-0", { 'animate-fadeInUp': isExperienceTimelineVisible })}
-          style={{ animationDelay: '0.1s' }}
-        >
-          {/* Central Timeline Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-border/70 transform -translate-x-1/2 hidden md:block"></div>
-
-          {experience.map((exp, index) => {
-            const isLeft = index % 2 === 0;
-            return (
-              <div
-                key={index}
-                ref={el => experienceCardRefs.current[index] = el}
-                className={cn(
-                  "mb-12 flex md:items-center w-full opacity-0",
-                  isLeft ? "md:flex-row-reverse" : "md:flex-row",
-                  { 
-                    'animate-fadeInRight': experienceCardIsVisible[index] && isLeft,
-                    'animate-fadeInLeft': experienceCardIsVisible[index] && !isLeft,
-                    'animate-fadeInUp': experienceCardIsVisible[index] && !isLeft && !isLeft, // Fallback for mobile
-                  }
-                )}
-                style={{ animationDelay: `${0.2 + index * 0.2}s` }}
-              >
-                {/* Timeline Dot for Desktop */}
-                <div className="hidden md:flex w-1/2 justify-center">
-                  <div className={cn(
-                    "absolute w-1/2 flex",
-                    isLeft ? "justify-start pl-[calc(50%-0.75rem)]" : "justify-end pr-[calc(50%-0.75rem)]"
-                  )}>
-                     <div className="z-10 h-6 w-6 rounded-full bg-primary border-4 border-background shadow-md"></div>
-                  </div>
-                </div>
-                 {/* Timeline Dot for Mobile (aligned with card) */}
-                <div className="flex md:hidden items-center mr-4">
-                   <div className="z-10 h-5 w-5 rounded-full bg-primary border-2 border-background shadow-md"></div>
-                </div>
-
-
-                <Card className={cn(
-                  "w-full md:w-[calc(50%-2rem)] shadow-xl bg-card/80 backdrop-blur-sm",
-                  isLeft ? "md:mr-8" : "md:ml-8"
-                )}>
-                  <CardHeader>
-                    <CardTitle className="text-xl text-accent">{exp.title}</CardTitle>
-                    <CardDescription className="text-muted-foreground/90">
-                      <div className="flex items-center text-sm">
-                        <Building className="mr-2 h-4 w-4" /> {exp.company}
-                      </div>
-                      <div className="flex items-center text-sm mt-1">
-                        <CalendarDays className="mr-2 h-4 w-4" /> {exp.dates}
-                      </div>
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-foreground/80 list-disc pl-5">
-                      {exp.responsibilities.map((resp, i) => (
-                        <li key={i}>{resp}</li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
-            );
-          })}
         </div>
       </section>
     </div>
