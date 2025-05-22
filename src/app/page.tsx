@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, FileDown, Check, CalendarDays, Building, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, FileDown, Check, CalendarDays, Building, ExternalLink, GraduationCap } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -58,13 +58,24 @@ interface ProjectItem {
   liveUrl?: string;
 }
 
+interface EducationItem {
+  degree: string;
+  institution: string;
+  dates: string;
+  details?: string[];
+  institutionLogoUrl?: string;
+  institutionLogoDataAiHint?: string;
+}
+
+
 interface PageData {
   frontmatter: ResumeFrontmatter;
   summary: string;
-  skillCategories: SkillCategory[]; // Still needed for Technologies section
+  skillCategories: SkillCategory[];
   allSkillsWithLogos: Skill[];
   experience: ExperienceItem[];
   projects: ProjectItem[];
+  education: EducationItem[];
 }
 
 
@@ -81,7 +92,7 @@ const placeholderData: PageData = {
     cvUrl: "/jane-r-doe-resume.pdf",
   },
   summary: "A results-oriented Senior Software Engineer with 7+ years of expertise in developing and architecting robust, scalable software solutions. Adept at leading cross-functional teams and leveraging AI/ML technologies to solve complex business problems. Proven track record of delivering high-impact projects from conception to deployment. Eager to apply advanced technical skills to drive innovation and user-centric product development.",
-  skillCategories: [ // This data is still used to derive allSkillsWithLogos for "Technologies I Use"
+  skillCategories: [ 
     {
       category: "Core Technologies",
       skills: [
@@ -186,7 +197,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'task manager',
       tags: ['Next.js', 'AI', 'Tailwind CSS', 'Productivity'],
-      githubUrl: 'https://github.com/janerdoe/ai-task-manager', // Updated placeholder
+      githubUrl: 'https://github.com/janerdoe/ai-task-manager',
       liveUrl: '#',
     },
     {
@@ -196,7 +207,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'dashboard analytics',
       tags: ['React', 'Node.js', 'Charts', 'Data Visualization'],
-      githubUrl: 'https://github.com/janerdoe/ecommerce-dashboard', // Updated placeholder
+      githubUrl: 'https://github.com/janerdoe/ecommerce-dashboard',
     },
     {
       id: '3',
@@ -205,7 +216,7 @@ const placeholderData: PageData = {
       imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'portfolio website',
       tags: ['Next.js', 'TypeScript', 'ShadCN UI', 'GenAI'],
-      githubUrl: 'https://github.com/janerdoe/personal-showcase', // Updated placeholder
+      githubUrl: 'https://github.com/janerdoe/personal-showcase',
       liveUrl: '#',
     },
     {
@@ -218,12 +229,36 @@ const placeholderData: PageData = {
       liveUrl: '#',
     },
   ],
+  education: [
+    {
+      degree: "Master of Science in Artificial Intelligence",
+      institution: "Carnegie Mellon University",
+      dates: "2013 - 2015",
+      details: [
+        "Thesis: \"Advancements in Neural Network Architectures for Time Series Forecasting\"",
+        "Specialization: Machine Learning and Large Scale Systems"
+      ],
+      institutionLogoUrl: "https://placehold.co/60x60.png",
+      institutionLogoDataAiHint: "university logo carnegie"
+    },
+    {
+      degree: "Bachelor of Science in Computer Engineering",
+      institution: "Georgia Institute of Technology",
+      dates: "2009 - 2013",
+      details: [
+        "Graduated Summa Cum Laude",
+        "Capstone Project: \"Autonomous Robotic Navigation System\""
+      ],
+      institutionLogoUrl: "https://placehold.co/60x60.png",
+      institutionLogoDataAiHint: "university logo georgia"
+    }
+  ],
 };
 placeholderData.allSkillsWithLogos = placeholderData.skillCategories.flatMap(category => category.skills.filter(skill => skill.logoUrl));
 
 
 export default function HomePage() {
-  const { frontmatter, summary, experience, projects, allSkillsWithLogos } = placeholderData;
+  const { frontmatter, summary, experience, projects, education, allSkillsWithLogos } = placeholderData;
 
   const heroNameRef = useRef<HTMLHeadingElement>(null);
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
@@ -240,9 +275,12 @@ export default function HomePage() {
   const experienceTimelineRef = useRef<HTMLDivElement>(null);
   
   const separator3Ref = useRef<HTMLDivElement>(null);
-  const projectsTitleRef = useRef<HTMLHeadingElement>(null); // New ref for projects title
+  const projectsTitleRef = useRef<HTMLHeadingElement>(null);
   
   const separator4Ref = useRef<HTMLDivElement>(null);
+  const educationTitleRef = useRef<HTMLHeadingElement>(null);
+
+  const separator5Ref = useRef<HTMLDivElement>(null);
   const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
   const technologiesLogosRef = useRef<HTMLDivElement>(null);
 
@@ -254,9 +292,13 @@ export default function HomePage() {
   experienceTextRefs.current = experience.map(
     (_, i) => experienceTextRefs.current[i] ?? null
   );
-  const projectCardRefs = useRef<(HTMLDivElement | null)[]>([]); // New ref for project cards
+  const projectCardRefs = useRef<(HTMLDivElement | null)[]>([]);
   projectCardRefs.current = projects.map(
     (_,i) => projectCardRefs.current[i] ?? null
+  );
+  const educationCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  educationCardRefs.current = education.map(
+    (_,i) => educationCardRefs.current[i] ?? null
   );
 
 
@@ -275,9 +317,12 @@ export default function HomePage() {
   const isExperienceTimelineVisible = useIntersectionObserver(experienceTimelineRef, { freezeOnceVisible: true, threshold: 0.05 });
   
   const isSeparator3Visible = useIntersectionObserver(separator3Ref, { freezeOnceVisible: true, threshold: 0.1 });
-  const isProjectsTitleVisible = useIntersectionObserver(projectsTitleRef, { freezeOnceVisible: true, threshold: 0.3 }); // New observer
+  const isProjectsTitleVisible = useIntersectionObserver(projectsTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   
   const isSeparator4Visible = useIntersectionObserver(separator4Ref, { freezeOnceVisible: true, threshold: 0.1 });
+  const isEducationTitleVisible = useIntersectionObserver(educationTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
+
+  const isSeparator5Visible = useIntersectionObserver(separator5Ref, { freezeOnceVisible: true, threshold: 0.1 });
   const isTechnologiesTitleVisible = useIntersectionObserver(technologiesTitleRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isTechnologiesLogosVisible = useIntersectionObserver(technologiesLogosRef, { freezeOnceVisible: true, threshold: 0.1 });
 
@@ -295,10 +340,17 @@ export default function HomePage() {
       { freezeOnceVisible: true, threshold: 0.1 }
     )
   );
-  const projectCardIsVisible = projects.map((_, index) => // New observers for project cards
+  const projectCardIsVisible = projects.map((_, index) => 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useIntersectionObserver(
       { current: projectCardRefs.current[index] },
+      { freezeOnceVisible: true, threshold: 0.1 }
+    )
+  );
+  const educationCardIsVisible = education.map((_, index) =>
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useIntersectionObserver(
+      { current: educationCardRefs.current[index] },
       { freezeOnceVisible: true, threshold: 0.1 }
     )
   );
@@ -441,7 +493,7 @@ export default function HomePage() {
         style={{ animationDelay: '0s' }}
       />
 
-      {/* Experience Section (Work) */}
+      {/* My Experience (Work) Section */}
       <section id="experience" className="space-y-12 scroll-mt-20">
         <h2
           ref={experienceTitleRef}
@@ -462,7 +514,7 @@ export default function HomePage() {
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/70 transform -translate-x-1/2 hidden md:block"></div>
 
           {experience.map((exp, index) => {
-            const isCardLeft = index % 2 === 0; // Card on the left for even, right for odd
+            const isCardLeft = index % 2 === 0; 
             return (
               <div
                 key={exp.company + '-' + index}
@@ -475,7 +527,7 @@ export default function HomePage() {
                    <div 
                     className={cn("flex items-center mb-2", experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                     style={{ animationDelay: `${0.1 + index * 0.15}s` }}
-                    ref={el => experienceCardRefs.current[index] = el} // Ref for mobile animation block
+                    ref={el => experienceCardRefs.current[index] = el} 
                    >
                     {exp.companyLogoUrl && (
                       <Image
@@ -487,12 +539,12 @@ export default function HomePage() {
                         data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                       />
                     )}
-                     <div className="h-1 w-10 bg-foreground/50 rounded-full mr-3"></div> {/* Connector line */}
+                     <div className="h-1 w-10 bg-foreground/50 rounded-full mr-3"></div>
                   </div>
                   <Card 
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50",
-                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Re-use card ref for mobile animation
+                      experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
@@ -517,7 +569,7 @@ export default function HomePage() {
                   </Card>
                   {exp.timelineNote && (
                     <div 
-                      ref={el => experienceTextRefs.current[index] = el} // Ref for mobile note
+                      ref={el => experienceTextRefs.current[index] = el} 
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
                         experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
@@ -530,7 +582,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Desktop Layout */}
-                <div className="hidden md:flex w-1/2 items-center">
+                <div className="hidden md:flex w-1/2 items-center justify-end">
                   {isCardLeft ? (
                     <Card
                       ref={el => experienceCardRefs.current[index] = el}
@@ -583,7 +635,7 @@ export default function HomePage() {
                   )}
                 </div>
                 
-                <div className="hidden md:flex w-1/2 items-center">
+                <div className="hidden md:flex w-1/2 items-center justify-start">
                   {!isCardLeft ? (
                      <Card
                       ref={el => experienceCardRefs.current[index] = el}
@@ -657,12 +709,12 @@ export default function HomePage() {
               )}
               style={{ animationDelay: `${0.1 + index * 0.1}s` }}
             >
-              <div className="relative w-full h-52 group"> {/* Added group for image hover effect */}
+              <div className="relative w-full h-52 group">
                 <Image
                   src={project.imageUrl}
                   alt={project.title}
-                  fill // Changed from layout="fill"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Added sizes prop
+                  fill 
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   data-ai-hint={project.dataAiHint}
                 />
@@ -720,6 +772,75 @@ export default function HomePage() {
         style={{ animationDelay: '0s' }}
       />
 
+      {/* Education Section */}
+      <section id="education" className="space-y-10 scroll-mt-20">
+        <h2
+          ref={educationTitleRef}
+          className={cn(
+            "text-3xl md:text-4xl font-bold text-center text-primary",
+            isEducationTitleVisible ? 'animate-fadeInUp' : 'opacity-0'
+          )}
+          style={{ animationDelay: '0s' }}
+        >
+          My Education
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {education.map((edu, index) => (
+            <Card
+              key={edu.institution + '-' + index}
+              ref={el => educationCardRefs.current[index] = el}
+              className={cn(
+                "flex flex-col bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-xl hover:shadow-primary/25 transition-shadow duration-300",
+                educationCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+              )}
+              style={{ animationDelay: `${0.1 + index * 0.15}s` }}
+            >
+              <CardHeader className="flex flex-row items-start gap-4">
+                {edu.institutionLogoUrl && (
+                  <Image
+                    src={edu.institutionLogoUrl}
+                    alt={`${edu.institution} logo`}
+                    width={56} // Slightly larger for institution logos
+                    height={56}
+                    className="rounded-lg object-contain bg-muted/30 p-1 shadow-sm border border-border/50 mt-1"
+                    data-ai-hint={edu.institutionLogoDataAiHint || "university logo"}
+                  />
+                )}
+                <div className="flex-1">
+                  <CardTitle className="text-xl text-accent">{edu.degree}</CardTitle>
+                  <CardDescription className="text-muted-foreground/90">
+                    <div className="flex items-center text-sm mt-1">
+                      <GraduationCap className="mr-2 h-4 w-4 text-primary/80" /> {edu.institution}
+                    </div>
+                    <div className="flex items-center text-sm mt-1">
+                      <CalendarDays className="mr-2 h-4 w-4" /> {edu.dates}
+                    </div>
+                  </CardDescription>
+                </div>
+              </CardHeader>
+              {edu.details && edu.details.length > 0 && (
+                <CardContent>
+                  <ul className="space-y-1.5 text-sm text-foreground/80 list-disc pl-5">
+                    {edu.details.map((detail, i) => (
+                      <li key={i}>{detail}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              )}
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <Separator
+        ref={separator5Ref}
+        className={cn(
+          "my-12 bg-border/50",
+          isSeparator5Visible ? 'animate-fadeInUp' : 'opacity-0'
+        )}
+        style={{ animationDelay: '0s' }}
+      />
+
       {/* Technologies Section */}
       <section id="technologies" className="space-y-8 scroll-mt-20">
         <h2
@@ -763,3 +884,4 @@ export default function HomePage() {
     </div>
   );
 }
+
