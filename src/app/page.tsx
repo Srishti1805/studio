@@ -247,7 +247,7 @@ export default function HomePage() {
   const { frontmatter, summary, experience, projects, education, allSkillsWithLogos, aboutMeHighlights } = placeholderData;
 
   const heroNameRef = useRef<HTMLHeadingElement>(null);
-  const heroTaglineRef = useRef<HTMLParagraphElement>(null);
+  // const heroTaglineRef = useRef<HTMLParagraphElement>(null); // Tagline removed
   const heroSocialsRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLDivElement>(null);
   const heroBannerImageRef = useRef<HTMLDivElement>(null);
@@ -290,7 +290,7 @@ export default function HomePage() {
 
 
   const isHeroNameVisible = useIntersectionObserver(heroNameRef, { freezeOnceVisible: true, threshold: 0.3 });
-  const isHeroTaglineVisible = useIntersectionObserver(heroTaglineRef, { freezeOnceVisible: true, threshold: 0.3 });
+  // const isHeroTaglineVisible = useIntersectionObserver(heroTaglineRef, { freezeOnceVisible: true, threshold: 0.3 }); // Tagline removed
   const isHeroSocialsVisible = useIntersectionObserver(heroSocialsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroImageVisible = useIntersectionObserver(heroImageRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroBannerImageVisible = useIntersectionObserver(heroBannerImageRef, { freezeOnceVisible: true, threshold: 0.1 });
@@ -360,10 +360,10 @@ export default function HomePage() {
           </h1>
           {(frontmatter.title) && (
              <p
-              ref={heroTaglineRef}
+              // ref={heroTaglineRef} // Tagline removed
               className={cn(
                 "text-xl sm:text-2xl text-muted-foreground",
-                isHeroTaglineVisible ? 'animate-fadeInUp' : 'opacity-0'
+                isHeroNameVisible ? 'animate-fadeInUp' : 'opacity-0' // Tied to name visibility now or could be separate
               )}
               style={{ animationDelay: '0.1s' }}
             >
@@ -545,7 +545,7 @@ export default function HomePage() {
                         alt={`${exp.company} logo`}
                         width={36}
                         height={36}
-                        className="rounded-full object-contain bg-card/50 p-0.5 shadow-md mr-3 border-2 border-primary"
+                        className="rounded-full object-contain bg-card/50 shadow-md mr-3 border-2 border-primary"
                         data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                       />
                     )}
@@ -583,7 +583,7 @@ export default function HomePage() {
                        ref={el => { if (experienceTextRefs.current) { experienceTextRefs.current[index] = el; } }}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                        experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                        experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Use card visibility for mobile note as well
                       )}
                        style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
@@ -634,15 +634,15 @@ export default function HomePage() {
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
                   {exp.companyLogoUrl && (
                      <div className={cn(
-                        "h-12 w-12 rounded-full bg-card border-2 border-primary shadow-md flex items-center justify-center", 
+                        "h-14 w-14 rounded-full bg-card border-2 border-primary shadow-md flex items-center justify-center", 
                         (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
                        )}
                        style={{ animationDelay: `${0.05 + index * 0.15}s` }}>
                         <Image
                             src={exp.companyLogoUrl}
                             alt={`${exp.company} logo`}
-                            width={40}
-                            height={40}
+                            width={48}
+                            height={48}
                             className="rounded-full object-contain"
                             data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                         />
