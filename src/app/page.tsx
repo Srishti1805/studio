@@ -83,7 +83,7 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Software Engineer & AI Solutions Architect",
-    profileImage: "/profile-srishti.jpg", // User needs to place 'profile-srishti.jpg' in 'public/'
+    profileImage: "/profile-srishti.jpg",
     dataAiHint: "professional portrait",
     email: "srishtisadanandadkar@example.com",
     linkedin: "linkedin.com/in/srishtiadkar",
@@ -104,7 +104,7 @@ const placeholderData: PageData = {
         "Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.",
         "Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.",
       ],
-      companyLogoUrl: "/logos/hsbc-logo.png", // User needs to place 'hsbc-logo.png' in 'public/logos/'
+      companyLogoUrl: "/logos/hsbc-logo.png",
       companyLogoDataAiHint: "HSBC logo",
       timelineNote: "Claims Fraud Detection System",
     },
@@ -119,7 +119,7 @@ const placeholderData: PageData = {
         "Supported students in configuring and managing AWS EC2 instances, teaching cloud infrastructure best practices.",
         "Facilitated lab sessions involving Docker and AWS, helping students complete hands-on projects in big data environments."
       ],
-      companyLogoUrl: "/logos/seattle-uni-logo.png", // User needs to place 'seattle-uni-logo.png' in 'public/logos/'
+      companyLogoUrl: "/logos/seattle-uni-logo.png", 
       companyLogoDataAiHint: "university logo seattle",
       timelineNote: "Guided students in C++ & Big Data Analytics.",
     },
@@ -133,7 +133,7 @@ const placeholderData: PageData = {
         "Automated data migration between AWS and GCP, ensuring zero data loss by applying data wrangling best practices.",
         "Implemented a machine learning model (e.g., Random Forest or XGBoost) for predictive analytics, optimizing data workflows and improving data processing efficiency.",
       ],
-      companyLogoUrl: "/logos/st-francis-logo.png", // User needs to place 'st-francis-logo.png' in 'public/logos/'
+      companyLogoUrl: "/logos/st-francis-logo.png", 
       companyLogoDataAiHint: "st francis house logo",
       timelineNote: "Data pipeline development & ML model implementation.",
     },
@@ -150,7 +150,7 @@ const placeholderData: PageData = {
         "Deployed the optimized audio analysis models to production using Azure Machine Learning Service, collaborating closely with the DevOps team to automate deployment pipelines and ensure seamless integration with existing systems.",
         "Created an interactive dashboard to visualize and analyze audio features and predictions, providing stakeholders with actionable insights and facilitating data-driven decision-making in audio-based applications.",
       ],
-      companyLogoUrl: "/logos/atomic-loops-logo.png", // User needs to place 'atomic-loops-logo.png' in 'public/logos/'
+      companyLogoUrl: "/logos/atomic-loops-logo.png",
       companyLogoDataAiHint: "atomic loops logo",
       timelineNote: "Audio Analysis PoC & ML Model Deployment.",
     },
@@ -170,7 +170,7 @@ const placeholderData: PageData = {
       id: '2',
       title: "SUMAZON – Seattle University's Campus Store Website",
       description: "Developed a full-stack e-commerce web application for Seattle University's campus store, designed to streamline product browsing, purchasing, and inventory management. Utilized a three-tier architecture with React for the frontend, Django for the backend, and PL/SQL for the database layer, ensuring seamless user interaction and robust data handling.",
-      imageUrl: 'https://placehold.co/600x400.png',
+      imageUrl: '/logos/sumazon.jpeg',
       dataAiHint: 'ecommerce website',
       tags: ['React', 'Django', 'PL/SQL', 'Full Stack', 'E-commerce'],
     },
@@ -201,7 +201,7 @@ const placeholderData: PageData = {
       institution: "Seattle University – Seattle, WA",
       dates: "09/2023 – 06/2025",
       details: [],
-      institutionLogoUrl: "/logos/seattle-uni-logo.png", // User needs 'seattle-uni-logo.png' in 'public/logos/'
+      institutionLogoUrl: "/logos/seattle-uni-logo.png",
       institutionLogoDataAiHint: "university logo seattle"
     },
     {
@@ -209,7 +209,7 @@ const placeholderData: PageData = {
       institution: "Pune University – Pune, India",
       dates: "08/2018 – 07/2022",
       details: [],
-      institutionLogoUrl: "/logos/pune-uni-logo.png", // User needs 'pune-uni-logo.png' in 'public/logos/'
+      institutionLogoUrl: "/logos/pune-uni-logo.png",
       institutionLogoDataAiHint: "university logo pune"
     }
   ],
@@ -432,7 +432,7 @@ export default function HomePage() {
         style={{ animationDelay: '0.1s' }}
       >
         <Image
-          src="/logos/background.png" // User needs to place 'background.png' in 'public/logos/'
+          src="/logos/background.png" 
           alt="Abstract technology banner"
           fill
           className="object-cover"
@@ -523,11 +523,11 @@ export default function HomePage() {
           ref={experienceTimelineRef}
           className={cn(
             "relative",
-            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0' // Parent container animates first
+            isExperienceTimelineVisible ? 'animate-fadeInUp' : 'opacity-0' 
           )}
           style={{ animationDelay: '0.1s' }}
         >
-          {/* Desktop: Central timeline line */}
+          
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/70 transform -translate-x-1/2 hidden md:block"></div>
 
           {experience.map((exp, index) => {
@@ -539,7 +539,6 @@ export default function HomePage() {
                   "mb-12 flex w-full items-start md:items-center"
                 )}
               >
-                {/* Mobile Layout: Stacked */}
                  <div className={cn("flex md:hidden flex-col w-full items-start",
                      (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0')}
                       style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
@@ -554,7 +553,7 @@ export default function HomePage() {
                         data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                       />
                     )}
-                     <div className="h-1 flex-grow bg-foreground/50 rounded-full mr-3"></div> {/* Small line to card */}
+                     <div className="h-1 flex-grow bg-foreground/50 rounded-full mr-3"></div> 
                   </div>
                   <Card
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
@@ -597,7 +596,6 @@ export default function HomePage() {
                   )}
                 </div>
 
-                {/* Desktop Layout: Alternating */}
                 <div className="hidden md:flex w-1/2 items-center justify-end">
                   {isCardLeft ? (
                     <Card
@@ -635,7 +633,6 @@ export default function HomePage() {
                   )}
                 </div>
 
-                {/* Desktop: Timeline Marker with Logo */}
                 <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center justify-center z-10">
                   {exp.companyLogoUrl && (
                      <div className={cn(
@@ -897,7 +894,7 @@ export default function HomePage() {
                 className="group p-2 transition-transform duration-300 ease-in-out hover:scale-110"
               >
                 <Image
-                  src={skill.logoUrl} // User needs to place these skill logos in 'public/logos/'
+                  src={skill.logoUrl} 
                   alt={`${skill.name} logo`}
                   width={60}
                   height={60}
@@ -912,3 +909,4 @@ export default function HomePage() {
     </div>
   );
 }
+
