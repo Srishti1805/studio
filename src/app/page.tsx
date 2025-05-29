@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import MarkdownRenderer from '@/components/markdown-renderer';
-import { Github, Linkedin, Mail, Building, CalendarDays, ExternalLink, GraduationCap, Lightbulb, Palette, Brain, Database, Code } from 'lucide-react';
+import { Github, Linkedin, Mail, Building, CalendarDays, ExternalLink, GraduationCap, Lightbulb, Palette, Brain, Database, Code, FileDown } from 'lucide-react';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
@@ -83,12 +83,12 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Software Engineer & AI Solutions Architect",
-    profileImage: "/logos/Srishti.png",
+    profileImage: "/profile-srishti.jpg", // Path relative to public folder
     dataAiHint: "professional portrait",
     email: "srishtisadanandadkar@example.com",
     linkedin: "linkedin.com/in/srishtiadkar",
     github: "github.com/srishtisadanandadkar",
-    cvUrl: "/srishti-sadanand-adkar-resume.pdf",
+    cvUrl: "/srishti-sadanand-adkar-resume.pdf", // Path relative to public folder
   },
   summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
   experience: [
@@ -104,7 +104,7 @@ const placeholderData: PageData = {
         "Integrated innovative AI-powered anomaly detection through Autoencoder Networks, identifying outlier claims and improving detection of sophisticated fraudulent activities by 20% over traditional methods.",
         "Collaborated seamlessly with DevOps teams to deploy the optimized model into AWS Sagemaker and Docker for smooth integration into HSBC’s claims processing pipeline and cutting claim review time by 35%, further enhancing operational efficiency.",
       ],
-      companyLogoUrl: "/logos/hsbc.png",
+      companyLogoUrl: "/logos/hsbc-logo.png",
       companyLogoDataAiHint: "HSBC logo",
       timelineNote: "Claims Fraud Detection System",
     },
@@ -119,7 +119,7 @@ const placeholderData: PageData = {
         "Supported students in configuring and managing AWS EC2 instances, teaching cloud infrastructure best practices.",
         "Facilitated lab sessions involving Docker and AWS, helping students complete hands-on projects in big data environments."
       ],
-      companyLogoUrl: "/logos/SU.png", 
+      companyLogoUrl: "/logos/seattle-uni-logo.png", 
       companyLogoDataAiHint: "university logo seattle",
       timelineNote: "Guided students in C++ & Big Data Analytics.",
     },
@@ -133,7 +133,7 @@ const placeholderData: PageData = {
         "Automated data migration between AWS and GCP, ensuring zero data loss by applying data wrangling best practices.",
         "Implemented a machine learning model (e.g., Random Forest or XGBoost) for predictive analytics, optimizing data workflows and improving data processing efficiency.",
       ],
-      companyLogoUrl: "/logos/St_Francis.png", 
+      companyLogoUrl: "/logos/st-francis-logo.png", 
       companyLogoDataAiHint: "st francis house logo",
       timelineNote: "Data pipeline development & ML model implementation.",
     },
@@ -150,7 +150,7 @@ const placeholderData: PageData = {
         "Deployed the optimized audio analysis models to production using Azure Machine Learning Service, collaborating closely with the DevOps team to automate deployment pipelines and ensure seamless integration with existing systems.",
         "Created an interactive dashboard to visualize and analyze audio features and predictions, providing stakeholders with actionable insights and facilitating data-driven decision-making in audio-based applications.",
       ],
-      companyLogoUrl: "/logos/ATL.png",
+      companyLogoUrl: "/logos/atomic-loops-logo.png",
       companyLogoDataAiHint: "atomic loops logo",
       timelineNote: "Audio Analysis PoC & ML Model Deployment.",
     },
@@ -160,7 +160,7 @@ const placeholderData: PageData = {
       id: '1',
       title: 'RetinaFace – A Face Detection Tool',
       description: 'Developed an advanced face detection system using the RetinaFace architecture, leveraging deep learning techniques to achieve high accuracy and real-time performance. Implemented the model using Python and PyTorch, with support for multi-scale detection and facial landmark localization. Integrated pre-trained models and optimized inference pipelines for efficient deployment in various computer vision applications.',
-      imageUrl: '/logos/retinaface.png',
+      imageUrl: 'https://placehold.co/600x400.png', // Was '/logos/retinaface.png', changed to placeholder
       dataAiHint: 'face detection',
       tags: ['Computer Vision', 'Deep Learning', 'PyTorch', 'Python', 'Face Detection'],
       githubUrl: '#',
@@ -178,7 +178,7 @@ const placeholderData: PageData = {
       id: '3',
       title: 'Diamond Data Analysis and Modeling',
       description: 'Conducted a comprehensive machine learning project to analyze and predict diamond prices, classify diamond types, and group similar diamonds. Implemented regression, clustering, and classification techniques using models like Linear Regression, Random Forest, Decision Trees, and K-Means. Preprocessed a dataset of 6,400+ entries by handling missing values, encoding categorical features, and performing exploratory data analysis. Integrated the final models into a Flask application for interactive use and achieved up to 93% accuracy in diamond type classification.',
-      imageUrl: '/logos/diamond.png',
+      imageUrl: 'https://placehold.co/600x400.png', // Was '/logos/diamond.png', changed to placeholder
       dataAiHint: 'data analysis diamond',
       tags: ['Machine Learning', 'Data Analysis', 'Python', 'Flask', 'Regression', 'Classification', 'Clustering'],
       githubUrl: '#',
@@ -188,7 +188,7 @@ const placeholderData: PageData = {
       id: '4',
       title: 'Retrieval-Augmented Generation (RAG) System for Document-Based QA',
       description: "Built a Retrieval-Augmented Generation (RAG) system to enable context-aware question answering over custom PDF and text documents. Leveraged LangChain for document loading, text splitting, and embedding using OpenAI Embeddings. Stored vector representations in ChromaDB and implemented semantic search to retrieve relevant context based on user queries. Integrated the pipeline with OpenAI's GPT model to generate accurate, grounded responses. The system supports efficient retrieval, scalable storage, and intelligent response generation, showcasing practical applications of RAG in enterprise search and knowledge management.",
-      imageUrl: '/logos/RAG.png',
+      imageUrl: 'https://placehold.co/600x400.png', // Was '/logos/RAG.png', changed to placeholder
       dataAiHint: 'rag system document',
       tags: ['RAG', 'LangChain', 'OpenAI', 'ChromaDB', 'NLP', 'GenAI'],
       githubUrl: '#',
@@ -201,7 +201,7 @@ const placeholderData: PageData = {
       institution: "Seattle University – Seattle, WA",
       dates: "09/2023 – 06/2025",
       details: [],
-      institutionLogoUrl: "/logos/SU.png",
+      institutionLogoUrl: "/logos/seattle-uni-logo.png",
       institutionLogoDataAiHint: "university logo seattle"
     },
     {
@@ -209,7 +209,7 @@ const placeholderData: PageData = {
       institution: "Pune University – Pune, India",
       dates: "08/2018 – 07/2022",
       details: [],
-      institutionLogoUrl: "/logos/SPPU.png",
+      institutionLogoUrl: "/logos/pune-uni-logo.png",
       institutionLogoDataAiHint: "university logo pune"
     }
   ],
@@ -250,6 +250,7 @@ export default function HomePage() {
   const heroNameRef = useRef<HTMLHeadingElement>(null);
   const heroSocialsRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLDivElement>(null);
+  const heroButtonsRef = useRef<HTMLDivElement>(null);
   const heroBannerImageRef = useRef<HTMLDivElement>(null);
 
   const separator1Ref = useRef<HTMLDivElement>(null);
@@ -271,27 +272,16 @@ export default function HomePage() {
   const technologiesTitleRef = useRef<HTMLHeadingElement>(null);
   const technologiesLogosRef = useRef<HTMLDivElement>(null);
 
-  const experienceCardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  experienceCardRefs.current = experience.map(
-    (_, i) => experienceCardRefs.current[i] ?? null
-  );
-  const experienceTextRefs = useRef<(HTMLDivElement | null)[]>([]);
-  experienceTextRefs.current = experience.map(
-    (_, i) => experienceTextRefs.current[i] ?? null
-  );
-  const projectCardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  projectCardRefs.current = projects.map(
-    (_,i) => projectCardRefs.current[i] ?? null
-  );
-  const educationCardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  educationCardRefs.current = education.map(
-    (_,i) => educationCardRefs.current[i] ?? null
-  );
+  const experienceCardRefs = useRef<(HTMLDivElement | null)[]>(experience.map(() => null));
+  const experienceTextRefs = useRef<(HTMLDivElement | null)[]>(experience.map(() => null));
+  const projectCardRefs = useRef<(HTMLDivElement | null)[]>(projects.map(() => null));
+  const educationCardRefs = useRef<(HTMLDivElement | null)[]>(education.map(() => null));
 
 
   const isHeroNameVisible = useIntersectionObserver(heroNameRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroSocialsVisible = useIntersectionObserver(heroSocialsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroImageVisible = useIntersectionObserver(heroImageRef, { freezeOnceVisible: true, threshold: 0.3 });
+  const isHeroButtonsVisible = useIntersectionObserver(heroButtonsRef, { freezeOnceVisible: true, threshold: 0.3 });
   const isHeroBannerImageVisible = useIntersectionObserver(heroBannerImageRef, { freezeOnceVisible: true, threshold: 0.1 });
 
   const isSeparator1Visible = useIntersectionObserver(separator1Ref, { freezeOnceVisible: true, threshold: 0.1 });
@@ -392,6 +382,22 @@ export default function HomePage() {
               </Link>
             )}
           </div>
+           {frontmatter.cvUrl && (
+            <div
+              ref={heroButtonsRef}
+              className={cn(
+                "pt-6 flex justify-center md:justify-start",
+                isHeroButtonsVisible ? 'animate-fadeInUp' : 'opacity-0'
+              )}
+              style={{ animationDelay: '0.4s' }}
+            >
+              <Button asChild size="lg" className="shadow-lg hover:shadow-primary/50 transition-shadow">
+                <Link href={frontmatter.cvUrl} target="_blank" rel="noopener noreferrer">
+                  <FileDown className="mr-2 h-5 w-5" /> Download CV
+                </Link>
+              </Button>
+            </div>
+          )}
         </div>
         <div
           ref={heroImageRef}
@@ -528,11 +534,10 @@ export default function HomePage() {
             return (
               <div
                 key={exp.company + '-' + index}
-                className={cn(
-                  "mb-12 flex w-full items-start md:items-center"
-                )}
+                className={cn("mb-12 flex w-full items-start md:items-center")}
               >
-                 <div className={cn("flex md:hidden flex-col w-full items-start",
+                 {/* Mobile View */}
+                <div className={cn("flex md:hidden flex-col w-full items-start",
                      (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0')}
                       style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
                    <div className="flex items-center mb-2 w-full">
@@ -542,7 +547,7 @@ export default function HomePage() {
                         alt={`${exp.company} logo`}
                         width={36}
                         height={36}
-                        className="rounded-full object-contain bg-card/50 shadow-md mr-3 border-2 border-primary"
+                        className="rounded-md object-contain bg-card/50 shadow-md mr-3 border-2 border-primary p-0.5"
                         data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                       />
                     )}
@@ -552,7 +557,7 @@ export default function HomePage() {
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50" ,
-                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0'
+                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Mobile uses fadeInUp for the card
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
@@ -580,7 +585,7 @@ export default function HomePage() {
                        ref={el => { if (experienceTextRefs.current && experienceTextRefs.current[index] === null ) { experienceTextRefs.current[index] = el;}}}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0'
+                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0' // Mobile uses fadeInUp for the note
                       )}
                        style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
@@ -589,6 +594,7 @@ export default function HomePage() {
                   )}
                 </div>
 
+                {/* Desktop View */}
                 <div className="hidden md:flex w-1/2 items-center justify-end">
                   {isCardLeft ? (
                     <Card
@@ -638,7 +644,7 @@ export default function HomePage() {
                             alt={`${exp.company} logo`}
                             width={48}
                             height={48}
-                            className="rounded-full object-contain"
+                            className="rounded-md object-contain"
                             data-ai-hint={exp.companyLogoDataAiHint || "company logo"}
                         />
                      </div>
@@ -891,7 +897,7 @@ export default function HomePage() {
                   alt={`${skill.name} logo`}
                   width={60}
                   height={60}
-                  className="rounded-full object-contain bg-card/50 p-1 shadow-md group-hover:shadow-primary/40"
+                  className="rounded-md object-contain bg-card/50 p-1 shadow-md group-hover:shadow-primary/40"
                   data-ai-hint={skill.dataAiHint || skill.name.toLowerCase()}
                 />
               </div>
