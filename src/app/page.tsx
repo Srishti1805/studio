@@ -21,7 +21,7 @@ interface ResumeFrontmatter {
   email?: string;
   linkedin?: string;
   github?: string;
-  cvUrl?: string;
+  cvUrl?: string; 
   [key: string]: any;
 }
 
@@ -83,12 +83,12 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Software Engineer & AI Solutions Architect",
-    profileImage: "/profile-srishti.jpg", // Path relative to public folder
+    profileImage: "/profile-srishti.jpg", 
     dataAiHint: "professional portrait",
     email: "srishtisadanandadkar@example.com",
     linkedin: "linkedin.com/in/srishtiadkar",
     github: "github.com/srishtisadanandadkar",
-    cvUrl: "/srishti-sadanand-adkar-resume.pdf", // Path relative to public folder
+    cvUrl: "/srishti-sadanand-adkar-resume.pdf",
   },
   summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
   experience: [
@@ -160,7 +160,7 @@ const placeholderData: PageData = {
       id: '1',
       title: 'RetinaFace – A Face Detection Tool',
       description: 'Developed an advanced face detection system using the RetinaFace architecture, leveraging deep learning techniques to achieve high accuracy and real-time performance. Implemented the model using Python and PyTorch, with support for multi-scale detection and facial landmark localization. Integrated pre-trained models and optimized inference pipelines for efficient deployment in various computer vision applications.',
-      imageUrl: 'https://placehold.co/600x400.png', // Was '/logos/retinaface.png', changed to placeholder
+      imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'face detection',
       tags: ['Computer Vision', 'Deep Learning', 'PyTorch', 'Python', 'Face Detection'],
       githubUrl: '#',
@@ -178,7 +178,7 @@ const placeholderData: PageData = {
       id: '3',
       title: 'Diamond Data Analysis and Modeling',
       description: 'Conducted a comprehensive machine learning project to analyze and predict diamond prices, classify diamond types, and group similar diamonds. Implemented regression, clustering, and classification techniques using models like Linear Regression, Random Forest, Decision Trees, and K-Means. Preprocessed a dataset of 6,400+ entries by handling missing values, encoding categorical features, and performing exploratory data analysis. Integrated the final models into a Flask application for interactive use and achieved up to 93% accuracy in diamond type classification.',
-      imageUrl: 'https://placehold.co/600x400.png', // Was '/logos/diamond.png', changed to placeholder
+      imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'data analysis diamond',
       tags: ['Machine Learning', 'Data Analysis', 'Python', 'Flask', 'Regression', 'Classification', 'Clustering'],
       githubUrl: '#',
@@ -188,7 +188,7 @@ const placeholderData: PageData = {
       id: '4',
       title: 'Retrieval-Augmented Generation (RAG) System for Document-Based QA',
       description: "Built a Retrieval-Augmented Generation (RAG) system to enable context-aware question answering over custom PDF and text documents. Leveraged LangChain for document loading, text splitting, and embedding using OpenAI Embeddings. Stored vector representations in ChromaDB and implemented semantic search to retrieve relevant context based on user queries. Integrated the pipeline with OpenAI's GPT model to generate accurate, grounded responses. The system supports efficient retrieval, scalable storage, and intelligent response generation, showcasing practical applications of RAG in enterprise search and knowledge management.",
-      imageUrl: 'https://placehold.co/600x400.png', // Was '/logos/RAG.png', changed to placeholder
+      imageUrl: 'https://placehold.co/600x400.png',
       dataAiHint: 'rag system document',
       tags: ['RAG', 'LangChain', 'OpenAI', 'ChromaDB', 'NLP', 'GenAI'],
       githubUrl: '#',
@@ -538,7 +538,7 @@ export default function HomePage() {
               >
                  {/* Mobile View */}
                 <div className={cn("flex md:hidden flex-col w-full items-start",
-                     (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0')}
+                     experienceCardIsVisible[index] || experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0')}
                       style={{ animationDelay: `${0.1 + index * 0.15}s` }}>
                    <div className="flex items-center mb-2 w-full">
                     {exp.companyLogoUrl && (
@@ -557,7 +557,7 @@ export default function HomePage() {
                     ref={el => { if (experienceCardRefs.current) { experienceCardRefs.current[index] = el; } }}
                     className={cn(
                       "w-full shadow-xl bg-card/80 backdrop-blur-sm border border-foreground/50" ,
-                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' // Mobile uses fadeInUp for the card
+                       experienceCardIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
                     )}
                      style={{ animationDelay: `${0.1 + index * 0.15}s` }}
                   >
@@ -585,7 +585,7 @@ export default function HomePage() {
                        ref={el => { if (experienceTextRefs.current && experienceTextRefs.current[index] === null ) { experienceTextRefs.current[index] = el;}}}
                       className={cn(
                         "mt-3 text-sm text-muted-foreground italic pl-5",
-                        (experienceCardIsVisible[index] || experienceTextIsVisible[index]) ? 'animate-fadeInUp' : 'opacity-0' // Mobile uses fadeInUp for the note
+                        experienceCardIsVisible[index] || experienceTextIsVisible[index] ? 'animate-fadeInUp' : 'opacity-0' 
                       )}
                        style={{ animationDelay: `${0.15 + index * 0.15}s` }}
                     >
@@ -908,4 +908,3 @@ export default function HomePage() {
     </div>
   );
 }
-
