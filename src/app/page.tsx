@@ -83,12 +83,12 @@ const placeholderData: PageData = {
   frontmatter: {
     name: "Srishti Sadanand Adkar",
     title: "Software Engineer & AI Solutions Architect",
-    profileImage: "/profile-srishti.jpg", 
+    profileImage: "/logos/Srishti.png", 
     dataAiHint: "professional portrait",
-    email: "srishtisadanandadkar@example.com",
-    linkedin: "linkedin.com/in/srishtiadkar",
-    github: "github.com/srishtisadanandadkar",
-    cvUrl: "/srishti-sadanand-adkar-resume.pdf",
+    email: "sadkar@seattleu.edu",
+    linkedin: "https://www.linkedin.com/in/srishti-adkar-3022411b1/",
+    github: "github.com/Srishti1805",
+    cvUrl: "/Resume/resume.pdf",
   },
   summary: "I'm a passionate software developer and AI/ML enthusiast with a strong foundation in programming, data engineering, and intelligent system design. I enjoy building end-to-end solutions — from developing machine learning models to deploying them in scalable cloud environments.\n\nI'm proficient in Python, SQL, and Java, and skilled in using frameworks like Scikit-learn, TensorFlow, and XGBoost. I work comfortably with cloud platforms such as AWS, Azure, and GCP, and have hands-on experience with tools like Docker, REST APIs, and data visualization dashboards.\n\nWhether it’s crafting clean code, automating data pipelines, or solving complex problems with machine learning, I’m driven by curiosity, creativity, and the impact of technology. Let’s build something amazing together!",
   experience: [
