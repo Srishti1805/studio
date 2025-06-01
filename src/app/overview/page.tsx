@@ -23,7 +23,7 @@ async function getResumeDocument(): Promise<{ frontmatter: ResumeFrontmatter, co
   } catch (error) {
     console.error("Failed to read resume.md:", error);
     return { 
-      frontmatter: { name: "Error", title: "Could not load resume information", cvUrl: null }, 
+      frontmatter: { name: "Error", title: "Could not load resume information", cvUrl: undefined }, 
       content: "Error loading resume content. Please check the server logs." 
     };
   }
@@ -53,7 +53,7 @@ export default async function ResumePage() {
               </Button>
             </div>
           )}
-          {!frontmatter.cvUrl && !frontmatter.name?.includes("Error") && (
+          {!frontmatter.cvUrl && frontmatter.name && !frontmatter.name.includes("Error") && (
              <CardDescription className="text-lg text-muted-foreground pt-6">
               CV download link is not available at the moment.
             </CardDescription>
